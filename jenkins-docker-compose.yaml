@@ -9,9 +9,9 @@ services:
     env_file:
       - .env
     ports:
-      - 0.0.0.0:8000:8080
+      - 127.0.0.1:8080:8080
     volumes:
-   #   - /opt/jenkins_config:/var/jenkins_config:Z
+      - /opt/jenkins_config:/var/jenkins_config:Z
       - /opt/jenkins_data:/var/jenkins_home:Z
     networks:
       - jenkins

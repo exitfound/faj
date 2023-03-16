@@ -1,12 +1,11 @@
-FROM jenkins/jenkins:lts-jdk11 AS jenkins-base
+FROM jenkins/jenkins:lts-jdk11
 
 LABEL maintainer="Ivan Medaev"
 
 USER root
 
-RUN mkdir -p /var/jenkins_config/ \
+RUN mkdir /var/jenkins_config/ \
     && chown -R jenkins:jenkins /var/jenkins_home /var/jenkins_config \
-    && chmod -R 700 /var/jenkins_home /var/jenkins_config \
     && apt-get update \
     && apt-get -y install \
         apt-utils \
@@ -14,15 +13,14 @@ RUN mkdir -p /var/jenkins_config/ \
         iproute2 \
         apt-transport-https \
         ca-certificates \
-        curl \
-        gnupg2 \
-        software-properties-common \
     && apt-get clean \
     && apt-get autoremove -y \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ \
     && rm -rf /tmp/* /var/tmp/*
 
 USER jenkins
+
+WORKDIR /var/jenkins_home
 
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 ENV CASC_JENKINS_CONFIG=/var/jenkins_config/jenkins.yaml

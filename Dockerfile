@@ -4,7 +4,7 @@ LABEL maintainer="Ivan Medaev"
 
 USER root
 
-RUN mkdir /var/jenkins_config/ \
+RUN mkdir -p /var/jenkins_config/casc_configs/ \
     && chown -R jenkins:jenkins /var/jenkins_home /var/jenkins_config \
     && apt-get update \
     && apt-get -y install \

@@ -9,10 +9,10 @@ services:
     env_file:
       - .env
     ports:
-      - 127.0.0.1:8080:8080
+      - 0.0.0.0:8000:8080
     volumes:
-      - /opt/jenkins_config:/var/jenkins_config:Z
-      - /opt/jenkins_data:/var/jenkins_home:Z
+      - ./jcasc:/var/jenkins_config/casc_configs:Z
+      - ./data:/var/jenkins_home:Z
     networks:
       - jenkins
     restart: on-failure

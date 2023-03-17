@@ -23,7 +23,7 @@ USER jenkins
 WORKDIR /var/jenkins_home
 
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
-ENV CASC_JENKINS_CONFIG=/var/jenkins_config/jenkins.yaml
+ENV CASC_JENKINS_CONFIG=/var/jenkins_config/casc_configs/
 
 COPY --chown=jenkins:jenkins plugins.txt /var/jenkins_config/
 

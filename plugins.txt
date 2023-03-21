@@ -47,7 +47,7 @@ pipeline-model-extensions
 pipeline-rest-api
 pipeline-stage-tags-metadata 
 pipeline-stage-view
-role-strategy:587.v2872c41fa_e51
+role-strategy:587.588.v850a_20a_30162
 script-security:1229.v4880b_b_e905a_6
 scm-api
 ssh-credentials:305.v8f4381501156

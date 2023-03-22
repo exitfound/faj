@@ -1,0 +1,43 @@
+# В этом файле, в основном, представлены опции, не попадающие под какую-то конкретную секцию в Jenkins:
+
+unclassified:
+
+# Этот ряд опций определяет email администратора и url самого Jenkins, для внутреннего использования:
+  location:
+    url: "${JCASC_UNCLASSIFIED_URL}"
+    adminAddress: "${JCASC_UNCLASSIFIED_EMAIL}"
+
+# Этот ряд опций определяет язык, который будет использоваться в Jenkins:
+  locale:
+      ignoreAcceptLanguage: true
+      systemLocale: "${JCASC_UNCLASSIFIED_LOCALE}"
+
+# Этот ряд опций конфигурирует дополнительные настройки, связанные с интеграцией между Gitlab и Jenkins:
+  gitlabconnectionconfig:
+    connections:
+      - apiTokenId: "${JCASC_CREDENTIAL_GITLAB_ID}"
+        clientBuilderId: "autodetect"
+        connectionTimeout: 20
+        ignoreCertificateErrors: true
+        name: "${JCASC_UNCLASSIFIED_GITLAB_NAME}"
+        readTimeout: 10
+        url: "${JCASC_UNCLASSIFIED_GITLAB_URL}"
+
+# Этот ряд опций конфигурирует дополнительные настройки, связанные с интеграцией между Github и Jenkins:
+  githubpluginconfig:
+    configs:
+      - name: "${JCASC_UNCLASSIFIED_GITHUB_NAME}"
+        apiUrl: "${JCASC_UNCLASSIFIED_GITHUB_URL}"
+        credentialsId: "${JCASC_CREDENTIAL_GITHUB_ID}"
+        manageHooks: true
+
+# Этот ряд опций позвоялет сконфигурировать расширенные библиотеки в Jenkins:
+  globalLibraries:
+    libraries:
+      - name: "${JCASC_UNCLASSIFIED_SL_NAME}"
+        retriever:
+          modernSCM:
+            scm:
+              git:
+                remote: "${JCASC_UNCLASSIFIED_SL_URL}"
+                # credentialsId: "${JCASC_UNCLASSIFIED_SL_SSH}"

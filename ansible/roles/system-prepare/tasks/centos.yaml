@@ -1,0 +1,26 @@
+---
+  # Обновление всех пакетов на указанном дистрибутиве:
+  - name: Upgrade all packages on Centos
+    dnf:
+      name: '*'
+      state: latest
+      update_cache: yes
+    tags: 
+      - update
+
+  # Установка пакетов rpm из списка необходимых, которые определены в виде переменной, в директории defaults:
+  - name: Installing required packages on Centos
+    dnf: 
+      name: "{{ centos_packages_list }}"
+      state: present
+      update_cache: yes
+
+  # Установка пакетов pip из списка необходимых, которые определены в виде переменной, в директории defaults:
+  - name: Installing required packages for pip on Centos
+    pip:
+      name: "{{ pip_packages_list }}"
+      state: present
+
+  # Добавление автодополнения для удобства при работе с системой:
+  - name: Activate autocomplete bash on Centos
+    shell: source /etc/profile.d/bash_completion.sh

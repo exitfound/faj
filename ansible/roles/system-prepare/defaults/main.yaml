@@ -1,0 +1,25 @@
+# Переменные, применимые ко всем дистрибутивам одинаково:
+
+pip_packages_list:
+  - docker
+  - docker-compose
+
+# Переменные, необходимые для установки пакетов на OpenSUSE:
+
+opensuse_packages_list:
+  - bash-completion
+  - python3-pip
+
+# Переменные, необходимые для установки пакетов на Centos:
+
+centos_packages_list:
+  - bash-completion
+  - epel-release
+  - python3-pip
+  - yum-utils
+
+# Переменные, необходимые для установки пакетов на Ubuntu:
+
+ubuntu_packages_list:
+  - bash-completion
+  - python3-pip

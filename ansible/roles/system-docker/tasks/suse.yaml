@@ -1,0 +1,46 @@
+---
+  # Создание группы docker в используемой системе:
+  - name: Ensure group docker exists on OpenSUSE
+    group:
+      name: docker
+      state: present
+
+  # Установка Docker с помощью пакетного менеджера: 
+  - name: Installing Docker on OpenSUSE
+    zypper: 
+      name: docker
+      state: present
+      update_cache: yes
+
+  # Запуск сервиса Docker через systemd:
+  - name: Starting Docker service on OpenSUSE
+    service:
+      name: docker
+      state: started
+      enabled: yes
+      daemon_reload: true
+
+  # Проверка того, был ли запущен docker.service в системе:
+  - name: Check if Docker is working now on OpenSUSE
+    systemd:
+      name: docker
+    register: docker_service_status
+  - debug:
+      var: docker_service_status.status.ActiveState
+
+  # Проверка того, установлен ли Docker-compose в системе:
+  - name: Check if docker-compose is installed on OpenSUSE
+    command: "{{ docker_compose_dest }} --version"
+    register: docker_compose_check
+    ignore_errors: true
+
+  # Установка Docker-compose в случае его отсуствия в системе:
+  - name: Installing docker-compose on OpenSUSE
+    get_url: 
+      url : "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-linux-x86_64"
+      dest: "{{ docker_compose_dest }}"
+      mode: 'a+x'
+      force: yes
+    when:
+      - docker_compose_check.msg is defined
+      - docker_compose_check.msg.find('No such file or directory') != -1

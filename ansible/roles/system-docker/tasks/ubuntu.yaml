@@ -1,0 +1,44 @@
+---
+  # Создание группы docker в используемой системе:
+  - name: Ensure group docker exists on Ubuntu
+    group:
+      name: docker
+      state: present
+
+  # Установка Docker с помощью пакетного менеджера: 
+  - name: Installing Docker on Ubuntu
+    apt: 
+      name: docker.io
+      state: present
+      update_cache: yes
+
+  # Запуск сервиса Docker через systemd:
+  - name: Starting Docker service on Ubuntu
+    service:
+      name: docker
+      state: started
+      enabled: yes
+
+  # Проверка того, был ли запущен docker.service в системе:
+  - name: Check if Docker is working now
+    command: systemctl status docker
+    register: command_output
+  - debug:
+      var: command_output.stdout_lines
+
+  # Проверка того, установлен ли Docker-compose в системе:
+  - name: Check if Docker-compose is installed on Ubuntu
+    command: "{{ docker_compose_dest }} --version"
+    register: docker_compose_check
+    ignore_errors: true
+
+  # Установка Docker-compose в случае его отсуствия в системе:
+  - name: Installing docker-compose on Ubuntu
+    get_url: 
+      url : "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-linux-x86_64"
+      dest: "{{ docker_compose_dest }}"
+      mode: 'a+x'
+      force: yes
+    when:
+      - docker_compose_check.msg is defined
+      - docker_compose_check.msg.find('No such file or directory') != -1

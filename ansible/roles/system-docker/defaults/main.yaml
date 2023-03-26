@@ -1,0 +1,4 @@
+# Переменные, необходимые для установки Docker-compose на любом дистрибутиве:
+
+docker_compose_version: v2.5.0
+docker_compose_dest: /usr/bin/docker-compose

@@ -1,7 +1,7 @@
 ---
   # Обновление всех пакетов на указанном дистрибутиве:
   - name: Upgrade all packages on Centos
-    dnf:
+    yum:
       name: '*'
       state: latest
       update_cache: yes
@@ -10,7 +10,7 @@
 
   # Установка пакетов rpm из списка необходимых, которые определены в виде переменной, в директории defaults:
   - name: Installing required packages on Centos
-    dnf: 
+    yum: 
       name: "{{ centos_packages_list }}"
       state: present
       update_cache: yes

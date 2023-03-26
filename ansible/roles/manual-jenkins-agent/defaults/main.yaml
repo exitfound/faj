@@ -1,0 +1,28 @@
+# Общие переменные, необходимые для создания и настройки пользователя, вне зависимости от системы, для выполнения роли Jenkins Agent:
+
+jenkins_agent_directory: 
+  - main: /var/lib/jenkins
+    ssh: /var/lib/jenkins/.ssh
+
+jenkins_agent_ssh_public:
+  - user: jenkins-agent
+    key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGJSvd5V48RvzJ9c4DzfZ2+C2zu/ug69hKuWbU1+Ealz/+vkZrmNEBU1Fy3cKXIvKTLsPzUB0fsIOREHOussXCcrnmxCwl4/u68MT7RzUne/n6B6/tZEyt/L/1pPDfd0sRD8jKwUNrgDkSBHott66Sc5zWf+MItE/H2Ft8vDWj4uqeVUpSCSIX78zAuRqmQm8dJwAHm5RSHoSEfl0tXscCy/x8K63A8wC8UmPXUszHNHx0jJgLcEPXVp0Kg0bPIQqAWA0lsN7lIYSfHCANDJukgpAgw3vGVLUopBWj4lhdSbXwRq7qVC0PKUAYItiXIqiyrl2n22MvfNZHCT/lPHBZ medoed@kitezh
+
+jenkins_agent_dirmode: "u=rwx"
+jenkins_agent_user: "jenkins-agent"
+jenkins_agent_group: "jenkins-agent"
+
+# Переменные, необходимые для создания и настройки пользователя в системе Ubuntu, для выполнения роли Jenkins Agent:
+
+ubuntu_agent_packages_list: 
+  - openjdk-11-jdk
+
+# Переменные, необходимые для создания и настройки пользователя в системе Centos, для выполнения роли Jenkins Agent:
+
+centos_agent_packages_list: 
+  - java-11-openjdk
+
+# Переменные, необходимые для создания и настройки пользователя в системе OpenSUSE, для выполнения роли Jenkins Agent:
+
+opensuse_agent_packages_list: 
+  - java-11-openjdk

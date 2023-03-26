@@ -1,0 +1,36 @@
+---
+  # Добавление GPG ключа для последующей установки Jenkins из пакетного менеджера:
+  - name: Import GPG key to ensure your software on Centos
+    rpm_key: 
+      key: https://pkg.jenkins.io/redhat/jenkins.io.key
+      state: present
+
+  # Создание файла и добавление адреса репозитория Jenkins в yum.repos.d:
+  - name: Adding package repository address on Centos
+    yum_repository:
+      name: jenkins
+      description: Jenkins Repository
+      gpgcheck: true
+      baseurl: http://pkg.jenkins.io/redhat-stable
+      gpgkey: https://pkg.jenkins.io/redhat/jenkins.io.key
+
+  # Установка необходимых пакетов, которые были определены в переменной:
+  - name: Installing required packages on Centos
+    yum: 
+      name: "{{ centos_packages_list }}"
+      state: present
+
+  # Запуск сервиса Jenkins через systemd:
+  - name: Starting Jenkins service on Centos
+    service:
+      name: jenkins
+      state: started
+      enabled: yes
+
+  # Вывод пароля от Jenkins для первого входа в консоль исполнения:
+  - name: Printing the Jenkins password to the console from the file 
+    command: cat /var/lib/jenkins/secrets/initialAdminPassword
+    register: first_jenkins_password
+    ignore_errors: true
+  - debug:
+      msg: "{{ first_jenkins_password.stdout }}"

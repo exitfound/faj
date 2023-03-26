@@ -1,0 +1,45 @@
+---
+  # Добавление репозитория для последующей установки Jenkins из пакетного менеджера:
+  - name: Adding a Jenkins Repository on Ubuntu
+    apt_key: 
+      url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+      state: present
+
+  # Добавление адреса репозитория Jenkins в sources.list:
+  - name: Adding package repository address to sources.list on Ubuntu
+    apt_repository:
+      repo: 'deb http://pkg.jenkins.io/debian-stable binary/' 
+      state: present 
+      filename: jenkins
+      update_cache: yes
+
+  # Обновление информации обо всех пакетах в системе и их сверка с содержимым репозиториев:
+  - name: Updating all repositories information on Ubuntu
+    apt:
+      name: '*'
+      state: latest
+      update_cache: yes
+      force_apt_get: yes
+
+  # Установка необходимых пакетов, которые были определены в переменной:
+  - name: Installing required packages on Ubuntu
+    apt: 
+      name: "{{ ubuntu_packages_list }}"
+      state: present
+      update_cache: yes
+      force_apt_get: yes
+
+  # Запуск сервиса Jenkins через systemd:
+  - name: Starting Jenkins service on Ubuntu
+    service:
+      name: jenkins
+      state: started
+      enabled: yes
+
+  # Вывод пароля от Jenkins для первого входа в консоль исполнения:
+  - name: Printing the Jenkins password to the console from the file 
+    command: cat /var/lib/jenkins/secrets/initialAdminPassword
+    register: first_jenkins_password
+    ignore_errors: true
+  - debug:
+      msg: "{{ first_jenkins_password.stdout }}"

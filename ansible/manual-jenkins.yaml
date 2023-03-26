@@ -1,0 +1,10 @@
+---
+# Вызов роли для последующей установки и настройки Jenkins Master из пакетного менеджера:
+- name: Installing and configuring Jenkins on remote hosts
+  gather_facts: yes
+  become: yes
+  become_method: sudo
+  hosts: 
+    - all
+  roles:
+    - manual-jenkins

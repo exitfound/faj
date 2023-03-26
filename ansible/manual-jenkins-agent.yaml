@@ -1,0 +1,10 @@
+---
+# Вызов роли для последующей установки и настройки Jenkins Agent в ручную:
+- name: Preparing the system as a running Jenkins Agent
+  gather_facts: yes
+  become: yes
+  become_method: sudo
+  hosts: 
+    - all
+  roles:
+    - manual-jenkins-agent

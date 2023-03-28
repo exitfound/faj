@@ -1,0 +1,12 @@
+# Переменные, применимые ко всем дистрибутивам одинаково:
+
+nginx_package: "nginx"
+nginx_file_mode: "u=rw,g=r,o=r"
+nginx_file_owner: "0"
+nginx_file_group: "0"
+
+# Переменные для конфигурации Jenkins на OpenSUSE:
+
+# Переменные для конфигурации Jenkins на CentOS:
+
+# Переменные для конфигурации Jenkins на Ubuntu:

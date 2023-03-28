@@ -1,0 +1,32 @@
+---
+  # Установка Nginx с помощью пакетного менеджера:
+  - name: Installing required packages on OpenSUSE
+    zypper: 
+      name: "{{ nginx_package }}"
+      state: present
+      update_cache: yes
+
+  # Запуск сервиса Nginx через systemd:
+  - name: Starting Nginx service on OpenSUSE
+    systemd:
+      name: nginx
+      state: started
+      enabled: yes
+    ignore_errors: true
+
+  # Передача конфигурационного файла Nginx для проксирования, при обращении к Jenkins через Интернет:
+  - name: Copy Nginx config for Jenkins on OpenSUSE
+    template:
+      src: templates/jenkins-master.conf.j2
+      dest: "/etc/nginx/conf.d/{{ jenkins_nginx_domain }}.conf"
+      mode: "{{ nginx_file_mode }}"
+      owner: "{{ nginx_file_owner }}"
+      group: "{{ nginx_file_group }}"
+    notify: Restarting Nginx
+
+  # Выполнение команды nginx -t после добавления конфигурационного файла в системе:
+  - name: Output of command Nginx -t after changes on OpenSUSE
+    shell: nginx -t
+    register: command_output
+    ignore_errors: true
+  - debug: msg="{{ command_output.stderr }}"

@@ -1,0 +1,7 @@
+---
+  # Выполнение хендлера, который вызывается при изменении конфигурационного файла в системе:
+  - name: Restarting Nginx
+    service:
+      name: nginx
+      state: restarted
+    ignore_errors: true

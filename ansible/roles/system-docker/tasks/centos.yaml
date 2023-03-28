@@ -1,7 +1,7 @@
 ---
-  # Активация маршрутизации в системе, для будущей сборки образа Docker через Ansible (опционально, так как не всегда возникала ошибка):
-  - name: Active routing for build docker image on Centos
-    command: echo net.ipv4.ip_forward=1 > /etc/sysctl.conf
+  # # Активация маршрутизации в системе, для будущей сборки образа Docker через Ansible (опционально, так как не всегда возникала ошибка):
+  # - name: Active routing for build docker image on Centos
+  #   command: echo net.ipv4.ip_forward=1 > /etc/sysctl.conf
 
   # Создание группы docker в используемой системе:
   - name: Ensure group "docker" exists on Centos
@@ -23,6 +23,13 @@
       baseurl: https://download.docker.com/linux/centos/8/x86_64/stable/
       gpgkey: https://download.docker.com/linux/centos/gpg
       gpgcheck: true
+
+  # Загрузка дополнительного RPM-пакета из Интернета, для установки Docker в системе (актуально для Centos 9):
+  - name: Installing a libcgroup package on Centos
+    yum:
+      name: http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/Packages/libcgroup-0.41-19.el8.x86_64.rpm
+      state: present
+    when: ansible_distribution == 'CentOS' and ansible_distribution_version == '9'
 
   # Установка Docker с помощью пакетного менеджера: 
   - name: Installing Docker on Centos

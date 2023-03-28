@@ -1,0 +1,32 @@
+# В этом файле, в основном, представлены опции, не попадающие под какую-то конкретную секцию в Jenkins:
+
+unclassified:
+
+# Этот ряд опций определяет email администратора и url самого Jenkins, для внутреннего использования:
+  location:
+    url: "http://localhost:8080"
+    adminAddress: ""
+
+# Этот ряд опций определяет язык, который будет использоваться в Jenkins:
+  locale:
+      ignoreAcceptLanguage: true
+      systemLocale: "en_US"
+
+# Этот ряд опций конфигурирует дополнительные настройки, связанные с интеграцией между Gitlab и Jenkins:
+  gitlabconnectionconfig:
+    connections:
+      - apiTokenId: "gitlab-token1"
+        clientBuilderId: "autodetect"
+        connectionTimeout: 20
+        ignoreCertificateErrors: true
+        name: "my-gitlab-connection"
+        readTimeout: 10
+        url: "https://gitlab.com"
+
+# Этот ряд опций конфигурирует дополнительные настройки, связанные с интеграцией между Github и Jenkins:
+  githubpluginconfig:
+    configs:
+      - name: "$my-github-connection"
+        apiUrl: "https://api.github.com"
+        credentialsId: "github-token1"
+        manageHooks: true

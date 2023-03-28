@@ -1,0 +1,116 @@
+# В этом файле, в основном, представлены опции, конфигурируемые в таких секциях, как Global System и Global Security:
+
+jenkins:
+  systemMessage: "Welcome to the Fully Automation Jenkins by Ivan Medaev:"
+  labelString: "master"
+  mode: EXCLUSIVE
+  numExecutors: 0
+  quietPeriod: 5
+  scmCheckoutRetryCount: 3
+  disableRememberMe: false
+  markupFormatter:
+    rawHtml:
+      disableSyntaxHighlighting: true
+
+# Отключает или включает Master Access Control (deprecated):
+  remotingSecurity:
+    enabled: true
+
+# Эта опция позволяет задать глобальные переменные в Jenkins:
+  globalNodeProperties:
+    - envVars:
+        env:
+        - key: "your-name1"
+          value: "your-value1"
+        - key: "your-name2"
+          value: "your-value2"
+
+# Этот ряд опций позволяет создавать и управлять вьюшками в Jenkins:
+  myViewsTabBar: "standard"
+  projectNamingStrategy: "standard"
+  primaryView:
+    all:
+      name: "all"
+  views:
+  - all:
+      name: "all"
+  - list:
+      name: "view1"
+      columns:
+      - "itemColumn"
+      - "status"
+      - "weather"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      - "buildButton"
+      - "gitBranchSpecifierColumn"
+      - "descriptionColumn"
+
+# Этот ряд опций позволяет конфигурировать агнетов, для их последующего использования:
+  nodes:
+    - permanent:
+        name: "agent-1"
+        nodeDescription: "This is my first Jenkins Agent"
+        numExecutors: 4
+        remoteFS: "/var/lib/jenkins"
+        labelString: "agent-1"
+        retentionStrategy: "always"
+        launcher:
+          ssh:
+            credentialsId: "ssh-builder"
+            host: "192.168.88.218"
+            port: 22
+            sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+
+# Этот ряд опций позволяет настроить один из вариантов аутентификации на выбор в Jenkins.
+# В нашем случае используется локальная. Тут же и создаётся первичный пользователь:
+  securityRealm:
+    local:
+      allowsSignup: false
+      enableCaptcha: false
+      users:
+        - id: "admin"
+          password: "Kitezh1165"
+          description: "This is a fully privileged account in Jenkins"
+          properties:
+          - mailer:
+              emailAddress: ""
+          - preferredProvider:
+              providerId: "default"
+          - timezone:
+              timeZoneName: "Europe/Kaliningrad"
+
+# Этот ряд опций позволяет более предметно настроить авторизацию в Jenkins:
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+      - "GROUP:Agent/Build:authenticated"
+      - "GROUP:Agent/Configure:authenticated"
+      - "GROUP:Agent/Connect:authenticated"
+      - "GROUP:Agent/Create:authenticated"
+      - "GROUP:Agent/Delete:authenticated"
+      - "GROUP:Agent/Disconnect:authenticated"
+      - "GROUP:Credentials/Create:authenticated"
+      - "GROUP:Credentials/Delete:authenticated"
+      - "GROUP:Credentials/ManageDomains:authenticated"
+      - "GROUP:Credentials/Update:authenticated"
+      - "GROUP:Credentials/View:authenticated"
+      - "GROUP:Job/Build:authenticated"
+      - "GROUP:Job/Cancel:authenticated"
+      - "GROUP:Job/Configure:authenticated"
+      - "GROUP:Job/Create:authenticated"
+      - "GROUP:Job/Delete:authenticated"
+      - "GROUP:Job/Discover:authenticated"
+      - "GROUP:Job/Move:authenticated"
+      - "GROUP:Job/Read:authenticated"
+      - "GROUP:Job/Workspace:authenticated"
+      - "GROUP:Overall/Read:authenticated"
+      - "GROUP:Run/Delete:authenticated"
+      - "GROUP:Run/Replay:authenticated"
+      - "GROUP:Run/Update:authenticated"
+      - "GROUP:View/Configure:authenticated"
+      - "GROUP:View/Create:authenticated"
+      - "GROUP:View/Delete:authenticated"
+      - "GROUP:View/Read:authenticated"
+      - "USER:Overall/Administer:admin"

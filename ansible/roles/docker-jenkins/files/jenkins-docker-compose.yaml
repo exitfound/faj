@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jenkins-master
+    user: jenkins
+    ports:
+      - 0.0.0.0:8080:8080
+    volumes:
+      - /opt/jenkins_config:/var/jenkins_config/casc_configs:Z
+      - /opt/jenkins_data:/var/jenkins_home:Z
+    networks:
+      - jenkins
+    restart: on-failure
+
+networks:
+  jenkins:
+    name: jenkins
+    driver: bridge

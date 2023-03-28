@@ -1,0 +1,44 @@
+---
+  # Создание директорий для хранения данных и конфигурации Jenkins:
+  - name: Create Jenkins directories on OpenSUSE
+    file:
+      state: directory
+      path: "{{ item.path }}"
+      mode: "{{ jenkins_dir_mode }}"
+      owner: "{{ jenkins_file_owner }}"
+      group: "{{ jenkins_file_group }}"
+    with_items:
+      - { path: "{{ jenkins_data_dir }}" }
+      - { path: "{{ jenkins_config_dir }}" }
+      - { path: "{{ jenkins_docker_dir }}" }
+
+  # Копирование файлов из директории ./roles/jenkins/files и их последующая передача в директорию jenkins_config:
+  - name: Copy docker files in directory jenkins_config on OpenSUSE
+    copy:
+      src: files/
+      dest: "{{ jenkins_docker_dir }}"
+      mode: "{{ jenkins_file_mode }}"
+      owner: "{{ jenkins_file_owner }}"
+      group: "{{ jenkins_file_group }}"
+
+  # Копирование файлов из директории ./roles/jenkins/templates и их последующая передача в директорию jenkins_config:
+  - name: Copy template jcasc configs in directory jenkins_config on OpenSUSE
+    template:
+      src: "{{ item }}"
+      dest: "{{ jenkins_config_dir }}"
+      mode: "{{ jenkins_file_mode }}"
+      owner: "{{ jenkins_file_owner }}"
+      group: "{{ jenkins_file_group }}"
+    with_fileglob:
+      - ../templates/*
+
+  # Запуск Jenkins с помощью docker-compose на удаленном узле:
+  - name: Run Jenkins via docker-compose on OpenSUSE
+    docker_compose:
+      build: yes
+      files: "{{ jenkins_file_compose }}"
+      project_src: "{{ jenkins_docker_dir }}"
+      recreate: always
+    register: output
+  - debug:
+      var: output

@@ -33,5 +33,6 @@
         msg: On this instance Docker is installed
       when: docker_check is succeeded
 
+  # Вызов непосредственно самой роли Jenkins, для его последующей установки с помощью Docker:
   roles:
     - docker-jenkins

@@ -1,17 +1,17 @@
-# Переменные, применимые ко всем дистрибутивам одинаково:
+# Переменные, необходимые для конфигурировании Jenkins, применимые на всех дистрибутивах в равной мере:
 
-jenkins_data_dir: "/opt/jenkins_data"
-jenkins_config_dir: "/opt/jenkins_config"
-jenkins_docker_dir: "/opt/jenkins_docker"
 jenkins_check_docker: "docker --version"
+jenkins_config_dir: "/opt/jenkins_config"
+jenkins_data_dir: "/opt/jenkins_data"
+jenkins_docker_dir: "/opt/jenkins_docker"
 jenkins_dir_mode: "u=rwx,g=r,o=r"
 jenkins_file_mode: "u=rw,g=r,o=r"
 jenkins_file_owner: "1000"
 jenkins_file_group: "1000"
 jenkins_file_compose: "jenkins-docker-compose.yaml"
 
-# Переменные для конфигурации Jenkins на OpenSUSE:
+# Переменные, необходимые для конфигурации Jenkins на дистрибутиве OpenSUSE:
 
-# Переменные для конфигурации Jenkins на CentOS:
+# Переменные, необходимые для конфигурации Jenkins на дистрибутиве CentOS:
 
-# Переменные для конфигурации Jenkins на Ubuntu:
+# Переменные, необходимые для конфигурации Jenkins на дистрибутиве Ubuntu:

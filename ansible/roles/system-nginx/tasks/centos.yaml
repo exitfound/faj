@@ -28,7 +28,7 @@
       group: "{{ nginx_file_group }}"
     notify: Restarting Nginx
 
-  # Выполнение команды nginx -t после добавления конфигурационного файла в системе:
+  # Проверка конфигурационного файла после его добавления в систему:
   - name: Output of command Nginx -t after changes on Centos
     shell: nginx -t
     register: command_output

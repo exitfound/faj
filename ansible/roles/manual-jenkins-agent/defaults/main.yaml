@@ -1,4 +1,4 @@
-# Общие переменные, необходимые для создания и настройки пользователя, вне зависимости от системы, для выполнения роли Jenkins Agent:
+# Переменные, необходимые для конфигурировании Jenkins Agent, применимые на всех дистрибутивах в равной мере:
 
 jenkins_agent_directory: 
   - main: /var/lib/jenkins
@@ -12,17 +12,17 @@ jenkins_agent_dirmode: "u=rwx"
 jenkins_agent_user: "jenkins-agent"
 jenkins_agent_group: "jenkins-agent"
 
-# Переменные, необходимые для создания и настройки пользователя в системе Ubuntu, для выполнения роли Jenkins Agent:
+# Переменные, необходимые для конфигурировании Jenkins Agent, применимые на дистрибутиве OpenSUSE:
 
-ubuntu_agent_packages_list: 
-  - openjdk-11-jdk
+opensuse_agent_packages_list: 
+  - java-11-openjdk
 
-# Переменные, необходимые для создания и настройки пользователя в системе Centos, для выполнения роли Jenkins Agent:
+# Переменные, необходимые для конфигурировании Jenkins Agent, применимые на дистрибутиве Centos:
 
 centos_agent_packages_list: 
   - java-11-openjdk
 
-# Переменные, необходимые для создания и настройки пользователя в системе OpenSUSE, для выполнения роли Jenkins Agent:
+# Переменные, необходимые для конфигурировании Jenkins Agent, применимые на дистрибутиве Ubuntu:
 
-opensuse_agent_packages_list: 
-  - java-11-openjdk
+ubuntu_agent_packages_list: 
+  - openjdk-11-jdk

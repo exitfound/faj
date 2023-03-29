@@ -1,8 +1,9 @@
-# Переменные, необходимые для установки пакетов на дистрибутиве Ubuntu:
+# Переменные, необходимые для установки пакетов на дистрибутиве OpenSUSE:
 
-ubuntu_packages_list:
-  - openjdk-11-jdk
-  - openjdk-11-jre
+opensuse_packages_list: 
+  - java-11-openjdk
+  - dejavu-fonts 
+  - fontconfig
   - jenkins
 
 # Переменные, необходимые для установки пакетов на дистрибутиве Centos:
@@ -13,10 +14,9 @@ centos_packages_list:
   - java-11-openjdk-devel
   - jenkins
 
-# Переменные, необходимые для установки пакетов на дистрибутиве OpenSUSE:
+# Переменные, необходимые для установки пакетов на дистрибутиве Ubuntu:
 
-opensuse_packages_list: 
-  - java-11-openjdk
-  - dejavu-fonts 
-  - fontconfig
+ubuntu_packages_list:
+  - openjdk-11-jdk
+  - openjdk-11-jre
   - jenkins

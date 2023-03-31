@@ -3,6 +3,9 @@ upstream jenkins-master {
 }
 
 server {
+    access_log      /var/log/nginx/jenkins.access.log;
+    error_log       /var/log/nginx/jenkins.error.log;
+
     listen 443 ssl;
     listen [::]:443 ssl ipv6only=on;
     server_name {{ jenkins_nginx_domain }}; 

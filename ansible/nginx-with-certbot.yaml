@@ -1,4 +1,3 @@
----
 # Вызов нескольких ролей по установке Nginx в сочетании с сертификатами от Certbot на удаленном узле, для проксирования запросов при обращении к Jenkins:
 - name: Configuring Nginx with Cerbot on remote hosts
   gather_facts: yes

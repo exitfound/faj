@@ -1,15 +1,17 @@
 ---
 # Переменные, необходимые для конфигурировании SSL, применимые на всех дистрибутивах в равной мере:
 
-certbot_packages:
+certbot_packages_list:
   - certbot
   - python3-certbot-nginx
 
 # Переменные, необходимые для конфигурировании SSL на дистрибутиве OpenSUSE:
 
-opensuse_certbot_packages:
+opensuse_additional_list:
   - certbot-systemd-timer
 
 # Переменные, необходимые для конфигурировании SSL на дистрибутиве Centos:
 
 # Переменные, необходимые для конфигурировании SSL на дистрибутиве Ubuntu
+
+# kill $(ps aux | grep '[n]ginx' | awk '{print $2}')

@@ -2,32 +2,31 @@
   # Установка пакета Certbot со всеми зависимостями на DEB дистрибутивах:
   - name: Installing required packages on remote host
     package: 
-      name: "{{ certbot_packages }}"
+      name: "{{ certbot_packages_list }}"
       state: present
       update_cache: yes
 
-  # Проверка того, был ли создан SSL-сертификат для запрашиваемого домена:
-  - name: Check if certificate already exists
-    stat:
-      path: /etc/letsencrypt/live/{{ jenkins_nginx_domain | first | replace('*.', '') }}/cert.pem
-    register: letsencrypt_cert
-
-  # Остановка сервиса nginx.service на удаленном узле, для конфигурирования SSL:
+  # Остановка сервиса Nginx на удаленном узле, для конфигурирования SSL:
   - name: Stoping Nginx service on remote host
     systemd:
       name: nginx
       state: stopped
     ignore_errors: true
-    when: not letsencrypt_cert.stat.exists
+
+  # Проверка того, был ли создан SSL-сертификат для запрашиваемого домена:
+  - name: Check if certificate already exists
+    stat:
+      path: /etc/letsencrypt/live/{{ jenkins_nginx_domain | first }}/cert.pem
+    register: letsencrypt_cert
 
   # Создание сертификата для указанного домена, если таковой не был обнаружен:
   - name: Generate new certificate if one doesn't exist
     command: "{{ certbot_create_command }}"
     when: not letsencrypt_cert.stat.exists
 
-  # Запуск сервиса Certbot-renew, для отслеживания состояния сертификата:
-  - name: Starting Certbot-renew.timer on remote host
+  # Запуск сервиса Certbot, для отслеживания состояния сертификата:
+  - name: Starting Certbot.timer on remote host
     systemd:
-      name: certbot-renew.timer
+      name: certbot.timer
       state: started
       enabled: yes

@@ -6,17 +6,9 @@
   # Установка Nginx с помощью пакетного менеджера:
   - name: Installing required packages on Centos
     yum: 
-      name: "{{ nginx_package }}"
+      name: "{{ nginx_package_list }}"
       state: present
       update_cache: yes
-
-  # Запуск сервиса Nginx через systemd:
-  - name: Starting Nginx service on Centos
-    systemd:
-      name: nginx
-      state: started
-      enabled: yes
-    ignore_errors: true
 
   # Передача конфигурационного файла Nginx для проксирования, при обращении к Jenkins через Интернет:
   - name: Copy Nginx config for Jenkins on Centos
@@ -26,7 +18,13 @@
       mode: "{{ nginx_file_mode }}"
       owner: "{{ nginx_file_owner }}"
       group: "{{ nginx_file_group }}"
-    notify: Restarting Nginx
+
+  # Запуск сервиса Nginx через systemd:
+  - name: Starting Nginx service on Centos
+    systemd:
+      name: nginx
+      state: started
+      enabled: yes
 
   # Проверка конфигурационного файла после его добавления в систему:
   - name: Output of command Nginx -t after changes on Centos

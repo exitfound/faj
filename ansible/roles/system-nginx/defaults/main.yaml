@@ -1,9 +1,10 @@
 # Переменные, необходимые для конфигурирования Nginx, применимые на всех дистрибутивах в равной мере:
 
-nginx_package: "nginx"
 nginx_file_mode: "u=rw,g=r,o=r"
 nginx_file_owner: "0"
 nginx_file_group: "0"
+nginx_package_list: 
+  - nginx
 
 # Переменные, необходимые для конфигурирования Nginx, применимые на дистрибутиве OpenSUSE:
 

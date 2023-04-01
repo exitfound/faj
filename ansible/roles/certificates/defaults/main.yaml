@@ -13,5 +13,3 @@ opensuse_additional_list:
 # Переменные, необходимые для конфигурировании SSL на дистрибутиве Centos:
 
 # Переменные, необходимые для конфигурировании SSL на дистрибутиве Ubuntu
-
-# kill $(ps aux | grep '[n]ginx' | awk '{print $2}')

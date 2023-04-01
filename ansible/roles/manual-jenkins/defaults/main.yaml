@@ -1,22 +1,30 @@
 # Переменные, необходимые для установки пакетов на дистрибутиве OpenSUSE:
 
+opensuse_zypper_key: https://pkg.jenkins.io/opensuse/jenkins.io.key
+opensuse_zypper_repository: https://pkg.jenkins.io/opensuse-stable/
 opensuse_packages_list: 
   - java-11-openjdk
-  - dejavu-fonts 
+  - dejavu-fonts
   - fontconfig
   - jenkins
 
 # Переменные, необходимые для установки пакетов на дистрибутиве Centos:
 
+centos_yum_key: https://pkg.jenkins.io/redhat/jenkins.io-2023.key
+centos_yum_repository: http://pkg.jenkins.io/redhat-stable
 centos_packages_list:
-  - epel-release
   - java-11-openjdk
   - java-11-openjdk-devel
+  - fontconfig
   - jenkins
 
 # Переменные, необходимые для установки пакетов на дистрибутиве Ubuntu:
 
+ubuntu_apt_key: "https://pkg.jenkins.io/debian/jenkins.io-2023.key"
+ubuntu_dest_key: "/etc/apt/trusted.gpg.d/jenkins.asc"
+ubuntu_apt_repository: "http://pkg.jenkins.io/debian-stable"
 ubuntu_packages_list:
   - openjdk-11-jdk
   - openjdk-11-jre
+  - fontconfig
   - jenkins

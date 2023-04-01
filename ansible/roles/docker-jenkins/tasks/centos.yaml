@@ -25,12 +25,12 @@
   - name: Copy template jcasc configs in directory jenkins_config on Centos
     template:
       src: "{{ item }}"
-      dest: "{{ jenkins_config_dir }}"
+      dest: "{{ jenkins_config_dir }}/{{ item | basename | regex_replace('\\.j2$', '') }}"
       mode: "{{ jenkins_file_mode }}"
       owner: "{{ jenkins_file_owner }}"
       group: "{{ jenkins_file_group }}"
     with_fileglob:
-      - ../templates/*
+      - ../templates/*.j2
 
   # Запуск Jenkins с помощью docker-compose на удаленном узле:
   - name: Run Jenkins via docker-compose on Centos

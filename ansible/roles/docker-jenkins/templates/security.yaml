@@ -1,8 +1,0 @@
-# В этом файле, в основном, представлены опции, конфигурируемые в различных секциях, связанных с безопасностью Jenkins:
-
-security:
-  gitHooks:
-    allowedOnAgents: false
-    allowedOnController: false
-  gitHostKeyVerificationConfiguration:
-    sshHostKeyVerificationStrategy: "noHostKeyVerificationStrategy"

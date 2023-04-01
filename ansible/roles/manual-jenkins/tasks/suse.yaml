@@ -2,7 +2,7 @@
   # Добавление GPG ключа для последующей установки Jenkins из пакетного менеджера:
   - name: Import GPG key to ensure your software on OpenSUSE
     rpm_key: 
-      key: https://pkg.jenkins.io/opensuse/jenkins.io.key
+      key: "{{ opensuse_zypper_key }}"
       state: present
 
   # Создание файла и добавление адреса репозитория Jenkins в zypp.repos.d:
@@ -10,14 +10,13 @@
     zypper_repository:
       name: jenkins
       state: present
-      repo: https://pkg.jenkins.io/opensuse-stable/
+      repo: "{{ opensuse_zypper_repository }}"
 
   # Установка необходимых пакетов, которые были определены в переменной:
   - name: Installing required packages on OpenSUSE
     zypper: 
       name: "{{ opensuse_packages_list }}"
       state: present
-      update_cache: yes
 
   # Исправление ошибки, из-за которой systemd enable не срабатывает:
   - name: Change filename to fix systemd error
@@ -34,6 +33,5 @@
   - name: Printing the Jenkins password to the console from the file 
     command: cat /var/lib/jenkins/secrets/initialAdminPassword
     register: first_jenkins_password
-    ignore_errors: true
   - debug:
       msg: "{{ first_jenkins_password.stdout }}"

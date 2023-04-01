@@ -7,7 +7,7 @@ bouncycastle-api
 cloudbees-folder:6.815.v0dd5a_cb_40e0e
 checks-api
 configuration-as-code:1569.vb_72405b_80249
-credentials:1214.v1de940103927
+credentials:1224.vc23ca_a_9a_2cb_0
 credentials-binding:523.vd859a_4b_122e6
 commons-text-api
 display-url-api

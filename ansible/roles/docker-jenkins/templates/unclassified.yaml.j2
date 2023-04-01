@@ -1,0 +1,32 @@
+# В этом файле, в основном, представлены опции, не попадающие под какую-то конкретную секцию в Jenkins:
+
+unclassified:
+
+# Этот ряд опций определяет email администратора и url самого Jenkins, для внутреннего использования:
+  location:
+    url: {{ jenkins_nginx_domain }}
+    adminAddress: {{ jcasc_unclassified_email }}
+
+# Этот ряд опций определяет язык, который будет использоваться в Jenkins:
+  locale:
+      ignoreAcceptLanguage: true
+      systemLocale: {{ jcasc_unclassified_locale }}
+
+# Этот ряд опций конфигурирует дополнительные настройки, связанные с интеграцией между Gitlab и Jenkins:
+  gitlabconnectionconfig:
+    connections:
+      - apiTokenId: {{ jcasc_credential_gitlab_id }}
+        clientBuilderId: "autodetect"
+        connectionTimeout: 20
+        ignoreCertificateErrors: true
+        name: {{ jcasc_unclassified_gitlab_name }}
+        readTimeout: 10
+        url: {{ jcasc_unclassified_gitlab_url }}
+
+# Этот ряд опций конфигурирует дополнительные настройки, связанные с интеграцией между Github и Jenkins:
+  githubpluginconfig:
+    configs:
+      - name: {{ jcasc_unclassified_github_name }}
+        apiUrl: {{ jcasc_unclassified_github_url }}
+        credentialsId: {{ jcasc_credential_github_id }}
+        manageHooks: true

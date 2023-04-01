@@ -1,0 +1,26 @@
+# В этом файле, в основном, представлены опции, конфигурируемые в таких секциях, как Global Tool Configuration:
+
+tool:
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"
+
+# Этот ряд опций отвечает за установку и настройку Maven в Jenkins:
+  maven:
+    installations:
+    - name: "maven-{{ jcasc_tool_maven_version }}"
+      properties:
+      - installSource:
+          installers:
+          - maven:
+              id: {{ jcasc_tool_maven_version }}
+
+# Этот ряд опций отвечает за установку и настройку JDK в Jenkins:
+  jdk:
+    installations:
+      - name: {{ jcasc_tool_jdk_version }}
+        properties:
+          - installSource:
+              installers:
+                - adoptOpenJdkInstaller:
+                    id: {{ jcasc_tool_jdk_version }}

@@ -9,11 +9,11 @@
       name: docker
       state: present
 
-  # Добавление GPG ключа для последующей установки Docker из пакетного менеджера:
-  - name: Import GPG key to ensure your software on Centos
-    rpm_key: 
-      key: https://download.docker.com/linux/centos/gpg
-      state: present
+  # # Добавление GPG ключа для последующей установки Docker из пакетного менеджера:
+  # - name: Import GPG key to ensure your software on Centos
+  #   rpm_key: 
+  #     key: https://download.docker.com/linux/centos/gpg
+  #     state: present
 
   # Добавление репозитория для последующей установки Docker в системе:
   - name: Adding package repository address on Centos
@@ -42,7 +42,7 @@
   - name: Starting Docker service on Centos
     service:
       name: docker
-      state: reloaded
+      state: started
       enabled: yes
 
   # Проверка того, был ли запущен docker.service в системе:

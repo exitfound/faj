@@ -20,14 +20,15 @@
       state: present
       home: "{{ item.main }}"
       group: "{{ jenkins_agent_group }}"
-    with_items: "{{ jenkins_agent_directory }}"
+    with_items: 
+      - "{{ jenkins_agent_directory }}"
 
   # Создание необходимых директорий для хранения данных и конфигурации Jenkins Agent:
   - name: Creating directories on OpenSUSE
     file:
       state: directory
       path: "{{ item.path }}"
-      mode: "{{ jenkins_agent_dirmode }}"
+      mode: "{{ jenkins_agent_directory_mode }}"
       owner: "{{ jenkins_agent_user }}"
       group: "{{ jenkins_agent_group }}"
     with_items:
@@ -36,14 +37,13 @@
   # Добавление публичного SSH-ключа для работы с Jenkins Agent:
   - name: Add SSH public key for specific user on OpenSUSE
     authorized_key:
-      user: "{{ item.user }}"
+      user: "{{ jenkins_agent_user }}"
       state: present
-      key: "{{ item.key }}"
+      key: "{{ jenkins_agent_public_key }}"
       validate_certs: false
-    with_items: "{{ jenkins_agent_ssh_public }}"
 
   # Предоставление прав sudo для созданного ранее пользователя, для работы Jenkins Agent:
   - name: Setting sudo permissions for the created user on OpenSUSE
     template:
-      src: templates/jenkins-agent
-      dest: /etc/sudoers.d/jenkins-agent
+      src: "templates/jenkins-agent"
+      dest: "/etc/sudoers.d/{{ jenkins_agent_user }}"

@@ -1,1 +1,1 @@
-jenkins-agent    ALL=(ALL)       NOPASSWD: ALL
+{{ jenkins_agent_user }}    ALL=(ALL)       NOPASSWD: ALL

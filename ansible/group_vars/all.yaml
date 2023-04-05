@@ -1,0 +1,63 @@
+# Переменные, используемые для выполнения роли certificates:
+
+certbot_email_address: "evoukin@gmail.com"
+certbot_create_command: "certbot certonly --noninteractive --nginx --agree-tos --email {{ certbot_email_address }} --domains {{ jenkins_nginx_domain }}"
+
+# Переменные, используемые для выполнения роли manual-jenkins-agent:
+
+jenkins_agent_user: "jenkins-agent"
+jenkins_agent_group: "jenkins-agent"
+jenkins_agent_public_key: ssh-rsa yourpublickey
+
+# Переменные, используемые в секции Credentials, для последующей конфигурации JCasC:
+
+jcasc_credential_ssh_id: "MySshCredentialId"
+jcasc_credential_ssh_username: "builder"
+jcasc_credential_ssh_private_key: "MySshPrivateKey"
+jcasc_credential_ssh_passphrase: "MySshPassphrase"
+
+jcasc_credential_gitlab_id: "MyGitlabId"
+jcasc_credential_gitlab_token: "MyGitlabToken"
+
+jcasc_credential_github_id: "MyGithubId"
+jcasc_credential_github_token: "MyGithubToken"
+
+# Переменные, используемые в секции Jenkins, для последующей конфигурации JCasC:
+
+jcasc_jenkins_remote_fs: "/var/lib/jenkins"
+
+jcasc_jenkins_agent_1_name: "agent-1"
+jcasc_jenkins_agent_1_label: "agent-1"
+jcasc_jenkins_agent_1_ip: "192.168.88.218"
+
+jcasc_jenkins_agent_2_name: "agent-2"
+jcasc_jenkins_agent_2_label: "agent-2"
+jcasc_jenkins_agent_2_ip: "192.168.88.219"
+
+jcasc_jenkins_admin_user: "admin"
+jcasc_jenkins_admin_password: "Kitezh1165"
+jcasc_jenkins_admin_email: "admin@myemail.com"
+
+# Переменные, используемые в секции Security, для последующей конфигурации jcasc:
+
+# - 
+
+# Переменные, используемые в секции Tool, для последующей конфигурации jcasc:
+
+jcasc_tool_maven_version: "3.9.0"
+jcasc_tool_jdk_version: "jdk-11.0.14+9"
+
+# Переменные, используемые в секции Unclassified, для последующей конфигурации jcasc:
+
+jcasc_unclassified_email: "admin@myemail.com"
+jcasc_unclassified_locale: "en_US"
+
+jcasc_unclassified_gitlab_name: "MyGitlabConnection"
+jcasc_unclassified_gitlab_url: "https://gitlab.com"
+
+jcasc_unclassified_github_name: "MyGithubConnection"
+jcasc_unclassified_github_url: "https://api.github.com"
+
+jcasc_unclassified_sl_name: "MySharedLibraries"
+jcasc_unclassified_sl_url: "https://github.com/exitfound/docker-autossh.git"
+jcasc_unclassified_sl_ssh: "MySshCredentialId"

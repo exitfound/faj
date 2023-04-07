@@ -11,8 +11,8 @@ services:
     ports:
       - 127.0.0.1:8080:8080
     volumes:
-      - ./jcasc:/var/jenkins_config/casc_configs:Z
-      - ./data:/var/jenkins_home:Z
+      - ./jcasc:/var/jenkins_config/casc_configs
+      - ./data:/var/jenkins_home
     networks:
       - jenkins
     restart: on-failure

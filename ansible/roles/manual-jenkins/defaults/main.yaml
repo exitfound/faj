@@ -1,8 +1,8 @@
 # Переменные, необходимые для установки пакетов на дистрибутиве OpenSUSE:
 
-opensuse_zypper_key: https://pkg.jenkins.io/opensuse/jenkins.io.key
+opensuse_zypper_key: https://pkg.jenkins.io/opensuse/jenkins.io-2023.key
 opensuse_zypper_repository: https://pkg.jenkins.io/opensuse-stable/
-opensuse_packages_list: 
+opensuse_packages_list:
   - java-11-openjdk
   - dejavu-fonts
   - fontconfig

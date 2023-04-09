@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include manual-jenkins"
+      ansible.builtin.include_role:
+        name: "manual-jenkins"

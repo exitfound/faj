@@ -20,7 +20,8 @@
 
   # Исправление ошибки, из-за которой systemd enable не срабатывает:
   - name: Change filename to fix systemd error
-    command: mv /etc/init.d/jenkins /etc/init.d/jks
+    shell: if [ -e /etc/init.d/jenkins ]; then mv /etc/init.d/jenkins /etc/init.d/jks; else exit 0; fi
+    changed_when: false
 
   # Запуск сервиса Jenkins через systemd:
   - name: Starting Jenkins service on OpenSUSE
@@ -33,5 +34,6 @@
   - name: Printing the Jenkins password to the console from the file 
     command: cat /var/lib/jenkins/secrets/initialAdminPassword
     register: first_jenkins_password
+    changed_when: false
   - debug:
       msg: "{{ first_jenkins_password.stdout }}"

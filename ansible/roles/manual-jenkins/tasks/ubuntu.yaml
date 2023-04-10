@@ -32,5 +32,6 @@
   - name: Printing the Jenkins password to the console from the file 
     command: cat /var/lib/jenkins/secrets/initialAdminPassword
     register: first_jenkins_password
+    changed_when: false
   - debug:
       msg: "{{ first_jenkins_password.stdout }}"

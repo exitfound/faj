@@ -1,0 +1,15 @@
+---
+# This is an example playbook to execute Ansible tests.
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check jenkins
+      ansible.builtin.uri:
+        url: "http://127.1:8080"
+        return_content: true
+        status_code: 403
+      register: output
+    - name: Print output
+      ansible.builtin.debug:
+        msg: "{{ output.content }}"

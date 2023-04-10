@@ -1,0 +1,17 @@
+---
+- name: Prepare
+  hosts: all
+  gather_subset: ['os_family']
+  tasks:
+    - name: Be patient
+      ansible.builtin.debug:
+        msg: "Preparing now!"
+  # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
+  # ubuntu тоже касается
+    - name: Create folder for manuals
+      when: ansible_os_family == 'Debian'
+      ansible.builtin.file:
+        path: /usr/share/man/man1
+        state: directory
+        recurse: true
+        force: true

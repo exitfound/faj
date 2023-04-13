@@ -1,30 +1,33 @@
 ---
-  # Создание файла, добавление ключа и адреса репозитория Jenkins в yum.repos.d:
-  - name: Adding package repository address on Centos
-    yum_repository:
-      name: jenkins
-      description: Jenkins Repository
-      gpgcheck: true
-      baseurl: http://pkg.jenkins.io/redhat-stable
-      gpgkey: https://pkg.jenkins.io/redhat/jenkins.io-2023.key
+# Создание файла, добавление ключа и адреса репозитория Jenkins в yum.repos.d:
+- name: Adding package repository address on Centos
+  yum_repository:
+    name: jenkins
+    description: Jenkins Repository
+    gpgcheck: true
+    baseurl: http://pkg.jenkins.io/redhat-stable
+    gpgkey: https://pkg.jenkins.io/redhat/jenkins.io-2023.key
 
-  # Установка необходимых пакетов, которые были определены в переменной:
-  - name: Installing required packages on Centos
-    yum: 
-      name: "{{ centos_packages_list }}"
-      state: present
+# Установка необходимых пакетов, которые были определены в переменной:
+- name: Installing required packages on Centos
+  yum:
+    name: "{{ centos_packages_list }}"
+    state: present
 
-  # Запуск сервиса Jenkins через systemd:
-  - name: Starting Jenkins service on Centos
-    service:
-      name: jenkins
-      state: started
-      enabled: yes
+# Запуск сервиса Jenkins через systemd:
+- name: Starting Jenkins service on Centos
+  service:
+    name: jenkins
+    state: started
+    enabled: true
 
-  # Вывод пароля от Jenkins для первого входа в консоль исполнения:
-  - name: Printing the Jenkins password to the console from the file 
-    command: cat /var/lib/jenkins/secrets/initialAdminPassword
-    register: first_jenkins_password
-    changed_when: false
-  - debug:
-      msg: "{{ first_jenkins_password.stdout }}"
+# Вызов пароля от Jenkins для первого входа в консоль исполнения:
+- name: Register the Jenkins password in variable on Centos
+  command: cat /var/lib/jenkins/secrets/initialAdminPassword
+  register: first_jenkins_password
+  changed_when: false
+
+# Результат вызова из предыдущего шага:
+- name: Printing the Jenkins password to the console from the file on Centos
+  debug:
+    msg: "{{ first_jenkins_password.stdout }}"

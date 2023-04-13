@@ -1,3 +1,5 @@
+---
+
 # Переменные, необходимые для установки пакетов на дистрибутиве OpenSUSE:
 
 opensuse_zypper_key: https://pkg.jenkins.io/opensuse/jenkins.io-2023.key

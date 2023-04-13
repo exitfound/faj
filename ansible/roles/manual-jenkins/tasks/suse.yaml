@@ -1,39 +1,42 @@
 ---
-  # Добавление GPG ключа для последующей установки Jenkins из пакетного менеджера:
-  - name: Import GPG key to ensure your software on OpenSUSE
-    rpm_key: 
-      key: "{{ opensuse_zypper_key }}"
-      state: present
+# Добавление GPG ключа для последующей установки Jenkins из пакетного менеджера:
+- name: Import GPG key to ensure your software on OpenSUSE
+  rpm_key:
+    key: "{{ opensuse_zypper_key }}"
+    state: present
 
-  # Создание файла и добавление адреса репозитория Jenkins в zypp.repos.d:
-  - name: Adding package repository address on OpenSUSE
-    zypper_repository:
-      name: jenkins
-      state: present
-      repo: "{{ opensuse_zypper_repository }}"
+# Создание файла и добавление адреса репозитория Jenkins в zypp.repos.d:
+- name: Adding package repository address on OpenSUSE
+  zypper_repository:
+    name: jenkins
+    state: present
+    repo: "{{ opensuse_zypper_repository }}"
 
-  # Установка необходимых пакетов, которые были определены в переменной:
-  - name: Installing required packages on OpenSUSE
-    zypper: 
-      name: "{{ opensuse_packages_list }}"
-      state: present
+# Установка необходимых пакетов, которые были определены в переменной:
+- name: Installing required packages on OpenSUSE
+  zypper:
+    name: "{{ opensuse_packages_list }}"
+    state: present
 
-  # Исправление ошибки, из-за которой systemd enable не срабатывает:
-  - name: Change filename to fix systemd error
-    shell: if [ -e /etc/init.d/jenkins ]; then mv /etc/init.d/jenkins /etc/init.d/jks; else exit 0; fi
-    changed_when: false
+# Исправление ошибки, из-за которой systemd enable не срабатывает:
+- name: Change filename to fix systemd error on OpenSUSE
+  shell: if [ -e /etc/init.d/jenkins ]; then mv /etc/init.d/jenkins /etc/init.d/jks; else exit 0; fi
+  changed_when: false
 
-  # Запуск сервиса Jenkins через systemd:
-  - name: Starting Jenkins service on OpenSUSE
-    service:
-      name: jenkins
-      state: started
-      enabled: yes
+# Запуск сервиса Jenkins через systemd:
+- name: Starting Jenkins service on OpenSUSE
+  service:
+    name: jenkins
+    state: started
+    enabled: true
 
-  # Вывод пароля от Jenkins для первого входа в консоль исполнения:
-  - name: Printing the Jenkins password to the console from the file 
-    command: cat /var/lib/jenkins/secrets/initialAdminPassword
-    register: first_jenkins_password
-    changed_when: false
-  - debug:
-      msg: "{{ first_jenkins_password.stdout }}"
+# Вызов пароля от Jenkins для первого входа в консоль исполнения:
+- name: Register the Jenkins password in variable on OpenSUSE
+  command: cat /var/lib/jenkins/secrets/initialAdminPassword
+  register: first_jenkins_password
+  changed_when: false
+
+# Результат вызова из предыдущего шага:
+- name: Printing the Jenkins password to the console from the file on OpenSUSE
+  debug:
+    msg: "{{ first_jenkins_password.stdout }}"

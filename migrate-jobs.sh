@@ -75,19 +75,26 @@ prepare
 
 if [ ! -e "$JENKINS_CLI" ]; then
     echo -e "Downloads jenkins cli to successfully apply the script: \n"
-    wget "$OLD_JENKINS"/jnlpJars/jenkins-cli.jar
+    wget "$OLD_JENKINS"/jnlpJars/"$JENKINS_CLI"
 else
     echo -e "Jenkins cli already exists on your path: \n"
 fi
 
-java -jar jenkins-cli.jar -s "$OLD_JENKINS" -auth "$OLD_JENKINS_LOGIN":"$OLD_JENKINS_PASSWORD" list-jobs > "$LIST_JOBS"
+java -jar "$JENKINS_CLI" -s http://192.168.88.210:8080 -auth admin:Lekain1997 groovy = < list-jobs.groovy > "$LIST_JOBS"
+
+sed -i 's/\//\\/g' "$LIST_JOBS"
+
+# https://stackoverflow.com/questions/21843343/while-read-line-stops-after-first-iteration
+# Решение для while, потому что без дескриптора не работало. Падало на первой строке.
 
 while IFS= read -r line <&3; do
-  java -jar jenkins-cli.jar -s "$OLD_JENKINS" -auth "$OLD_JENKINS_LOGIN":"$OLD_JENKINS_PASSWORD" get-job "$line" > ./"$DIRECTORY"/"$line";
+  new_export_line=$( echo $line | sed 's/\\/\//g' )
+  java -jar "$JENKINS_CLI" -s "$OLD_JENKINS" -auth "$OLD_JENKINS_LOGIN":"$OLD_JENKINS_PASSWORD" get-job "$new_export_line" > ./"$DIRECTORY"/"$line";
 done 3<"$LIST_JOBS"
 
 while IFS= read -r line <&3; do
-  java -jar jenkins-cli.jar -s "$NEW_JENKINS" -auth "$NEW_JENKINS_LOGIN":"$NEW_JENKINS_PASSWORD" create-job "$line" < ./"$DIRECTORY"/"$line";
-done 3<"$LIST_JOBS"
+  new_import_line=$( echo $line | sed 's/\\/\//g' )
+  java -jar "$JENKINS_CLI" -s "$NEW_JENKINS" -auth "$NEW_JENKINS_LOGIN":"$NEW_JENKINS_PASSWORD" create-job "$new_import_line" < ./"$DIRECTORY"/"$line"; 
+done 3< "$LIST_JOBS"
 
 rm -rf "$DIRECTORY"

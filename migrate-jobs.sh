@@ -80,17 +80,17 @@ else
     echo -e "Jenkins cli already exists on your path: \n"
 fi
 
-java -jar "$JENKINS_CLI" -s http://192.168.88.210:8080 -auth admin:Lekain1997 groovy = < list-jobs.groovy > "$LIST_JOBS"
+java -jar "$JENKINS_CLI" -s "$OLD_JENKINS" -auth "$OLD_JENKINS_LOGIN":"$OLD_JENKINS_PASSWORD" groovy = < list-jobs.groovy > "$LIST_JOBS"
 
 sed -i 's/\//\\/g' "$LIST_JOBS"
 
+# Решение для while, потому что без дескриптора не работало. Падало на первой строке:
 # https://stackoverflow.com/questions/21843343/while-read-line-stops-after-first-iteration
-# Решение для while, потому что без дескриптора не работало. Падало на первой строке.
 
 while IFS= read -r line <&3; do
   new_export_line=$( echo $line | sed 's/\\/\//g' )
   java -jar "$JENKINS_CLI" -s "$OLD_JENKINS" -auth "$OLD_JENKINS_LOGIN":"$OLD_JENKINS_PASSWORD" get-job "$new_export_line" > ./"$DIRECTORY"/"$line";
-done 3<"$LIST_JOBS"
+done 3< "$LIST_JOBS"
 
 while IFS= read -r line <&3; do
   new_import_line=$( echo $line | sed 's/\\/\//g' )

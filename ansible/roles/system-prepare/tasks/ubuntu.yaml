@@ -1,22 +1,22 @@
 ---
-  # Обновление всех пакетов на указанном дистрибутиве:
-  - name: Updating all packages on Ubuntu
-    apt:
-      name: '*'
-      state: latest
-      update_cache: yes
-    tags: 
-      - update
+# Обновление всех пакетов на указанном дистрибутиве:
+- name: Updating all packages on Ubuntu
+  apt:
+    name: '*'
+    state: latest
+    update_cache: true
+  tags:
+    - update
 
-  # Установка пакетов apt из списка необходимых, которые определены в виде переменной, в директории defaults:
-  - name: Installing required packages on Ubuntu
-    apt: 
-      name: "{{ ubuntu_packages_list }}"
-      state: present
-      update_cache: yes
+# Установка пакетов apt из списка необходимых, которые определены в виде переменной, в директории defaults:
+- name: Installing required packages on Ubuntu
+  apt:
+    name: "{{ ubuntu_packages_list }}"
+    state: present
+    update_cache: true
 
-  # Установка пакетов pip из списка необходимых, которые определены в виде переменной, в директории defaults:
-  - name: Installing required packages for pip on Ubuntu
-    pip:
-      name: "{{ pip_packages_list }}"
-      state: present
+# Установка пакетов pip из списка необходимых, которые определены в виде переменной, в директории defaults:
+- name: Installing required packages for pip on Ubuntu
+  pip:
+    name: "{{ pip_packages_list }}"
+    state: present

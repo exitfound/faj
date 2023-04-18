@@ -1,15 +1,17 @@
 ---
-# This is an example playbook to execute Ansible tests.
+# Данный файл используется для выполнения шагов на предмет проверки доступности запускаемого нами приложения:
 - name: Verify
   hosts: all
-  gather_facts: false
   tasks:
-    - name: Check jenkins
-      ansible.builtin.uri:
+    # Проверка доступности Jenkins после установки:
+    - name: Checking Jenkins for availability
+      uri:
         url: "http://127.1:8080"
         return_content: true
         status_code: 403
       register: output
-    - name: Print output
-      ansible.builtin.debug:
+
+    # Результат выполненной ранее проверки:
+    - name: Output the result of a registered variable
+      debug:
         msg: "{{ output.content }}"

@@ -1,7 +1,9 @@
 ---
+# Данный файл используется для преобразования состояния экземпляров в реальное состояние, объявленное в реальных тестируемых ролях:
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include manual-jenkins"
-      ansible.builtin.include_role:
+    # Данный шаг вызывает роль manual-jenkins для прогона тестов:
+    - name: "Include manual-jenkins role for testing"
+      include_role:
         name: "manual-jenkins"

@@ -6,13 +6,13 @@ pip_packages_list:
   - docker
   - docker-compose
 
-# Переменные, необходимые для установки пакетов на дистрибутиве OpenSUSE:
+# Переменные, необходимые для установки пакетов на дистрибутиве семейства SUSE:
 
 opensuse_packages_list:
   - bash-completion
   - python3-pip
 
-# Переменные, необходимые для установки пакетов на дистрибутиве Centos:
+# Переменные, необходимые для установки пакетов на дистрибутиве семейства RedHat:
 
 centos_packages_list:
   - bash-completion
@@ -20,7 +20,7 @@ centos_packages_list:
   - python3-pip
   - yum-utils
 
-# Переменные, необходимые для установки пакетов на дистрибутиве Ubuntu:
+# Переменные, необходимые для установки пакетов на дистрибутиве семейства Debian:
 
 ubuntu_packages_list:
   - bash-completion

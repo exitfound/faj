@@ -1,12 +1,15 @@
 ---
-# Вызов yaml файла для установки необходимых компонентов на дистрибутив семейства Debian.
-- include_tasks: ubuntu.yaml
-  when: ansible_os_family == 'Debian'
+# Вызов yaml файла для установки необходимых компонентов на дистрибутив семейства SUSE:
+- name: Invocation of the suse.yaml task
+  include_tasks: suse.yaml
+  when: ansible_os_family == 'Suse'
 
-# Вызов yaml файла для установки необходимых компонентов на дистрибутив семейства RedHat.
-- include_tasks: centos.yaml
+# Вызов yaml файла для установки необходимых компонентов на дистрибутив семейства RedHat:
+- name: Invocation of the centos.yaml task
+  include_tasks: centos.yaml
   when: ansible_os_family == 'RedHat'
 
-# Вызов yaml файла для установки необходимых компонентов на дистрибутив семейства SUSE.
-- include_tasks: suse.yaml
-  when: ansible_os_family == 'Suse'
+# Вызов yaml файла для установки необходимых компонентов на дистрибутив семейства Debian:
+- name: Invocation of the ubuntu.yaml task
+  include_tasks: ubuntu.yaml
+  when: ansible_os_family == 'Debian'

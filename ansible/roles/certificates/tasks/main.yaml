@@ -1,8 +1,10 @@
 ---
 # Вызов yaml файла для установки SSL-сертификатов на дистрибутивах семейства SUSE/RedHat:
-- include_tasks: rpm.yaml
+- name: Invocation of the rpm.yaml task
+  include_tasks: rpm.yaml
   when: (ansible_os_family == 'Suse') or (ansible_os_family == 'RedHat')
 
 # Вызов yaml файла для установки SSL-сертификатов на дистрибутиве семейства Debian:
-- include_tasks: deb.yaml
+- name: Invocation of the deb.yaml task
+  include_tasks: deb.yaml
   when: ansible_os_family == 'Debian'

@@ -7,17 +7,17 @@ jenkins_agent_directory:
   - main: /var/lib/jenkins
     ssh: /var/lib/jenkins/.ssh
 
-# Переменные, необходимые для конфигурировании Jenkins Agent, применимые на дистрибутиве OpenSUSE:
+# Переменные, необходимые для конфигурировании Jenkins Agent, применимые на дистрибутиве семейства SUSE:
 
 opensuse_agent_packages_list:
   - java-11-openjdk
 
-# Переменные, необходимые для конфигурировании Jenkins Agent, применимые на дистрибутиве Centos:
+# Переменные, необходимые для конфигурировании Jenkins Agent, применимые на дистрибутиве семейства RedHat:
 
 centos_agent_packages_list:
   - java-11-openjdk
 
-# Переменные, необходимые для конфигурировании Jenkins Agent, применимые на дистрибутиве Ubuntu:
+# Переменные, необходимые для конфигурировании Jenkins Agent, применимые на дистрибутиве семейства Debian:
 
 ubuntu_agent_packages_list:
   - openjdk-11-jdk

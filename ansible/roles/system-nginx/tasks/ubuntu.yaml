@@ -1,45 +1,51 @@
 ---
-  # Установка Nginx с помощью пакетного менеджера:
-  - name: Installing required packages on Ubuntu
-    apt: 
-      name: "{{ nginx_package_list }}"
-      state: present
-      update_cache: yes
+# Установка Nginx с помощью пакетного менеджера:
+- name: Installing required packages on Ubuntu
+  apt:
+    name: "{{ nginx_package_list }}"
+    state: present
+    update_cache: true
 
-  # Удаление стандартной конфигурации Nginx в системе:
-  - name: Delete default Nginx configuration on Ubuntu
-    file:
-      state: absent
-      path: "{{ item.path }}"
-    with_items:
-      - { path: "/etc/nginx/sites-available/default" }
-      - { path: "/etc/nginx/sites-enabled/default" }
+# Удаление стандартной конфигурации Nginx в системе:
+- name: Delete default Nginx configuration on Ubuntu
+  file:
+    state: absent
+    path: "{{ item.path }}"
+  with_items:
+    - {path: "/etc/nginx/sites-available/default"}
+    - {path: "/etc/nginx/sites-enabled/default"}
 
-  # Передача конфигурационного файла Nginx для проксирования, при обращении к Jenkins через Интернет:
-  - name: Copy Nginx config for Jenkins on Ubuntu
-    template:
-      src: templates/jenkins-master.conf.j2
-      dest: "/etc/nginx/sites-available/{{ jenkins_nginx_domain }}.conf"
-      mode: "{{ nginx_file_mode }}"
-      owner: "{{ nginx_file_owner }}"
-      group: "{{ nginx_file_group }}"
+# Передача конфигурационного файла Nginx для проксирования, при обращении к Jenkins через Интернет:
+- name: Copy Nginx config for Jenkins on Ubuntu
+  template:
+    src: templates/jenkins-master.conf.j2
+    dest: "/etc/nginx/sites-available/{{ jenkins_nginx_domain }}.conf"
+    mode: "{{ nginx_file_mode }}"
+    owner: "{{ nginx_file_owner }}"
+    group: "{{ nginx_file_group }}"
 
-  # Создание симлинка на конфигурационный файл из доступных сайтов в активные:
-  - name: Creating a symlink on Ubuntu
-    file:
-      src: "/etc/nginx/sites-available/{{ jenkins_nginx_domain }}.conf"
-      dest: "/etc/nginx/sites-enabled/{{ jenkins_nginx_domain }}.conf"
-      state: link
+# Создание симлинка на конфигурационный файл из доступных сайтов в активные:
+- name: Creating a symlink on Ubuntu
+  file:
+    src: "/etc/nginx/sites-available/{{ jenkins_nginx_domain }}.conf"
+    dest: "/etc/nginx/sites-enabled/{{ jenkins_nginx_domain }}.conf"
+    state: link
 
-  # Запуск сервиса Nginx через systemd:
-  - name: Starting Nginx service on Ubuntu
-    systemd:
-      name: nginx
-      state: started
-      enabled: yes
+# Запуск сервиса Nginx через systemd:
+- name: Starting Nginx service on Ubuntu
+  systemd:
+    name: nginx
+    state: started
+    enabled: true
 
-  # Проверка конфигурационного файла после его добавления в систему:
-  - name: Output of command Nginx -t after changes on Ubuntu
-    shell: nginx -t
-    register: command_output
-  - debug: msg="{{ command_output.stderr }}"
+# Регистрация проверки конфигурации Nginx в переменную:
+- name: Register the output of command Nginx -t after changes on Ubuntu
+  command: nginx -t
+  register: nginx_validate
+  failed_when: false
+  changed_when: false
+
+# Результат вывода переменной на экран:
+- name: The output result of our variable on Ubuntu
+  debug:
+    var: nginx_validate.stderr

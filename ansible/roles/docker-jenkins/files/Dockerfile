@@ -7,7 +7,7 @@ USER root
 RUN mkdir -p /var/jenkins_config/casc_configs/ \
     && chown -R jenkins:jenkins /var/jenkins_home /var/jenkins_config \
     && apt-get update \
-    && apt-get -y install \
+    && apt-get -y install --no-install-recommends \
         apt-utils \
         net-tools \
         iproute2 \

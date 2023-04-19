@@ -1,32 +1,33 @@
 ---
-  # Установка пакета Certbot со всеми зависимостями на DEB дистрибутивах:
-  - name: Installing required packages on remote host
-    package: 
-      name: "{{ certbot_packages_list }}"
-      state: present
-      update_cache: yes
+# Установка пакета Certbot со всеми зависимостями на DEB дистрибутивах:
+- name: Installing required packages on remote host
+  package:
+    name: "{{ certbot_packages_list }}"
+    state: present
+    update_cache: true
 
-  # Остановка сервиса Nginx на удаленном узле, для конфигурирования SSL:
-  - name: Stoping Nginx service on remote host
-    systemd:
-      name: nginx
-      state: stopped
-    ignore_errors: true
+# Остановка сервиса Nginx на удаленном узле, для конфигурирования SSL:
+- name: Stoping Nginx service on remote host
+  systemd:
+    name: nginx
+    state: stopped
+  failed_when: false
 
-  # Проверка того, был ли создан SSL-сертификат для запрашиваемого домена:
-  - name: Check if certificate already exists
-    stat:
-      path: /etc/letsencrypt/live/{{ jenkins_nginx_domain | first }}/cert.pem
-    register: letsencrypt_cert
+# Проверка того, был ли создан SSL-сертификат для запрашиваемого домена:
+- name: Check if certificate already exists
+  stat:
+    path: /etc/letsencrypt/live/{{ jenkins_nginx_domain | first }}/cert.pem
+  register: letsencrypt_cert
 
-  # Создание сертификата для указанного домена, если таковой не был обнаружен:
-  - name: Generate new certificate if one doesn't exist
-    command: "{{ certbot_create_command }}"
-    when: not letsencrypt_cert.stat.exists
+# Создание сертификата для указанного домена, если таковой не был обнаружен:
+- name: Generate new certificate if one doesn't exist
+  command: "{{ certbot_create_command }}"
+  when: not letsencrypt_cert.stat.exists
+  changed_when: false
 
-  # Запуск сервиса Certbot, для отслеживания состояния сертификата:
-  - name: Starting Certbot.timer on remote host
-    systemd:
-      name: certbot.timer
-      state: started
-      enabled: yes
+# Запуск сервиса Certbot, для отслеживания состояния сертификата:
+- name: Starting Certbot.timer on remote host
+  systemd:
+    name: certbot.timer
+    state: started
+    enabled: true

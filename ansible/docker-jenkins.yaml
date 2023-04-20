@@ -1,9 +1,9 @@
 ---
 # Вызов нескольких ролей для запуска и настройки Jenkins через Docker на удаленных узлах:
 - name: Installing and configuring Jenkins via Docker on remote hosts
-  gather_facts: yes
-  become: yes
-  hosts: 
+  gather_facts: true
+  become: true
+  hosts:
     - all
 
   pre_tasks:
@@ -28,11 +28,18 @@
         - docker_check is failed
 
     # Оповещение в случае изначально установленного Docker в системе:
-    - name: Output in case of installed Docker
+    - name: Output in case of installed Docker and Docker-compose
       debug:
-        msg: On this instance Docker is installed
+        msg:
+          - "On this instance Docker is installed"
       when: docker_check is succeeded
 
   # Вызов непосредственно самой роли Jenkins, для его последующей установки с помощью Docker:
   roles:
     - docker-jenkins
+
+  post_tasks:
+    - name: Information about the successful completion of the playbook
+      debug:
+        msg:
+          - "Your Jenkins has been successfully installed on the system"

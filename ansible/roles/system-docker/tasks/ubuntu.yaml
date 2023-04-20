@@ -21,9 +21,9 @@
 
 # Проверка того, был ли запущен docker.service в системе:
 - name: Check if Docker is working now
-  command: systemctl status docker
-  register: command_output
-  changed_when: false
+  systemd:
+    name: docker
+  register: docker_service_status
 
 # Результат выполненной ранее проверки:
 - name: The result of our test

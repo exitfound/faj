@@ -1,8 +1,9 @@
+---
 # Вызов нескольких ролей по установке Nginx в сочетании с сертификатами от Certbot на удаленном узле, для проксирования запросов при обращении к Jenkins:
 - name: Configuring Nginx with Cerbot on remote hosts
-  gather_facts: yes
-  become: yes
-  hosts: 
+  gather_facts: true
+  become: true
+  hosts:
     - all
 
   pre_tasks:
@@ -15,3 +16,9 @@
   # Вызов непосредственно самой роли Nginx, для его последующего использования в сочетании с Jenkins и SSL:
   roles:
     - system-nginx
+
+  post_tasks:
+    - name: Information about the successful completion of the playbook
+      debug:
+        msg:
+          - "Your Nginx + TLS has been successfully installed on the system"

@@ -32,6 +32,7 @@
     group: "{{ jenkins_file_group }}"
   with_fileglob:
     - ../templates/*.j2
+  failed_when: false
 
 # Запуск Jenkins с помощью docker-compose на удаленном узле:
 - name: Run Jenkins via docker-compose on OpenSUSE

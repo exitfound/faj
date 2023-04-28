@@ -11,8 +11,6 @@ RUN mkdir -p /var/jenkins_config/casc_configs/ \
         apt-utils \
         net-tools \
         iproute2 \
-        apt-transport-https \
-        ca-certificates \
     && apt-get clean \
     && apt-get autoremove -y \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ \

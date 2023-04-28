@@ -4,8 +4,8 @@ LABEL maintainer="Ivan Medaev"
 
 USER root
 
-RUN mkdir -p /var/jenkins_config/casc_configs/ \
-    && chown -R jenkins:jenkins /var/jenkins_home /var/jenkins_config \
+RUN mkdir -p /var/jenkins_config/casc_configs/ /var/jenkins_backup \
+    && chown -R jenkins:jenkins /var/jenkins_home /var/jenkins_config /var/jenkins_backup \
     && apt-get update \
     && apt-get -y install --no-install-recommends \
         apt-utils \

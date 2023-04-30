@@ -16,7 +16,7 @@ help()
 {
   echo -e "These are the possible options to use: \n"
   echo -e "        [ -o | --old-jenkins ]          Specify the address of the Old Jenkins from which you want to export jobs.
-        [ -n | --new-jenkins ]          Specify the address of the Old Jenkins where you want to import the jobs.
+        [ -n | --new-jenkins ]          Specify the address of the New Jenkins where you want to import the jobs.
         [ -u | --old-jenkins-user ]     Specify a user in Old Jenkins to access jobs.
         [ -p | --old-jenkins-password ] Specify a password for user in Old Jenkins to access jobs.
         [ -U | --new-jenkins-user ]     Specify a user in New Jenkins to upload jobs.

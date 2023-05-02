@@ -8,7 +8,7 @@
       uri:
         url: "http://127.1:8080"
         return_content: true
-        status_code: 403
+        status_code: 200
       register: output
 
     # Результат выполненной ранее проверки:

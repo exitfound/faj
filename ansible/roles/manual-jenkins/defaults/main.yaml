@@ -1,6 +1,19 @@
 ---
 
-# Переменные, необходимые для установки пакетов на дистрибутиве OpenSUSE:
+# Переменные, необходимые для установки и настройки Jenkins, применимые ко всем дистрибутивам в равной степени:
+
+jenkins_working_dir: /var/lib/jenkins
+jenkins_dir_mode: "u=rwx,g=rx,o=rx"
+jenkins_file_mode: "u=rw,g=r,o=r"
+jenkins_file_owner: jenkins
+jenkins_file_group: jenkins
+jenkins_war_path: /usr/share/java/jenkins.war
+jenkins_casc_dir: /var/lib/jenkins/casc_configs/
+jenkins_plugins_dir: /var/lib/jenkins/plugins
+jenkins_systemd_filename: jenkins.service
+jenkins_plugin_manager: https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download/2.12.11/jenkins-plugin-manager-2.12.11.jar
+
+# Переменные, необходимые для конфигурирования Jenkins на дистрибутиве семейства SUSE:
 
 opensuse_zypper_key: https://pkg.jenkins.io/opensuse/jenkins.io-2023.key
 opensuse_zypper_repository: https://pkg.jenkins.io/opensuse-stable/
@@ -10,7 +23,7 @@ opensuse_packages_list:
   - fontconfig
   - jenkins
 
-# Переменные, необходимые для установки пакетов на дистрибутиве Centos:
+# Переменные, необходимые для установки пакетов на дистрибутиве семейства Redhat:
 
 centos_yum_key: https://pkg.jenkins.io/redhat/jenkins.io-2023.key
 centos_yum_repository: http://pkg.jenkins.io/redhat-stable
@@ -20,7 +33,7 @@ centos_packages_list:
   - fontconfig
   - jenkins
 
-# Переменные, необходимые для установки пакетов на дистрибутиве Ubuntu:
+# Переменные, необходимые для установки пакетов на дистрибутиве семейства Debian:
 
 ubuntu_apt_key: "https://pkg.jenkins.io/debian/jenkins.io-2023.key"
 ubuntu_dest_key: "/etc/apt/trusted.gpg.d/jenkins.asc"
@@ -29,4 +42,6 @@ ubuntu_packages_list:
   - openjdk-11-jdk
   - openjdk-11-jre
   - fontconfig
+
+ubuntu_package_jenkins:
   - jenkins

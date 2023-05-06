@@ -1,23 +1,23 @@
 ---
 
-# Переменные, необходимые для конфигурирования Jenkins Agent, применимые на всех дистрибутивах в равной мере:
+# Переменные, необходимые для установки и настройки Jenkins Agent, применимые ко всем дистрибутивам в равной степени:
 jenkins_agent_template_mode: "u=rw,g=r,o=r"
 jenkins_agent_directory_mode: "u=rwx"
 jenkins_agent_directory:
   - main: /var/lib/jenkins
     ssh: /var/lib/jenkins/.ssh
 
-# Переменные, необходимые для конфигурировании Jenkins Agent, применимые на дистрибутиве семейства SUSE:
+# Переменные, необходимые для конфигурирования Jenkins Agent на дистрибутиве семейства SUSE:
 
 opensuse_agent_packages_list:
   - java-11-openjdk
 
-# Переменные, необходимые для конфигурировании Jenkins Agent, применимые на дистрибутиве семейства RedHat:
+# Переменные, необходимые для конфигурирования Jenkins Agent на дистрибутиве семейства RedHat:
 
 centos_agent_packages_list:
   - java-11-openjdk
 
-# Переменные, необходимые для конфигурировании Jenkins Agent, применимые на дистрибутиве семейства Debian:
+# Переменные, необходимые для конфигурирования Jenkins Agent на дистрибутиве семейства Debian:
 
 ubuntu_agent_packages_list:
   - openjdk-11-jdk

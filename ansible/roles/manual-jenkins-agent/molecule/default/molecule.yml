@@ -1,0 +1,145 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+platforms:
+  - name: opensuse15.3
+    image: mdd13/ansible-docker-suse:opensuse15.3
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    capabilities:
+      - SYS_ADMIN
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    override_command: false
+
+  - name: opensuse15.4
+    image: mdd13/ansible-docker-suse:opensuse15.4
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    capabilities:
+      - SYS_ADMIN
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    override_command: false
+
+  - name: centos8
+    image: mdd13/ansible-docker-centos:centos8
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    capabilities:
+      - SYS_ADMIN
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    override_command: false
+
+  - name: centos9
+    image: mdd13/ansible-docker-centos:centos9
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    capabilities:
+      - SYS_ADMIN
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    override_command: false
+
+  - name: debian10
+    image: mdd13/ansible-docker-debian:debian-10
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    privileged: true
+    capabilities:
+      - SYS_ADMIN
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    override_command: false
+
+  - name: debian11
+    image: mdd13/ansible-docker-debian:debian-11
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    privileged: true
+    capabilities:
+      - SYS_ADMIN
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    override_command: false
+
+  - name: ubuntu20.04
+    image: mdd13/ansible-docker-ubuntu:ubuntu20.04
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    privileged: true
+    capabilities:
+      - SYS_ADMIN
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    override_command: false
+    security_opts:
+      - seccomp=unconfined
+
+  - name: ubuntu22.04
+    image: mdd13/ansible-docker-ubuntu:ubuntu22.04
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    privileged: true
+    capabilities:
+      - SYS_ADMIN
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    override_command: false
+    security_opts:
+      - seccomp=unconfined
+
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_STDOUT_CALLBACK: yaml
+  inventory:
+    group_vars:
+      all:
+        jenkins_agent_user: "jenkins-agent"
+        jenkins_agent_group: "jenkins-agent"
+        jenkins_agent_public_key: "ssh-rsa yourpublickey"
+
+verifier:
+  name: ansible
+
+lint: |
+  yamllint -c ../../../.yamllint .
+  ansible-lint .

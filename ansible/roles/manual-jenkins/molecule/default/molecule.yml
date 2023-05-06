@@ -137,4 +137,3 @@ verifier:
 lint: |
   yamllint -c ../../../.yamllint .
   ansible-lint .
-  exit 0

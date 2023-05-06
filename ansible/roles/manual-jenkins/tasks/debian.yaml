@@ -1,25 +1,35 @@
 ---
-# Добавление GPG ключа для последующей установки Jenkins из пакетного менеджера:
-- name: Import GPG key to ensure your software on SUSE family distro
-  rpm_key:
-    key: "{{ opensuse_zypper_key }}"
+# Добавление ключа репозитория для последующей установки Jenkins из пакетного менеджера:
+- name: Adding Jenkins repository key on Debian family distro
+  get_url:
+    url: "{{ ubuntu_apt_key }}"
+    dest: "{{ ubuntu_dest_key }}"
+    mode: "{{ jenkins_file_mode }}"
+    owner: "0"
+    group: "0"
+
+# Добавление адреса репозитория Jenkins в sources.list:
+- name: Adding package repository address to sources.list on Debian family distro
+  apt_repository:
+    repo: "deb [signed-by={{ ubuntu_dest_key }}] {{ ubuntu_apt_repository }} binary/"
+    state: present
+    filename: jenkins
+    update_cache: true
+
+# Установка предварительно необходимых пакетов для запуска Jenkins:
+- name: Installing required packages on Debian family distro
+  apt:
+    name: "{{ ubuntu_packages_list }}"
     state: present
 
-# Создание файла и добавление адреса репозитория Jenkins в zypp.repos.d:
-- name: Adding package repository address on SUSE family distro
-  zypper_repository:
-    name: jenkins
-    state: present
-    repo: "{{ opensuse_zypper_repository }}"
-
-# Установка необходимых пакетов для успешного запуска Jenkins:
-- name: Installing required packages on SUSE family distro
-  zypper:
-    name: "{{ opensuse_packages_list }}"
+# Установка непосредственно самого пакета Jenkins:
+- name: Installing Jenkins package on Debian family distro
+  apt:
+    name: "{{ ubuntu_package_jenkins }}"
     state: present
 
-# Создание директорий для хранения CasC конфигурации в Jenkins:
-- name: Create CasC configuration directory on SUSE family distro
+# Создание директории для хранения CasC конфигурации в Jenkins:
+- name: Create CasC configuration directory on Debian family distro
   file:
     state: directory
     path: "{{ jenkins_casc_dir }}"
@@ -28,7 +38,7 @@
     group: "{{ jenkins_file_group }}"
 
 # Копирование файлов из директории files и их последующая передача в рабочую директорию Jenkins:
-- name: Copy plugin file in work directory Jenkins on SUSE family distro
+- name: Copy plugin file in work directory Jenkins on Debian family distro
   copy:
     src: files/plugins.txt
     dest: "{{ jenkins_working_dir }}"
@@ -37,7 +47,7 @@
     group: "{{ jenkins_file_group }}"
 
 # Копирование файлов из директории templates и их последующая передача в рабочую директорию Jenkins:
-- name: Copy template jcasc configs in directory casc_configs on SUSE family distro
+- name: Copy template CasC configs in directory casc_configs on Debian family distro
   template:
     src: "{{ item }}"
     dest: "{{ jenkins_casc_dir }}/{{ item | basename | regex_replace('\\.j2$', '') }}"
@@ -49,16 +59,16 @@
   failed_when: false
 
 # Копирование файлов из директории templates и их последующая передача в рабочую директорию Jenkins:
-- name: Copy custom Jenkins systemd config on SUSE family distro
+- name: Copy custom Jenkins systemd config on Debian family distro
   template:
-    src: templates/jenkins.suse.service.j2
-    dest: "/usr/lib/systemd/system/{{ jenkins_systemd_filename }}"
+    src: templates/jenkins.debian.service.j2
+    dest: "/lib/systemd/system/{{ jenkins_systemd_filename }}"
     mode: "{{ jenkins_file_mode }}"
     owner: "0"
     group: "0"
 
 # Загрузка утилиты из Github-репозитория для автоматической установки всех плагинов в Jenkins:
-- name: Download Plugin Installation Manager for installing plugins from file plugins.txt on SUSE family distro
+- name: Download Plugin Installation Manager for installing plugins from file plugins.txt on Debian family distro
   get_url:
     url: "{{ jenkins_plugin_manager }}"
     dest: "{{ jenkins_working_dir }}"
@@ -67,12 +77,12 @@
     group: "{{ jenkins_file_group }}"
 
 # Непосредственно сама установка всех плагинов с помощью утилиты Plugin Installation Manager в Jenkins:
-- name: Installing all plugins using the Plugin Installation Manager on SUSE family distro
+- name: Installing all plugins using the Plugin Installation Manager on Debian family distro
   shell: cd {{ jenkins_working_dir }} && java -jar jenkins-plugin-manager-*.jar -w {{ jenkins_war_path }} -d plugins -f plugins.txt
   changed_when: false
 
 # Изменение прав у директории plugins после установки плагинов из файла plugins.txt в Jenkins:
-- name: Changing directory permissions after installing plugins on SUSE family distro
+- name: Changing directory permissions after installing plugins on Debian family distro
   file:
     path: "{{ jenkins_plugins_dir }}"
     mode: "{{ jenkins_dir_mode }}"
@@ -81,13 +91,8 @@
     recurse: true
   changed_when: false
 
-# Исправление ошибки, из-за которой добавление в автозагрузку не срабатывает по умолчанию (только для SUSE):
-- name: Change filename to fix systemd error on SUSE family distro
-  shell: if [ -e /etc/init.d/jenkins ]; then mv /etc/init.d/jenkins /etc/init.d/jks; else exit 0; fi
-  changed_when: false
-
 # Запуск и добавление в автозагрузку сервиса Jenkins с помощью systemd:
-- name: Starting Jenkins service on SUSE family distro
+- name: Starting Jenkins service on Debian family distro
   service:
     name: jenkins
     state: started

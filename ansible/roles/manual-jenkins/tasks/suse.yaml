@@ -37,7 +37,7 @@
     group: "{{ jenkins_file_group }}"
 
 # Копирование файлов из директории templates и их последующая передача в рабочую директорию Jenkins:
-- name: Copy template jcasc configs in directory casc_configs on SUSE family distro
+- name: Copy template CasC configs in directory casc_configs on SUSE family distro
   template:
     src: "{{ item }}"
     dest: "{{ jenkins_casc_dir }}/{{ item | basename | regex_replace('\\.j2$', '') }}"

@@ -9,6 +9,7 @@
   # Вызов непосредственно самой роли, для последующей установки Jenkins с помощью Docker:
   roles:
     - docker-jenkins
+
   # Вывод сообщения на предмет того, что Jenkins был успешно установлен и запущен в системе:
   post_tasks:
     - name: Information about the successful completion of the playbook

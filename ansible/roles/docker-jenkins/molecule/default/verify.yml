@@ -3,10 +3,10 @@
 - name: Verify
   hosts: all
   tasks:
-
-    - name: zalooooooooooooooooooooopa
+    # Добавление интервала по времени для загрузки Jenkins:
+    - name: Waiting 20 second for checking Jenkins
       wait_for:
-        timeout: 30
+        timeout: 20
 
     # Проверка доступности Jenkins после установки:
     - name: Checking Jenkins for availability

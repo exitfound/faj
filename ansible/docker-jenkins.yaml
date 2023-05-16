@@ -6,38 +6,10 @@
   hosts:
     - all
 
-  pre_tasks:
-    # Вызов роли system-prepare для последующей установки всех необходимых пакетов:
-    - name: Running a role for preparing remote systems
-      include_role:
-        name: system-prepare
-        tasks_from: main.yaml
-
-    # Вызов роли Docker для проверки на наличие приложения в системе:
-    - name: Check if Docker is installed on remote hosts
-      command: docker info
-      register: docker_check
-      ignore_errors: true
-
-    # Вызов роли Docker для установки, со всеми необходимыми компонентами, для будущего запуска Jenkins через Docker на удаленных узлах:
-    - name: Installing Docker on remote hosts, before Jenkins
-      include_role:
-        name: system-docker
-        tasks_from: main.yaml
-      when:
-        - docker_check is failed
-
-    # Оповещение в случае изначально установленного Docker в системе:
-    - name: Output in case of installed Docker and Docker-compose
-      debug:
-        msg:
-          - "On this instance Docker is installed"
-      when: docker_check is succeeded
-
-  # Вызов непосредственно самой роли Jenkins, для его последующей установки с помощью Docker:
+  # Вызов непосредственно самой роли, для последующей установки Jenkins с помощью Docker:
   roles:
     - docker-jenkins
-
+  # Вывод сообщения на предмет того, что Jenkins был успешно установлен и запущен в системе:
   post_tasks:
     - name: Information about the successful completion of the playbook
       debug:

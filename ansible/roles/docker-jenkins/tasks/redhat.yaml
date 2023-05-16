@@ -1,18 +1,18 @@
 ---
 # Вызов предварительной роли system-prepare для полноценного запуска текущей:
-- name: Import system-prepare role for running main role on SUSE family distro
+- name: Import system-prepare role for running main role on RedHat family distro
   import_role:
     name: system-prepare
     tasks_from: main
 
 # Вызов предварительной роли system-docker для полноценного запуска текущей:
-- name: Import system-docker role for running main role on SUSE family distro
+- name: Import system-docker role for running main role on RedHat family distro
   import_role:
     name: system-docker
     tasks_from: main
 
 # Создание директорий для хранения данных и конфигурации Jenkins:
-- name: Create Jenkins directories on SUSE family distro
+- name: Create Jenkins directories on Centos on RedHat family distro
   file:
     state: directory
     path: "{{ item.path }}"
@@ -27,7 +27,7 @@
   changed_when: false
 
 # Копирование файлов из директории files и их последующая передача в директорию jenkins_config:
-- name: Copy Docker files in directory jenkins_config on SUSE family distro
+- name: Copy Docker files in directory jenkins_config on RedHat family distro
   copy:
     src: files/
     dest: "{{ jenkins_docker_dir }}"
@@ -36,7 +36,7 @@
     group: "{{ jenkins_file_group }}"
 
 # Копирование файлов из директории templates и их последующая передача в директорию jenkins_config:
-- name: Copy CasC templates configs in directory jenkins_config on SUSE family distro
+- name: Copy CasC templates configs in directory jenkins_config on RedHat family distro
   template:
     src: "{{ item }}"
     dest: "{{ jenkins_config_dir }}/{{ item | basename | regex_replace('\\.j2$', '') }}"
@@ -47,7 +47,7 @@
     - ../templates/*.j2
 
 # Запуск Jenkins с помощью docker-compose на удаленном узле:
-- name: Run Jenkins via docker-compose on SUSE family distro
+- name: Run Jenkins via docker-compose on RedHat family distro
   docker_compose:
     build: true
     files: "{{ jenkins_file_compose }}"
@@ -57,6 +57,6 @@
   changed_when: false
 
 # Результат вывода переменной на экран:
-- name: The output result of our variable on SUSE family distro
+- name: The output result of our variable on RedHat family distro
   debug:
     var: docker_compose_output

@@ -1,0 +1,23 @@
+---
+# Данный файл используется для выполнения шагов на предмет проверки доступности запускаемого нами приложения:
+- name: Verify
+  hosts: all
+  tasks:
+
+    - name: zalooooooooooooooooooooopa
+      wait_for:
+        timeout: 30
+
+    # Проверка доступности Jenkins после установки:
+    - name: Checking Jenkins for availability
+      uri:
+        url: "http://127.1:8080"
+        method: GET
+        return_content: true
+        status_code: [503, 403]
+      register: output
+
+    # Результат выполненной ранее проверки:
+    - name: Output the result of a registered variable
+      debug:
+        msg: "{{ output.content }}"

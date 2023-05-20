@@ -1,6 +1,6 @@
 ---
 # Обновление всех пакетов на указанном дистрибутиве:
-- name: Update all packages on Centos
+- name: Update all packages on RedHat family distro
   yum:
     name: '*'
     state: latest
@@ -9,14 +9,15 @@
     - update
 
 # Установка пакетов rpm из списка необходимых, которые определены в виде переменной, в директории defaults:
-- name: Installing required packages on Centos
+- name: Installing required packages on RedHat family distro
   yum:
     name: "{{ centos_packages_list }}"
     state: present
     update_cache: true
 
 # Установка пакетов pip из списка необходимых, которые определены в виде переменной, в директории defaults:
-- name: Installing required packages for pip on Centos
+- name: Installing required packages for pip on RedHat family distro
   pip:
     name: "{{ pip_packages_list }}"
     state: present
+    executable: pip3

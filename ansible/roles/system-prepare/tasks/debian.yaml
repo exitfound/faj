@@ -1,6 +1,6 @@
 ---
 # Обновление всех пакетов на указанном дистрибутиве:
-- name: Updating all packages on Ubuntu
+- name: Updating all packages on Debian family distro
   apt:
     name: '*'
     state: latest
@@ -9,14 +9,15 @@
     - update
 
 # Установка пакетов apt из списка необходимых, которые определены в виде переменной, в директории defaults:
-- name: Installing required packages on Ubuntu
+- name: Installing required packages on Debian family distro
   apt:
     name: "{{ ubuntu_packages_list }}"
     state: present
     update_cache: true
 
 # Установка пакетов pip из списка необходимых, которые определены в виде переменной, в директории defaults:
-- name: Installing required packages for pip on Ubuntu
+- name: Installing required packages for pip on Debian family distro
   pip:
     name: "{{ pip_packages_list }}"
     state: present
+    executable: pip3

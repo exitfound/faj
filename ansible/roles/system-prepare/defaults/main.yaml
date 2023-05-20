@@ -23,5 +23,11 @@ centos_packages_list:
 # Переменные, необходимые для установки пакетов на дистрибутиве семейства Debian:
 
 ubuntu_packages_list:
+  - apt-transport-https
   - bash-completion
+  - ca-certificates
+  - curl
+  - gnupg
+  - python3
   - python3-pip
+  - python3-setuptools

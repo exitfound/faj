@@ -1,0 +1,75 @@
+---
+# Удаление старой версии Docker, если таковая была установлена ранее:
+- name: Ensure that old versions of Docker are not installed on Debian family distro
+  package:
+    name:
+      - docker
+      - docker.io
+      - docker-engine
+    state: absent
+
+# Создание группы с именем docker для последюущего использования в системе:
+- name: Ensure that docker group exists on Debian family distro
+  group:
+    name: docker
+    state: present
+
+# Добавление ключа репозитория для последующей установки Docker из пакетного менеджера:
+- name: Adding Docker repository key on Debian family distro
+  get_url:
+    url: "{{ debian_docker_apt_key }}"
+    dest: "{{ debian_docker_dest_key }}"
+    mode: "{{ debian_docker_file_mode }}"
+    owner: "0"
+    group: "0"
+    force: true
+
+# Добавление адреса репозитория для последующей установки Docker из пакетного менеджера:
+- name: Adding package repository address to sources.list on Debian family distro
+  apt_repository:
+    repo: "deb [arch=amd64 signed-by={{ debian_docker_dest_key }}] {{ debian_docker_apt_repository }} {{ ansible_distribution_release }} stable"
+    state: present
+    update_cache: true
+
+# Установка Docker с помощью пакетного менеджера:
+- name: Installing Docker on Debian family distro
+  apt:
+    name: docker-ce
+    state: present
+    update_cache: true
+
+# Запуск сервиса Docker через systemd:
+- name: Starting Docker service on Debian family distro
+  service:
+    name: docker
+    state: started
+    enabled: true
+
+# Проверка того, был ли запущен docker.service в системе:
+- name: Check if Docker is working now on Debian family distro
+  systemd:
+    name: docker
+  register: docker_service_status
+
+# Результат выполненной ранее проверки:
+- name: The result of our test on Debian family distro
+  debug:
+    var: docker_service_status.status.ActiveState
+
+# Проверка того, установлен ли Docker-compose в системе:
+- name: Check if Docker-compose is installed on Debian family distro
+  command: "{{ docker_compose_dest }} --version"
+  register: docker_compose_check
+  ignore_errors: true
+  changed_when: false
+
+# Установка Docker-compose в случае его отсуствия в системе:
+- name: Installing docker-compose on Debian family distro
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-linux-x86_64"
+    dest: "{{ docker_compose_dest }}"
+    mode: 'a+x'
+    force: true
+  when:
+    - docker_compose_check.msg is defined
+    - docker_compose_check.msg.find('No such file or directory') != -1

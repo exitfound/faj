@@ -3,6 +3,6 @@
 - name: Verify
   hosts: all
   tasks:
-  - name: Output the result
-    assert:
-      that: true
+    - name: Output the result
+      assert:
+        that: true

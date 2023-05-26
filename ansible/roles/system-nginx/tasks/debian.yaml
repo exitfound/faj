@@ -1,13 +1,13 @@
 ---
 # Установка Nginx с помощью пакетного менеджера:
-- name: Installing required packages on Ubuntu
+- name: Installing required packages on Debian family distro
   apt:
     name: "{{ nginx_package_list }}"
     state: present
     update_cache: true
 
 # Удаление стандартной конфигурации Nginx в системе:
-- name: Delete default Nginx configuration on Ubuntu
+- name: Delete default Nginx configuration on Debian family distro
   file:
     state: absent
     path: "{{ item.path }}"
@@ -16,36 +16,38 @@
     - {path: "/etc/nginx/sites-enabled/default"}
 
 # Передача конфигурационного файла Nginx для проксирования, при обращении к Jenkins через Интернет:
-- name: Copy Nginx config for Jenkins on Ubuntu
+- name: Copy Nginx config for Jenkins on Debian family distro
   template:
     src: templates/jenkins-master.conf.j2
     dest: "/etc/nginx/sites-available/{{ jenkins_nginx_domain }}.conf"
     mode: "{{ nginx_file_mode }}"
     owner: "{{ nginx_file_owner }}"
     group: "{{ nginx_file_group }}"
+  notify: Restart Nginx
 
 # Создание симлинка на конфигурационный файл из доступных сайтов в активные:
-- name: Creating a symlink on Ubuntu
+- name: Creating a symlink on Debian family distro
   file:
     src: "/etc/nginx/sites-available/{{ jenkins_nginx_domain }}.conf"
     dest: "/etc/nginx/sites-enabled/{{ jenkins_nginx_domain }}.conf"
     state: link
 
-# Запуск сервиса Nginx через systemd:
-- name: Starting Nginx service on Ubuntu
-  systemd:
-    name: nginx
-    state: started
-    enabled: true
-
 # Регистрация проверки конфигурации Nginx в переменную:
-- name: Register the output of command Nginx -t after changes on Ubuntu
+- name: Register the output of command Nginx -t after changes on Debian family distro
   command: nginx -t
   register: nginx_validate
   failed_when: false
   changed_when: false
 
 # Результат вывода переменной на экран:
-- name: The output result of our variable on Ubuntu
+- name: The output result of our variable on Debian family distro
   debug:
     var: nginx_validate.stderr
+
+# Запуск сервиса Nginx через systemd:
+- name: Starting Nginx service on Debian family distro
+  systemd:
+    name: nginx
+    state: started
+    daemon_reload: true
+    enabled: true

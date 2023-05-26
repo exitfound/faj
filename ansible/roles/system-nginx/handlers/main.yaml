@@ -1,0 +1,6 @@
+---
+# Перезапуск Nginx в случае обновления конфигурации в системе:
+- name: Restart Nginx
+  systemd:
+    name: nginx
+    state: reloaded

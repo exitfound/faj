@@ -1,0 +1,55 @@
+---
+# Включение HTTPS трафика на дистрибутиве:
+- name: Enable httpd trafic via SELinux on RedHat family distro
+  command: setsebool -P httpd_can_network_connect 1
+  changed_when: false
+  failed_when: false
+
+# Установка Nginx с помощью пакетного менеджера:
+- name: Installing required packages on RedHat family distro
+  yum:
+    name: "{{ nginx_package_list }}"
+    state: present
+    update_cache: true
+
+# Передача конфигурационного файла Nginx для проксирования, при обращении к Jenkins через Интернет:
+- name: Copy Nginx config for Jenkins on RedHat family distro
+  template:
+    src: templates/jenkins-master.conf.j2
+    dest: "/etc/nginx/conf.d/{{ jenkins_nginx_domain }}.conf"
+    mode: "{{ nginx_file_mode }}"
+    owner: "{{ nginx_file_owner }}"
+    group: "{{ nginx_file_group }}"
+  notify: Restart Nginx
+
+# Устранение проблемы, из-за которой Centos 8 не воспринимает конфиг, лежащий в conf.d:
+- name: Delete default_server option in default config on RedHat family distro
+  lineinfile:
+    path: "/etc/nginx/nginx.conf"
+    regexp: "listen       80 default_server;"
+    line: "        listen       80;"
+    state: present
+    mode: "{{ nginx_file_mode }}"
+    owner: "{{ nginx_file_owner }}"
+    group: "{{ nginx_file_group }}"
+  when: ansible_distribution == 'CentOS' and ansible_distribution_version == '8'
+
+# Регистрация проверки конфигурации Nginx в переменную:
+- name: Output of command Nginx -t after changes on RedHat family distro
+  command: nginx -t
+  register: nginx_validate
+  failed_when: false
+  changed_when: false
+
+# Результат вывода переменной на экран:
+- name: The output result of our variable on RedHat family distro
+  debug:
+    var: nginx_validate.stderr
+
+# Запуск сервиса Nginx через systemd:
+- name: Starting Nginx service on RedHat family distro
+  systemd:
+    name: nginx
+    state: started
+    daemon_reload: true
+    enabled: true

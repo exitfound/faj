@@ -1,3 +1,31 @@
+{% if nginx_protocol_working == "http" %}
+
+upstream jenkins-master {
+    server 127.0.0.1:8080;
+}
+
+server {
+    access_log      /var/log/nginx/jenkins.access.log;
+    error_log       /var/log/nginx/jenkins.error.log;
+
+    listen 80;
+    listen [::]:80 ipv6only=on;
+    server_name {{ jenkins_nginx_domain }}; 
+
+    location / {
+        sendfile off;
+        proxy_pass         http://jenkins-master;
+        proxy_set_header   X-Forwarded-Host  $host;
+        proxy_set_header   X-Forwarded-Port  $server_port;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+        proxy_max_temp_file_size 0;
+    }
+}
+
+{% elif nginx_protocol_working == "https" %}
+
 upstream jenkins-master {
     server 127.0.0.1:8080;
 }
@@ -37,3 +65,7 @@ server {
     server_name {{ jenkins_nginx_domain }} www.{{ jenkins_nginx_domain }};
     return 301 https://{{ jenkins_nginx_domain }}$request_uri;
 }
+
+{% else %}
+    NONE
+{% endif %}

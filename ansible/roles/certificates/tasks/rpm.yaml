@@ -1,40 +1,32 @@
 ---
 # Установка пакета Certbot со всеми зависимостями на RPM дистрибутивах:
-- name: Installing required packages on remote host
+- name: Installing required packages on RPM family distro
   package:
     name: "{{ certbot_packages_list }}"
     state: present
     update_cache: true
 
-# Установка специфического пакета Certbot, который не входит в пакет cerbot по умолчанию (только OpenSUSE):
-- name: Installing systemd package for Certbot on OpenSUSE
+# Установка специфического пакета Certbot, необходимый для работы Certbot (только SUSE):
+- name: Installing systemd package for Certbot on SUSE family distro
   package:
-    name: "{{ opensuse_additional_list }}"
+    name: "{{ opensuse_zypper_packages_list }}"
     state: present
-    update_cache: true
   when: ansible_os_family == 'Suse'
 
-# Остановка сервиса Nginx на удаленном узле, для конфигурирования SSL:
-- name: Stoping Nginx service on remote host
-  systemd:
-    name: nginx
-    state: stopped
-  failed_when: false
-
 # Проверка того, был ли создан SSL-сертификат для запрашиваемого домена:
-- name: Check if certificate already exists in system
+- name: Check if certificate already exists on RPM family distro
   stat:
     path: /etc/letsencrypt/live/{{ jenkins_nginx_domain | first | replace('*.', '') }}/cert.pem
   register: letsencrypt_cert
 
 # Создание сертификата для указанного домена, если таковой не был обнаружен:
-- name: Generate new certificate if one doesn't exist
+- name: Generate new certificate if one doesn't exist on RPM family distro
   command: "{{ certbot_create_command }}"
   when: not letsencrypt_cert.stat.exists
   changed_when: false
 
 # Запуск сервиса Certbot-renew, для отслеживания состояния сертификата:
-- name: Starting Certbot-renew.timer on remote host
+- name: Starting Certbot-renew.timer on RPM family distro
   systemd:
     name: certbot-renew.timer
     state: started

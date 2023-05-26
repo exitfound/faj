@@ -1,3 +1,7 @@
+# Переменная, которая определяет, какой конфиг Nginx будет использоваться на конечном сервере – с или без SSL от Certbot:
+
+nginx_protocol_working: "http"
+
 # Переменные, используемые для выполнения роли certificates:
 
 certbot_email_address: "evoukin@gmail.com"

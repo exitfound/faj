@@ -12,13 +12,15 @@
       include_role:
         name: certificates
         tasks_from: main.yaml
+      when: nginx_protocol_working == "https"
 
   # Вызов непосредственно самой роли Nginx, для его последующего использования в сочетании с Jenkins и SSL:
   roles:
     - system-nginx
 
+  # Информирование о том, что Nginx (+ SSL) был успешно установлен в системе:
   post_tasks:
     - name: Information about the successful completion of the playbook
       debug:
         msg:
-          - "Your Nginx + TLS has been successfully installed on the system"
+          - "Your Nginx (+ TLS) has been successfully installed on the system"

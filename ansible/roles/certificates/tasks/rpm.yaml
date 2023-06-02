@@ -21,7 +21,7 @@
 
 # Создание сертификата для указанного домена, если таковой не был обнаружен:
 - name: Generate new certificate if one doesn't exist on RPM family distro
-  command: "{{ certbot_create_command }}"
+  command: "{{ certificates_certbot_create_command }}"
   when: not letsencrypt_cert.stat.exists
   changed_when: false
 

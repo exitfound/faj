@@ -9,17 +9,17 @@
 # Создание группы пользователя в системе для успешной работы Jenkins Agent:
 - name: Creating a specific group on Debian family distro
   group:
-    name: "{{ jenkins_agent_group }}"
+    name: "{{ manual_jenkins_agent_group }}"
     state: present
 
 # Создание пользователя в системе для выполнения последующих задач в роли Jenkins Agent:
 - name: Creating a specific user for future actions on Debian family distro
   user:
-    name: "{{ jenkins_agent_user }}"
+    name: "{{ manual_jenkins_agent_user }}"
     shell: "/bin/bash"
     state: present
     home: "{{ item.main }}"
-    group: "{{ jenkins_agent_group }}"
+    group: "{{ manual_jenkins_agent_group }}"
   with_items:
     - "{{ jenkins_agent_directory }}"
 
@@ -29,22 +29,22 @@
     state: directory
     path: "{{ item.path }}"
     mode: "{{ jenkins_agent_directory_mode }}"
-    owner: "{{ jenkins_agent_user }}"
-    group: "{{ jenkins_agent_group }}"
+    owner: "{{ manual_jenkins_agent_user }}"
+    group: "{{ manual_jenkins_agent_group }}"
   with_items:
     - {path: "{{ jenkins_agent_directory }}"}
 
 # Добавление публичного SSH-ключа для работы с Jenkins Agent:
 - name: Add SSH public key for specific user on Debian family distro
   authorized_key:
-    user: "{{ jenkins_agent_user }}"
+    user: "{{ manual_jenkins_agent_user }}"
     state: present
-    key: "{{ jenkins_agent_public_key }}"
+    key: "{{ manual_jenkins_agent_public_key }}"
     validate_certs: false
 
 # Предоставление прав sudo для созданного ранее пользователя, для работы Jenkins Agent:
 - name: Setting sudo permissions for the created user on Debian family distro
   template:
     src: "templates/jenkins-agent.j2"
-    dest: "/etc/sudoers.d/{{ jenkins_agent_user }}"
+    dest: "/etc/sudoers.d/{{ manual_jenkins_agent_user }}"
     mode: "{{ jenkins_agent_template_mode }}"

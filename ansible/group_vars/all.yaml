@@ -1,17 +1,23 @@
-# Переменная, которая определяет, какой конфиг Nginx будет использоваться на конечном сервере – с или без SSL от Certbot:
+# Глобальные переменные, используемые для выполнения роли certificates:
 
-nginx_protocol_working: "http"
+certificates_nginx_protocol_working: "http" # Переменная, определяющая, какой конфиг Nginx будет использоваться на конечном сервере – с или без SSL от Certbot:
+certificates_certbot_email_address: "evoukin@gmail.com"
+certificates_certbot_create_command: "certbot certonly --noninteractive --nginx --agree-tos --email {{ certificates_certbot_email_address }} --domains {{ jenkins_nginx_domain }}"
 
-# Переменные, используемые для выполнения роли certificates:
+# Глобальные переменные, используемые для выполнения роли docker-jenkins-agent:
 
-certbot_email_address: "evoukin@gmail.com"
-certbot_create_command: "certbot certonly --noninteractive --nginx --agree-tos --email {{ certbot_email_address }} --domains {{ jenkins_nginx_domain }}"
+docker_jenkins_agent_name: "docker-jenkins-agent"
+docker_jenkins_agent_image: "jenkins/ssh-agent:alpine"
+docker_jenkins_agent_ssh_port: "2232"
+docker_jenkins_agent_public_key: "ssh-rsa yourpublickey"
 
-# Переменные, используемые для выполнения роли manual-jenkins-agent:
+# Глобальные переменные, используемые для выполнения роли manual-jenkins-agent:
 
-jenkins_agent_user: "jenkins-agent"
-jenkins_agent_group: "jenkins-agent"
-jenkins_agent_public_key: ssh-rsa yourpublickey
+manual_jenkins_agent_user: "jenkins-agent"
+manual_jenkins_agent_group: "jenkins-agent"
+manual_jenkins_agent_public_key: "ssh-rsa yourpublickey"
+
+# ---
 
 # Переменные, используемые в секции Credentials, для последующей конфигурации JCasC:
 
@@ -44,7 +50,7 @@ jcasc_jenkins_admin_email: "admin@myemail.com"
 
 # Переменные, используемые в секции Security, для последующей конфигурации jcasc:
 
-# - 
+# -
 
 # Переменные, используемые в секции Tool, для последующей конфигурации jcasc:
 

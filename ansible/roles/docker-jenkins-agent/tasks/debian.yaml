@@ -1,0 +1,50 @@
+---
+# Вызов предварительной роли system-prepare для полноценного запуска текущей:
+- name: Import system-prepare role for running main role on Debian family distro
+  import_role:
+    name: system-prepare
+    tasks_from: main
+
+# Вызов предварительной роли system-docker для полноценного запуска текущей:
+- name: Import system-docker role for running main role on Debian family distro
+  import_role:
+    name: system-docker
+    tasks_from: main
+
+# Создание директории для хранения файла docker-compose, для запуска Docker Jenkins Agent:
+- name: Create Jenkins Agent directories on Debian family distro
+  file:
+    state: directory
+    path: "{{ item.path }}"
+    mode: "{{ docker_jenkins_agent_directory_mode }}"
+    owner: "{{ docker_jenkins_agent_owner }}"
+    group: "{{ docker_jenkins_agent_group }}"
+    recurse: true
+  with_items:
+    - {path: "{{ docker_jenkins_agent_directory }}"}
+  changed_when: false
+
+# Копирование файлов из директории templates и их последующая передача в директорию Docker Jenkins Agent:
+- name: Copy Docker Compose template config in Jenkins Agent directory on Debian family distro
+  template:
+    src: templates/agent-docker-compose.yaml.j2
+    dest: "{{ docker_jenkins_agent_directory }}/agent-docker-compose.yaml"
+    mode: "{{ docker_jenkins_agent_file_mode }}"
+    owner: "{{ docker_jenkins_agent_owner }}"
+    group: "{{ docker_jenkins_agent_group }}"
+  changed_when: false
+
+# Запуск Docker Jenkins Agent с помощью docker-compose на удаленном узле:
+- name: Run Jenkins Agent via docker-compose on Debian family distro
+  docker_compose:
+    pull: true
+    files: "{{ docker_jenkins_agent_compose_file }}"
+    project_src: "{{ docker_jenkins_agent_directory }}"
+    recreate: always
+  register: docker_compose_output
+  changed_when: false
+
+# Результат вывода переменной на экран:
+- name: The output result of our variable on Debian family distro
+  debug:
+    var: docker_compose_output

@@ -6,8 +6,8 @@ docker_jenkins_agent_compose_file: "agent-docker-compose.yaml"
 docker_jenkins_agent_directory: "/opt/jenkins_agent_docker"
 docker_jenkins_agent_directory_mode: "u=rwx,g=rw,o=r"
 docker_jenkins_agent_file_mode: "u=rw,g=r,o=r"
-docker_jenkins_agent_owner: "0"
-docker_jenkins_agent_group: "0"
+docker_jenkins_agent_owner: "1000"
+docker_jenkins_agent_group: "1000"
 
 # Переменные, необходимые для конфигурации Jenkins на дистрибутиве семейства SUSE:
 

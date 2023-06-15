@@ -8,3 +8,6 @@ rules:
     level: warning
   comments-indentation:
     level: warning
+
+ignore: |
+  .github/workflows/*

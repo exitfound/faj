@@ -53,10 +53,10 @@ server {
         return 301 https://{{ jenkins_nginx_domain }}$request_uri;
     }
 
-    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/{{ jenkins_nginx_domain }}/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/{{ jenkins_nginx_domain }}/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+    ssl_certificate /etc/letsencrypt/live/{{ jenkins_nginx_domain }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ jenkins_nginx_domain }}/privkey.pem;
 }
 
 server {

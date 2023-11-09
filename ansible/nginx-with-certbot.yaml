@@ -12,7 +12,7 @@
       include_role:
         name: certificates
         tasks_from: main.yaml
-      when: nginx_protocol_working == "https"
+      when: certificates_nginx_protocol_working == "https"
 
   # Вызов непосредственно самой роли Nginx, для его последующего использования в сочетании с Jenkins и SSL:
   roles:

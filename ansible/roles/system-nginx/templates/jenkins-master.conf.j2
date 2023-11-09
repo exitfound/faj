@@ -1,4 +1,4 @@
-{% if nginx_protocol_working == "http" %}
+{% if certificates_nginx_protocol_working == "http" %}
 
 upstream jenkins-master {
     server 127.0.0.1:8080;
@@ -24,7 +24,7 @@ server {
     }
 }
 
-{% elif nginx_protocol_working == "https" %}
+{% elif certificates_nginx_protocol_working == "https" %}
 
 upstream jenkins-master {
     server 127.0.0.1:8080;

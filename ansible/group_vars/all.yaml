@@ -1,6 +1,6 @@
 # Глобальные переменные, используемые для выполнения роли certificates:
 
-certificates_nginx_protocol_working: "http" # Переменная, определяющая, какой конфиг Nginx будет использоваться на конечном сервере – с или без SSL от Certbot:
+certificates_nginx_protocol_working: "https" # Переменная, определяющая, какой конфиг Nginx будет использоваться на конечном сервере – с или без SSL от Certbot:
 certificates_certbot_email_address: "evoukin@gmail.com"
 certificates_certbot_create_command: "certbot certonly --noninteractive --nginx --agree-tos --email {{ certificates_certbot_email_address }} --domains {{ jenkins_nginx_domain }}"
 

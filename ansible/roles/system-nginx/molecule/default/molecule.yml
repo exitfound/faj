@@ -94,7 +94,7 @@ provisioner:
     group_vars:
       all:
         jenkins_nginx_domain: "molecule.test.domain"
-        nginx_protocol_working: "http"
+        certificates_nginx_protocol_working: "http"
 
 verifier:
   name: ansible

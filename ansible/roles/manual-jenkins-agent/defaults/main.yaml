@@ -2,7 +2,7 @@
 
 # Переменные, необходимые для установки и настройки Jenkins Agent, применимые ко всем дистрибутивам в равной степени:
 jenkins_agent_template_mode: "u=rw,g=r,o=r"
-jenkins_agent_directory_mode: "u=rwx"
+jenkins_agent_directory_mode: "u=rw"
 jenkins_agent_directory:
   - main: /var/lib/jenkins
     ssh: /var/lib/jenkins/.ssh

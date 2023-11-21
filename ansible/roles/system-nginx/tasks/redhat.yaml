@@ -6,7 +6,7 @@
   failed_when: false
 
 # Установка Nginx с помощью пакетного менеджера:
-- name: Installing required packages on RedHat family distro
+- name: Install required packages on RedHat family distro
   yum:
     name: "{{ nginx_package_list }}"
     state: present
@@ -35,7 +35,7 @@
   when: ansible_distribution == 'CentOS' and ansible_distribution_version == '8'
 
 # Регистрация проверки конфигурации Nginx в переменную:
-- name: Output of command Nginx -t after changes on RedHat family distro
+- name: Output of command nginx -t after changes on RedHat family distro
   command: nginx -t
   register: nginx_validate
   failed_when: false
@@ -47,7 +47,7 @@
     var: nginx_validate.stderr
 
 # Запуск сервиса Nginx через systemd:
-- name: Starting Nginx service on RedHat family distro
+- name: Start Nginx service on RedHat family distro
   systemd:
     name: nginx
     state: started

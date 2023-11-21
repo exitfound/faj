@@ -3,6 +3,7 @@
 - name: Converge
   hosts: all
   tasks:
+
     # Данный шаг вызывает роль system-nginx для прогона тестов:
     - name: "Include system-nginx role for testing"
       include_role:

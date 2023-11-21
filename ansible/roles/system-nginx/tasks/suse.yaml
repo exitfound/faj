@@ -1,6 +1,6 @@
 ---
 # Установка Nginx с помощью пакетного менеджера:
-- name: Installing required packages on SUSE family distro
+- name: Install required packages on SUSE family distro
   zypper:
     name: "{{ nginx_package_list }}"
     state: present
@@ -17,7 +17,7 @@
   notify: Restart Nginx
 
 # Регистрация проверки конфигурации Nginx в переменную:
-- name: Register the output of command Nginx -t after changes on SUSE family distro
+- name: Register the output of command nginx -t after changes on SUSE family distro
   command: nginx -t
   register: nginx_validate
   failed_when: false
@@ -29,7 +29,7 @@
     var: nginx_validate.stderr
 
 # Запуск сервиса Nginx через systemd:
-- name: Starting Nginx service on SUSE family distro
+- name: Start Nginx service on SUSE family distro
   systemd:
     name: nginx
     state: started

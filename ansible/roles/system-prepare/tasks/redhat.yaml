@@ -9,14 +9,14 @@
     - update
 
 # Установка пакетов rpm из списка необходимых, которые определены в виде переменной, в директории defaults:
-- name: Installing required packages on RedHat family distro
+- name: Install required packages on RedHat family distro
   yum:
     name: "{{ centos_packages_list }}"
     state: present
     update_cache: true
 
 # Установка пакетов pip из списка необходимых, которые определены в виде переменной, в директории defaults:
-- name: Installing required packages for pip on RedHat family distro
+- name: Install required packages for pip on RedHat family distro
   pip:
     name: "{{ pip_packages_list }}"
     state: present

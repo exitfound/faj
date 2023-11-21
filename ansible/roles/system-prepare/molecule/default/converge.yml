@@ -3,6 +3,7 @@
 - name: Converge
   hosts: all
   tasks:
+
     # Данный шаг вызывает роль system-prepare для прогона тестов:
     - name: "Include system-prepare role for testing"
       include_role:

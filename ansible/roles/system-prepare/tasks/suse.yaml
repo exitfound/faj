@@ -1,6 +1,6 @@
 ---
 # Обновление всех пакетов на указанном дистрибутиве:
-- name: Updating all packages on SUSE family distro
+- name: Update all packages on SUSE family distro
   zypper:
     name: '*'
     state: latest
@@ -9,14 +9,14 @@
     - update
 
 # Установка пакетов rpm из списка необходимых, которые определены в виде переменной, в директории defaults:
-- name: Installing required packages on SUSE family distro
+- name: Install required packages on SUSE family distro
   zypper:
     name: "{{ opensuse_packages_list }}"
     state: present
     update_cache: true
 
 # Установка пакетов pip из списка необходимых, которые определены в виде переменной, в директории defaults:
-- name: Installing required packages for pip on SUSE family distro
+- name: Install required packages for pip on SUSE family distro
   pip:
     name: "{{ pip_packages_list }}"
     state: present

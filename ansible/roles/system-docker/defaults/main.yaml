@@ -1,9 +1,9 @@
 ---
 
-# Переменные, необходимые для установки и настройки Docker, применимые ко всем дистрибутивам в равной степени:
+# Переменные, необходимые для установки пакетов, применимые ко всем дистрибутивам в равной степени:
 
-docker_compose_version: v2.5.0
-docker_compose_dest: /usr/bin/docker-compose
+docker_compose_version: v2.23.0
+docker_compose_destination: /usr/bin/docker-compose
 
 # Переменные, необходимые для установки и настройки Docker на дистрибутиве семейства SUSE:
 
@@ -13,5 +13,5 @@ docker_compose_dest: /usr/bin/docker-compose
 
 debian_docker_apt_repository: https://download.docker.com/linux/{{ ansible_distribution | lower}}
 debian_docker_apt_key: https://download.docker.com/linux/{{ ansible_distribution | lower}}/gpg
-debian_docker_dest_key: /etc/apt/trusted.gpg.d/docker.asc
+debian_docker_destination_key: /etc/apt/trusted.gpg.d/docker.asc
 debian_docker_file_mode: "u=rw,g=r,o=r"

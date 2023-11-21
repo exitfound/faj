@@ -3,6 +3,7 @@
 - name: Converge
   hosts: all
   tasks:
+
     # Данный шаг вызывает роль system-docker для прогона тестов:
     - name: "Include system-docker role for testing"
       include_role:

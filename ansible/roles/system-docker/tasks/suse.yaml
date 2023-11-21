@@ -1,19 +1,19 @@
 ---
 # Создание группы docker в используемой системе:
-- name: Ensure group docker exists on SUSE family distro
+- name: Ensure that docker group exists on SUSE family distro
   group:
     name: docker
     state: present
 
 # Установка Docker с помощью пакетного менеджера:
-- name: Installing Docker on SUSE family distro
+- name: Install Docker on SUSE family distro
   zypper:
     name: docker
     state: present
     update_cache: true
 
 # Запуск сервиса Docker через systemd:
-- name: Starting Docker service on SUSE family distro
+- name: Start Docker service on SUSE family distro
   service:
     name: docker
     state: started
@@ -33,16 +33,16 @@
 
 # Проверка того, установлен ли Docker-compose в системе:
 - name: Check if docker-compose is installed on SUSE family distro
-  command: "{{ docker_compose_dest }} --version"
+  command: "{{ docker_compose_destination }} --version"
   register: docker_compose_check
   ignore_errors: true
   changed_when: false
 
 # Установка Docker-compose в случае его отсуствия в системе:
-- name: Installing docker-compose on SUSE family distro
+- name: Install docker-compose on SUSE family distro
   get_url:
     url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-linux-x86_64"
-    dest: "{{ docker_compose_dest }}"
+    dest: "{{ docker_compose_destination }}"
     mode: 'a+x'
     force: true
   when:

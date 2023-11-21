@@ -3,14 +3,14 @@
 # - name: Active routing for build docker image on RedHat family distro
 #   command: echo net.ipv4.ip_forward=1 > /etc/sysctl.conf
 
-# Создание группы docker в используемой системе:
-- name: Ensure group "docker" exists on RedHat family distro
+# Создание группы с именем docker для последующего использования в системе:
+- name: Ensure that docker group exists on RedHat family distro
   group:
     name: docker
     state: present
 
 # Добавление репозитория для последующей установки Docker в системе:
-- name: Adding package repository address on RedHat family distro
+- name: Add package repository address on RedHat family distro
   yum_repository:
     name: docker
     description: Docker Repository
@@ -19,21 +19,21 @@
     gpgcheck: true
 
 # Загрузка дополнительного RPM-пакета из Интернета, для установки Docker в системе (актуально для Centos 9):
-- name: Installing a libcgroup package on RedHat family distro
+- name: Install a libcgroup package on RedHat family distro
   yum:
     name: http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/Packages/libcgroup-0.41-19.el8.x86_64.rpm
     state: present
   when: ansible_distribution == 'CentOS' and ansible_distribution_version == '9'
 
 # Установка Docker с помощью пакетного менеджера:
-- name: Installing Docker on RedHat family distro
+- name: Install Docker on RedHat family distro
   yum:
     name: docker-ce
     state: present
     update_cache: true
 
 # Запуск сервиса Docker через systemd:
-- name: Starting Docker service on RedHat family distro
+- name: Start Docker service on RedHat family distro
   service:
     name: docker
     state: started
@@ -52,7 +52,7 @@
 
 # Проверка того, установлен ли Docker-compose в системе:
 - name: Check if docker-compose is installed on RedHat family distro
-  command: "{{ docker_compose_dest }} --version"
+  command: "{{ docker_compose_destination }} --version"
   register: docker_compose_check
   ignore_errors: true
   changed_when: false
@@ -61,7 +61,7 @@
 - name: Installing docker-compose on RedHat family distro
   get_url:
     url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-linux-x86_64"
-    dest: "{{ docker_compose_dest }}"
+    dest: "{{ docker_compose_destination }}"
     mode: 'a+x'
     force: true
   when:

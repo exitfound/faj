@@ -1,6 +1,12 @@
 ---
+# Вызов предварительной роли system-prepare для полноценного запуска текущей:
+- name: Import system-prepare role for running main role on Debian family distro
+  import_role:
+    name: system-prepare
+    tasks_from: main
+
 # Добавление ключа репозитория для последующей установки Jenkins из пакетного менеджера:
-- name: Adding Jenkins repository key on Debian family distro
+- name: Add Jenkins repository key on Debian family distro
   get_url:
     url: "{{ ubuntu_apt_key }}"
     dest: "{{ ubuntu_dest_key }}"
@@ -9,7 +15,7 @@
     group: "0"
 
 # Добавление адреса репозитория Jenkins в sources.list:
-- name: Adding package repository address to sources.list on Debian family distro
+- name: Add package repository address to sources.list on Debian family distro
   apt_repository:
     repo: "deb [signed-by={{ ubuntu_dest_key }}] {{ ubuntu_apt_repository }} binary/"
     state: present
@@ -17,13 +23,13 @@
     update_cache: true
 
 # Установка предварительно необходимых пакетов для запуска Jenkins:
-- name: Installing required packages on Debian family distro
+- name: Install required packages on Debian family distro
   apt:
     name: "{{ ubuntu_packages_list }}"
     state: present
 
 # Установка непосредственно самого пакета Jenkins:
-- name: Installing Jenkins package on Debian family distro
+- name: Install Jenkins package on Debian family distro
   apt:
     name: "{{ ubuntu_package_jenkins }}"
     state: present
@@ -33,7 +39,7 @@
   file:
     state: directory
     path: "{{ jenkins_casc_dir }}"
-    mode: "{{ jenkins_dir_mode }}"
+    mode: "{{ jenkins_working_dir_mode }}"
     owner: "{{ jenkins_file_owner }}"
     group: "{{ jenkins_file_group }}"
 
@@ -56,6 +62,7 @@
     group: "{{ jenkins_file_group }}"
   with_fileglob:
     - ../templates/*.yaml.j2
+  changed_when: false
   failed_when: false
 
 # Копирование файлов из директории templates и их последующая передача в рабочую директорию Jenkins:
@@ -77,24 +84,48 @@
     group: "{{ jenkins_file_group }}"
 
 # Непосредственно сама установка всех плагинов с помощью утилиты Plugin Installation Manager в Jenkins:
-- name: Installing all plugins using the Plugin Installation Manager on Debian family distro
+- name: Install all plugins using the Plugin Installation Manager on Debian family distro
   shell: cd {{ jenkins_working_dir }} && java -jar jenkins-plugin-manager-*.jar -w {{ jenkins_war_path }} -d plugins -f plugins.txt
   changed_when: false
 
 # Изменение прав у директории plugins после установки плагинов из файла plugins.txt в Jenkins:
-- name: Changing directory permissions after installing plugins on Debian family distro
+- name: Change directory permissions after installing plugins on Debian family distro
   file:
     path: "{{ jenkins_plugins_dir }}"
-    mode: "{{ jenkins_dir_mode }}"
+    mode: "{{ jenkins_plugin_dir_mode }}"
     owner: "{{ jenkins_file_owner }}"
     group: "{{ jenkins_file_group }}"
     recurse: true
   changed_when: false
 
 # Запуск и добавление в автозагрузку сервиса Jenkins с помощью systemd:
-- name: Starting Jenkins service on Debian family distro
+- name: Start Jenkins service on Debian family distro
   service:
     name: jenkins
     state: started
     enabled: true
     daemon_reload: true
+  changed_when: false
+
+# Регистрация содержимого директории для последующего удаления:
+- name: Get directory listing on Debian family distro
+  find:
+    paths: "{{ jenkins_casc_dir }}"
+    patterns: '*'
+    hidden: true
+  register: directory_content_result
+
+# Удаление конфигурационных файлов CasC после завершения установки (подробнее о причинах удаления в README):
+- name: Remove CasC files from directory on Debian family distro
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: "{{ directory_content_result.files }}"
+  changed_when: false
+
+# Перезапуск сервиса Jenkins с помощью systemd после удаления конфигурационных файлов CasC:
+- name: Restart Jenkins service on Debian family distro
+  service:
+    name: jenkins
+    state: restarted
+  changed_when: false

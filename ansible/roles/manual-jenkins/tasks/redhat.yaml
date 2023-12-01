@@ -1,6 +1,12 @@
 ---
+# Вызов предварительной роли system-prepare для полноценного запуска текущей:
+- name: Import system-prepare role for running main role on RedHat family distro
+  import_role:
+    name: system-prepare
+    tasks_from: main
+
 # Создание файла, добавление ключа и адреса репозитория Jenkins в yum.repos.d:
-- name: Adding package repository address on RedHat family distro
+- name: Add package repository address on RedHat family distro
   yum_repository:
     name: jenkins
     description: Jenkins Repository
@@ -9,7 +15,7 @@
     gpgkey: https://pkg.jenkins.io/redhat/jenkins.io-2023.key
 
 # Установка необходимых пакетов для успешного запуска Jenkins:
-- name: Installing required packages on RedHat family distro
+- name: Install required packages on RedHat family distro
   yum:
     name: "{{ centos_packages_list }}"
     state: present
@@ -19,7 +25,7 @@
   file:
     state: directory
     path: "{{ jenkins_casc_dir }}"
-    mode: "{{ jenkins_dir_mode }}"
+    mode: "{{ jenkins_working_dir_mode }}"
     owner: "{{ jenkins_file_owner }}"
     group: "{{ jenkins_file_group }}"
 
@@ -42,6 +48,7 @@
     group: "{{ jenkins_file_group }}"
   with_fileglob:
     - ../templates/*.yaml.j2
+  changed_when: false
   failed_when: false
 
 # Копирование файлов из директории templates и их последующая передача в рабочую директорию Jenkins:
@@ -63,24 +70,47 @@
     group: "{{ jenkins_file_group }}"
 
 # Непосредственно сама установка всех плагинов с помощью утилиты Plugin Installation Manager в Jenkins:
-- name: Installing all plugins using the Plugin Installation Manager on RedHat family distro
+- name: Install all plugins using the Plugin Installation Manager on RedHat family distro
   shell: cd {{ jenkins_working_dir }} && java -jar jenkins-plugin-manager-*.jar -w {{ jenkins_war_path }} -d plugins -f plugins.txt
   changed_when: false
 
 # Изменение прав у директории plugins после установки плагинов из файла plugins.txt в Jenkins:
-- name: Changing directory permissions after installing plugins on RedHat family distro
+- name: Change directory permissions after installing plugins on RedHat family distro
   file:
     path: "{{ jenkins_plugins_dir }}"
-    mode: "{{ jenkins_dir_mode }}"
+    mode: "{{ jenkins_plugin_dir_mode }}"
     owner: "{{ jenkins_file_owner }}"
     group: "{{ jenkins_file_group }}"
     recurse: true
   changed_when: false
 
 # Запуск и добавление в автозагрузку сервиса Jenkins с помощью systemd:
-- name: Starting Jenkins service on RedHat family distro
+- name: Start Jenkins service on RedHat family distro
   service:
     name: jenkins
     state: started
     enabled: true
     daemon_reload: true
+
+# Регистрация содержимого директории для последующего удаления:
+- name: Get directory listing on RedHat family distro
+  find:
+    paths: "{{ jenkins_casc_dir }}"
+    patterns: '*'
+    hidden: true
+  register: directory_content_result
+
+# Удаление конфигурационных файлов CasC после завершения установки (подробнее о причинах удаления в README):
+- name: Remove CasC files from directory on RedHat family distro
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: "{{ directory_content_result.files }}"
+  changed_when: false
+
+# Перезапуск сервиса Jenkins с помощью systemd после удаления конфигурационных файлов CasC:
+- name: Restart Jenkins service on RedHat family distro
+  service:
+    name: jenkins
+    state: restarted
+  changed_when: false

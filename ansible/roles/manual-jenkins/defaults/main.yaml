@@ -1,19 +1,19 @@
 ---
-
-# Переменные, необходимые для установки и настройки Jenkins, применимые ко всем дистрибутивам в равной степени:
+# Переменные, необходимые для установки и настройки мануального Jenkins, применимые ко всем дистрибутивам в равной степени:
 
 jenkins_working_dir: "/var/lib/jenkins"
 jenkins_casc_dir: "{{ jenkins_working_dir }}/casc_configs"
 jenkins_plugins_dir: "{{ jenkins_working_dir }}/plugins"
-jenkins_dir_mode: "u=rwx,g=rx,o=rx"
+jenkins_working_dir_mode: "u=rwx,g=rx,o=rx"
+jenkins_plugin_dir_mode: "u=rwx,g=rx,o=rx"
 jenkins_file_mode: "u=rw,g=r,o=r"
 jenkins_file_owner: jenkins
 jenkins_file_group: jenkins
 jenkins_war_path: /usr/share/java/jenkins.war
 jenkins_systemd_filename: jenkins.service
-jenkins_plugin_manager: https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download/2.12.11/jenkins-plugin-manager-2.12.11.jar
+jenkins_plugin_manager: https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download/2.12.13/jenkins-plugin-manager-2.12.13.jar
 
-# Переменные, необходимые для конфигурирования Jenkins на дистрибутиве семейства SUSE:
+# Переменные, необходимые для конфигурирования мануального Jenkins на дистрибутиве семейства SUSE:
 
 opensuse_zypper_key: https://pkg.jenkins.io/opensuse/jenkins.io-2023.key
 opensuse_zypper_repository: https://pkg.jenkins.io/opensuse-stable/

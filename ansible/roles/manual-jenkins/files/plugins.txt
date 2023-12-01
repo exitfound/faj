@@ -25,7 +25,7 @@ javax-activation-api
 javax-mail-api
 jersey2-api
 jquery3-api
-http_request:1.16
+http_request
 instance-identity
 ionicons-api
 ldap
@@ -68,3 +68,4 @@ workflow-scm-step
 workflow-step-api
 workflow-support
 ws-cleanup
+hashicorp-vault-pipeline

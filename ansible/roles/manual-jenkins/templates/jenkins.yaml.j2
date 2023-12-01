@@ -1,5 +1,4 @@
 # В этом файле, в основном, представлены опции, конфигурируемые в таких секциях, как Global System и Global Security:
-
 jenkins:
   systemMessage: "Welcome to the Fully Automation Jenkins by Ivan Medaev:"
   labelString: "master"
@@ -12,11 +11,11 @@ jenkins:
     rawHtml:
       disableSyntaxHighlighting: true
 
-# Отключает или включает Master Access Control (deprecated):
+  # Отключает или включает Master Access Control (deprecated):
   remotingSecurity:
     enabled: true
 
-# Эта опция позволяет задать глобальные переменные в Jenkins:
+  # Эта опция позволяет задать глобальные переменные в Jenkins:
   globalNodeProperties:
     - envVars:
         env:
@@ -25,7 +24,7 @@ jenkins:
         - key: "your-name2"
           value: "your-value2"
 
-# Этот ряд опций позволяет создавать и управлять вьюшками в Jenkins:
+  # Этот ряд опций позволяет создавать и управлять вьюшками в Jenkins:
   myViewsTabBar: "standard"
   projectNamingStrategy: "standard"
   primaryView:
@@ -47,7 +46,7 @@ jenkins:
       - "gitBranchSpecifierColumn"
       - "descriptionColumn"
 
-# Этот ряд опций позволяет конфигурировать агнетов, для их последующего использования:
+  # Этот ряд опций позволяет конфигурировать агнетов, для их последующего использования:
   nodes:
     - permanent:
         name: {{ jcasc_jenkins_agent_1_name }}
@@ -63,8 +62,8 @@ jenkins:
             port: 22
             sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
 
-# Этот ряд опций позволяет настроить один из вариантов аутентификации на выбор в Jenkins.
-# В нашем случае используется локальная. Тут же и создаётся первичный пользователь:
+  # Этот ряд опций позволяет настроить один из вариантов аутентификации на выбор в Jenkins.
+  # В нашем случае используется локальная. Тут же и создаётся первичный пользователь:
   securityRealm:
     local:
       allowsSignup: false
@@ -81,7 +80,7 @@ jenkins:
           - timezone:
               timeZoneName: "Europe/Kaliningrad"
 
-# Этот ряд опций позволяет более предметно настроить авторизацию в Jenkins:
+  # Этот ряд опций позволяет более предметно настроить авторизацию в Jenkins:
   authorizationStrategy:
     globalMatrix:
       permissions:

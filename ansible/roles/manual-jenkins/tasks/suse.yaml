@@ -1,4 +1,10 @@
 ---
+# Вызов предварительной роли system-prepare для полноценного запуска текущей:
+- name: Import system-prepare role for running main role on SUSE family distro
+  import_role:
+    name: system-prepare
+    tasks_from: main
+
 # Добавление GPG ключа для последующей установки Jenkins из пакетного менеджера:
 - name: Import GPG key to ensure your software on SUSE family distro
   rpm_key:
@@ -6,14 +12,14 @@
     state: present
 
 # Создание файла и добавление адреса репозитория Jenkins в zypp.repos.d:
-- name: Adding package repository address on SUSE family distro
+- name: Add package repository address on SUSE family distro
   zypper_repository:
     name: jenkins
     state: present
     repo: "{{ opensuse_zypper_repository }}"
 
 # Установка необходимых пакетов для успешного запуска Jenkins:
-- name: Installing required packages on SUSE family distro
+- name: Install required packages on SUSE family distro
   zypper:
     name: "{{ opensuse_packages_list }}"
     state: present
@@ -23,7 +29,7 @@
   file:
     state: directory
     path: "{{ jenkins_casc_dir }}"
-    mode: "{{ jenkins_dir_mode }}"
+    mode: "{{ jenkins_working_dir_mode }}"
     owner: "{{ jenkins_file_owner }}"
     group: "{{ jenkins_file_group }}"
 
@@ -46,6 +52,7 @@
     group: "{{ jenkins_file_group }}"
   with_fileglob:
     - ../templates/*.yaml.j2
+  changed_when: false
   failed_when: false
 
 # Копирование файлов из директории templates и их последующая передача в рабочую директорию Jenkins:
@@ -67,15 +74,15 @@
     group: "{{ jenkins_file_group }}"
 
 # Непосредственно сама установка всех плагинов с помощью утилиты Plugin Installation Manager в Jenkins:
-- name: Installing all plugins using the Plugin Installation Manager on SUSE family distro
+- name: Install all plugins using the Plugin Installation Manager on SUSE family distro
   shell: cd {{ jenkins_working_dir }} && java -jar jenkins-plugin-manager-*.jar -w {{ jenkins_war_path }} -d plugins -f plugins.txt
   changed_when: false
 
 # Изменение прав у директории plugins после установки плагинов из файла plugins.txt в Jenkins:
-- name: Changing directory permissions after installing plugins on SUSE family distro
+- name: Change directory permissions after installing plugins on SUSE family distro
   file:
     path: "{{ jenkins_plugins_dir }}"
-    mode: "{{ jenkins_dir_mode }}"
+    mode: "{{ jenkins_plugin_dir_mode }}"
     owner: "{{ jenkins_file_owner }}"
     group: "{{ jenkins_file_group }}"
     recurse: true
@@ -87,9 +94,32 @@
   changed_when: false
 
 # Запуск и добавление в автозагрузку сервиса Jenkins с помощью systemd:
-- name: Starting Jenkins service on SUSE family distro
+- name: Start Jenkins service on SUSE family distro
   service:
     name: jenkins
     state: started
     enabled: true
     daemon_reload: true
+
+# Регистрация содержимого директории для последующего удаления:
+- name: Get directory listing on SUSE family distro
+  find:
+    paths: "{{ jenkins_casc_dir }}"
+    patterns: '*'
+    hidden: true
+  register: directory_content_result
+
+# Удаление конфигурационных файлов CasC после завершения установки (подробнее о причинах удаления в README):
+- name: Remove CasC files from directory on SUSE family distro
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: "{{ directory_content_result.files }}"
+  changed_when: false
+
+# Перезапуск сервиса Jenkins с помощью systemd после удаления конфигурационных файлов CasC:
+- name: Restart Jenkins service on SUSE family distro
+  service:
+    name: jenkins
+    state: restarted
+  changed_when: false

@@ -64,7 +64,7 @@
   changed_when: false
 
 # Установка Docker-compose в случае его отсуствия в системе:
-- name: Installing docker-compose on Debian family distro
+- name: Install docker-compose on Debian family distro
   get_url:
     url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-linux-x86_64"
     dest: "{{ docker_compose_destination }}"

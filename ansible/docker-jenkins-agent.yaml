@@ -1,13 +1,17 @@
 ---
-# Вызов роли для последующего запуска Jenkins Agent с помощью Docker:
-- name: Running Jenkins Agent on system via Docker
+# Вызов роли для последующей установки и настройки Jenkins Agent с помощью Docker на удаленных узлах:
+- name: Prepare the system as a running Jenkins Agent via Docker
   gather_facts: yes
   become: yes
   become_method: sudo
   hosts:
     - all
+
+  # Вызов непосредственно самой роли Docker Jenkins Agent, для последующего развертывания Jenkins Agent с помощью Docker в системе:
   roles:
     - docker-jenkins-agent
+
+  # Информирование о том, что Jenkins Agent через Docker был успешно установлен в системе:
   post_tasks:
     - name: Information about the successful completion of the playbook
       debug:

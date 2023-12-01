@@ -1,13 +1,17 @@
 ---
-# Вызов роли для последующей установки и настройки Jenkins Master из пакетного менеджера:
-- name: Installing and configuring Jenkins on remote hosts
+# Вызов роли для последующей установки и настройки Jenkins в мануальном режиме на удаленных узлах:
+- name: Install and configure Manual Jenkins on remote hosts
   gather_facts: yes
   become: yes
   become_method: sudo
   hosts:
     - all
+
+  # Вызов непосредственно самой роли Manual Jenkins, для последующего развертывания Jenkins в системе:
   roles:
     - manual-jenkins
+
+  # Информирование о том, что Jenkins в мануальном режиме был успешно установлен в системе:
   post_tasks:
     - name: Information about the successful completion of the playbook
       debug:

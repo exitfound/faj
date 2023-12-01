@@ -1,13 +1,17 @@
 ---
-# Вызов роли для последующей установки и настройки Jenkins Agent в ручную:
-- name: Preparing the system as a running Jenkins Agent
+# Вызов роли для последующей установки и настройки Jenkins Agent в мануальном режиме на удаленных узлах:
+- name: Prepare the system as a running Jenkins Agent
   gather_facts: yes
   become: yes
   become_method: sudo
   hosts:
     - all
+
+  # Вызов непосредственно самой роли Manual Jenkins Agent, для последующего развертывания Jenkins Agent в системе:
   roles:
     - manual-jenkins-agent
+
+  # Информирование о том, что Jenkins Agent в мануальном режиме был успешно установлен в системе:
   post_tasks:
     - name: Information about the successful completion of the playbook
       debug:

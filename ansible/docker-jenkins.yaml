@@ -1,16 +1,17 @@
 ---
-# Вызов нескольких ролей для запуска и настройки Jenkins через Docker на удаленных узлах:
-- name: Installing and configuring Jenkins via Docker on remote hosts
+# Вызов нескольких ролей для последующей установки и настройки Jenkins с помощью Docker на удаленных узлах:
+- name: Install and configure Jenkins via Docker on remote hosts
   gather_facts: true
   become: true
+  become_method: sudo
   hosts:
     - all
 
-  # Вызов непосредственно самой роли, для последующей установки Jenkins с помощью Docker:
+  # Вызов непосредственно самой роли Docker Jenkins, для последующего развертывания Jenkins через Docker в системе:
   roles:
     - docker-jenkins
 
-  # Вывод сообщения на предмет того, что Jenkins был успешно установлен и запущен в системе:
+  # Информирование о том, что Jenkins с помощью Docker был успешно установлен в системе:
   post_tasks:
     - name: Information about the successful completion of the playbook
       debug:

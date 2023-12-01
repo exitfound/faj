@@ -15,25 +15,25 @@ debian10
 debian11
 
 [opensuse15.3]
-opensuse15.3-instance1      ansible_host=34.147.152.234 jenkins_nginx_domain=suseone.kitezh.online
+opensuse15.3-instance1      ansible_host=suse153.kitezh.online jenkins_nginx_domain=suse153.kitezh.online
 
 [opensuse15.4]
-opensuse15.4-instance1      ansible_host=44.204.139.18 jenkins_nginx_domain=susetwo.kitezh.online
+opensuse15.4-instance1      ansible_host=suse154.kitezh.online jenkins_nginx_domain=suse154.kitezh.online
 
 [centos8]
-centos8-instance1           ansible_host=121.140.118.139 jenkins_nginx_domain=centosone.kitezh.online
+centos8-instance1           ansible_host=centos9.kitezh.online jenkins_nginx_domain=centos9.kitezh.online
 
 [centos9]
-centos9-instance1           ansible_host=35.187.241.121 jenkins_nginx_domain=centostwo.kitezh.online
+centos9-instance1           ansible_host=centos8.kitezh.online jenkins_nginx_domain=centos8.kitezh.online
 
 [ubuntu20.04]
-ubuntu20.04-instance1       ansible_host=35.187.121.65 jenkins_nginx_domain=ubuntuone.kitezh.online
+ubuntu20.04-instance1       ansible_host=ubu20.kitezh.online jenkins_nginx_domain=ubu20.kitezh.online
 
 [ubuntu22.04]
-ubuntu22.04-instance1       ansible_host=34.140.118.98 jenkins_nginx_domain=ubuntutwo.kitezh.online
+ubuntu22.04-instance1       ansible_host=ubu22.kitezh.online jenkins_nginx_domain=ubu22.kitezh.online
 
 [debian10]
-debian10-instance1          ansible_host=35.241.228.162 jenkins_nginx_domain=debianone.kitezh.online
+debian10-instance1          ansible_host=debian10.kitezh.online jenkins_nginx_domain=debian10.kitezh.online
 
 [debian11]
-debian11-instance1          ansible_host=28.241.140.121 jenkins_nginx_domain=debian.kitezh.online
+debian11-instance1          ansible_host=debian11.kitezh.online jenkins_nginx_domain=debian11.kitezh.online

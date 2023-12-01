@@ -9,7 +9,7 @@ OPTS=$(getopt -a -n jenkins --options $SHORT --longoptions $LONG -- "$@")
 
 if [ $? -ne 0 ]; 
   then echo -e "ERROR: You are using one of the invalid parameters! \n"; 
-  exit 1; 
+  exit 1;
 fi
 
 help()

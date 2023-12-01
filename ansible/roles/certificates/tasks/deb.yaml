@@ -1,13 +1,13 @@
 ---
-# Установка пакета Certbot со всеми зависимостями на DEB дистрибутивах:
-- name: Installing required packages on DEB family distro
+# Установка пакета Certbot из пакетного менеджера системы:
+- name: Install required packages on DEB family distro
   package:
     name: "{{ certbot_packages_list }}"
     state: present
     update_cache: true
 
 # Установка PIP-пакета, который необходим для корректной работы Certbot (только Ubuntu 20.04):
-- name: Installing required packages for pip on DEB family distro
+- name: Install required packages for pip on DEB family distro
   pip:
     name: "{{ ubuntu_pip_packages_list}}"
     state: present
@@ -27,7 +27,7 @@
   changed_when: false
 
 # Запуск сервиса Certbot, для отслеживания состояния сертификата:
-- name: Starting Certbot.timer on DEB family distro
+- name: Start Certbot.timer on DEB family distro
   systemd:
     name: certbot.timer
     state: started

@@ -1,13 +1,13 @@
 ---
-# Установка пакета Certbot со всеми зависимостями на RPM дистрибутивах:
-- name: Installing required packages on RPM family distro
+# Установка пакета Certbot из пакетного менеджера системы:
+- name: Install required packages on RPM family distro
   package:
     name: "{{ certbot_packages_list }}"
     state: present
     update_cache: true
 
-# Установка специфического пакета Certbot, необходимый для работы Certbot (только SUSE):
-- name: Installing systemd package for Certbot on SUSE family distro
+# Установка специфического пакета Certbot, который необходим для работы Certbot (только SUSE):
+- name: Install systemd package for Certbot on SUSE family distro
   package:
     name: "{{ opensuse_zypper_packages_list }}"
     state: present
@@ -26,7 +26,7 @@
   changed_when: false
 
 # Запуск сервиса Certbot-renew, для отслеживания состояния сертификата:
-- name: Starting Certbot-renew.timer on RPM family distro
+- name: Start Certbot-renew.timer on RPM family distro
   systemd:
     name: certbot-renew.timer
     state: started

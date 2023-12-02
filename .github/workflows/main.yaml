@@ -123,6 +123,9 @@ jobs:
       fail-fast: false
       matrix:
         OS_FAMILY: [docker-suse, docker-redhat, docker-debian]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
   manual-jenkins-matrix:
     needs: manual-jenkins

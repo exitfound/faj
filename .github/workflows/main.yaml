@@ -119,6 +119,9 @@ jobs:
     needs: molecule
     if: ${{ needs.molecule.outputs.manual-jenkins == 'true' }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        OS_FAMILY: [suse, redhat, debian]
     env:
       PY_COLORS: 1
       ANSIBLE_FORCE_COLOR: 1
@@ -132,6 +135,8 @@ jobs:
           python-version: 3.11
 
       - name: Install dependencies
+        env: 
+          MOLECULE_PROFILE: ${{ matrix.OS_FAMILY }}
         run: |
           python -m pip install --no-cache-dir --upgrade pip
           pip install -r requirements.txt
@@ -139,8 +144,7 @@ jobs:
       - name: Run molecule tests when content changes in manual-jenkins role
         run: |
           molecule --version
-          molecule test -s suse
-          molecule test -s debian
+          molecule test -s $MOLECULE_PROFILE
         working-directory: ansible/roles/manual-jenkins
 
   manual-jenkins-agent:

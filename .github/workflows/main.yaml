@@ -118,7 +118,7 @@ jobs:
   manual-jenkins:
     needs: molecule
     if: ${{ needs.molecule.outputs.manual-jenkins == 'true' }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       PY_COLORS: 1
       ANSIBLE_FORCE_COLOR: 1

@@ -107,25 +107,25 @@
     daemon_reload: true
   changed_when: false
 
-# Регистрация содержимого директории для последующего удаления:
-- name: Get directory listing on Debian family distro
-  find:
-    paths: "{{ jenkins_casc_dir }}"
-    patterns: '*'
-    hidden: true
-  register: directory_content_result
+# # Регистрация содержимого директории для последующего удаления:
+# - name: Get directory listing on Debian family distro
+#   find:
+#     paths: "{{ jenkins_casc_dir }}"
+#     patterns: '*'
+#     hidden: true
+#   register: directory_content_result
 
-# Удаление конфигурационных файлов CasC после завершения установки (подробнее о причинах удаления в README):
-- name: Remove CasC files from directory on Debian family distro
-  file:
-    path: "{{ item.path }}"
-    state: absent
-  with_items: "{{ directory_content_result.files }}"
-  changed_when: false
+# # Удаление конфигурационных файлов CasC после завершения установки (подробнее о причинах удаления в README):
+# - name: Remove CasC files from directory on Debian family distro
+#   file:
+#     path: "{{ item.path }}"
+#     state: absent
+#   with_items: "{{ directory_content_result.files }}"
+#   changed_when: false
 
-# Перезапуск сервиса Jenkins с помощью systemd после удаления конфигурационных файлов CasC:
-- name: Restart Jenkins service on Debian family distro
-  service:
-    name: jenkins
-    state: restarted
-  changed_when: false
+# # Перезапуск сервиса Jenkins с помощью systemd после удаления конфигурационных файлов CasC:
+# - name: Restart Jenkins service on Debian family distro
+#   service:
+#     name: jenkins
+#     state: restarted
+#   changed_when: false

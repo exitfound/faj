@@ -119,6 +119,8 @@ jobs:
     needs: molecule
     if: ${{ needs.molecule.outputs.manual-jenkins == 'true' }}
     runs-on: ubuntu-latest
+    outputs:
+      manual-jenkins-matrix: ${{ steps.molecule.manual-jenkins.manual-jenkins-matrix }}
     env:
       PY_COLORS: 1
       ANSIBLE_FORCE_COLOR: 1
@@ -128,6 +130,7 @@ jobs:
 
   manual-jenkins-matrix:
     needs: manual-jenkins
+    if: ${{ needs.manual-jenkins.outputs.manual-jenkins-matrix == 'true' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true

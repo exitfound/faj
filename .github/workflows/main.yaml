@@ -121,7 +121,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        OS_FAMILY: [suse, redhat, debian]
+        OS_FAMILY: [docker-suse, docker-redhat, docker-debian]
     env:
       PY_COLORS: 1
       ANSIBLE_FORCE_COLOR: 1

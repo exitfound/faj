@@ -119,21 +119,15 @@ jobs:
     needs: molecule
     if: ${{ needs.molecule.outputs.manual-jenkins == 'true' }}
     runs-on: ubuntu-latest
-    outputs:
-      manual-jenkins-matrix: ${{ steps.molecule.manual-jenkins.manual-jenkins-matrix }}
-    env:
-      PY_COLORS: 1
-      ANSIBLE_FORCE_COLOR: 1
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
   manual-jenkins-matrix:
     needs: manual-jenkins
-    if: ${{ needs.manual-jenkins.outputs.manual-jenkins-matrix == 'true' }}
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 1
       matrix:
         OS_FAMILY: [docker-suse, docker-redhat, docker-debian]

@@ -135,13 +135,13 @@ jobs:
           python-version: 3.11
 
       - name: Install dependencies
-        env: 
-          MOLECULE_PROFILE: ${{ matrix.OS_FAMILY }}
         run: |
           python -m pip install --no-cache-dir --upgrade pip
           pip install -r requirements.txt
 
       - name: Run molecule tests when content changes in manual-jenkins role
+        env: 
+          MOLECULE_PROFILE: ${{ matrix.OS_FAMILY }}
         run: |
           molecule --version
           molecule test -s $MOLECULE_PROFILE

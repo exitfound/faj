@@ -1,9 +1,9 @@
 ---
-# Вызов предварительной роли system-prepare для полноценного запуска текущей:
-- name: Import system-prepare role for running main role on Debian family distro
-  import_role:
-    name: system-prepare
-    tasks_from: main
+# # Вызов предварительной роли system-prepare для полноценного запуска текущей:
+# - name: Import system-prepare role for running main role on Debian family distro
+#   import_role:
+#     name: system-prepare
+#     tasks_from: main
 
 # Добавление ключа репозитория для последующей установки Jenkins из пакетного менеджера:
 - name: Add Jenkins repository key on Debian family distro

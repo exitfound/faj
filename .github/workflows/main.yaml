@@ -118,7 +118,7 @@ jobs:
   manual-jenkins:
     needs: molecule
     if: ${{ needs.molecule.outputs.manual-jenkins == 'true' }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     env:
       PY_COLORS: 1
       ANSIBLE_FORCE_COLOR: 1
@@ -139,7 +139,7 @@ jobs:
       - name: Run molecule tests when content changes in manual-jenkins role
         run: |
           molecule --version
-          molecule test
+          molecule converge
         working-directory: ansible/roles/manual-jenkins
 
   manual-jenkins-agent:

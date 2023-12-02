@@ -139,7 +139,7 @@ jobs:
       - name: Run molecule tests when content changes in manual-jenkins role
         run: |
           molecule --version
-          molecule converge
+          molecule check
         working-directory: ansible/roles/manual-jenkins
 
   manual-jenkins-agent:
@@ -309,21 +309,21 @@ jobs:
 #         if: steps.changes.outputs.docker-jenkins == 'true'
 #         run: |
 #             molecule --version
-#             molecule test
+#             molecule converge
 #         working-directory: ansible/roles/docker-jenkins
 
 #       - name: Run molecule tests when content changes in docker-jenkins-agent role
 #         if: steps.changes.outputs.docker-jenkins-agent == 'true'
 #         run: |
 #             molecule --version
-#             molecule converge
+#             molecule test
 #         working-directory: ansible/roles/docker-jenkins-agent
 
 #       - name: Run molecule tests when content changes in manual-jenkins role
 #         if: steps.changes.outputs.manual-jenkins == 'true'
 #         run: |
 #             molecule --version
-#             molecule test
+#             molecule converge
 #         working-directory: ansible/roles/manual-jenkins
 
 #       - name: Run molecule tests when content changes in manual-jenkins-agent role

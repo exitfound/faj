@@ -36,15 +36,15 @@ platforms:
     security_opts:
       - seccomp=unconfined
 
-  - name: centos9
-    image: mdd13/ansible-docker-centos:centos9
-    pre_build_image: true
-    privileged: true
-    override_command: false
-    cgroup_parent: docker.slice
-    cgroupns_mode: host
-    security_opts:
-      - seccomp=unconfined
+  # - name: centos9
+  #   image: mdd13/ansible-docker-centos:centos9
+  #   pre_build_image: true
+  #   privileged: true
+  #   override_command: false
+  #   cgroup_parent: docker.slice
+  #   cgroupns_mode: host
+  #   security_opts:
+  #     - seccomp=unconfined
 
   # - name: debian10
   #   image: mdd13/ansible-docker-debian:debian-10

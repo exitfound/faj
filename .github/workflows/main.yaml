@@ -120,6 +120,7 @@ jobs:
     if: ${{ needs.molecule.outputs.manual-jenkins == 'true' }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         OS_FAMILY: [docker-suse, docker-redhat, docker-debian]
 

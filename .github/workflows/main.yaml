@@ -119,6 +119,16 @@ jobs:
     needs: molecule
     if: ${{ needs.molecule.outputs.manual-jenkins == 'true' }}
     runs-on: ubuntu-latest
+    env:
+      PY_COLORS: 1
+      ANSIBLE_FORCE_COLOR: 1
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+  manual-jenkins-matrix:
+    needs: manual-jenkins
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: true
       max-parallel: 1

@@ -139,7 +139,8 @@ jobs:
       - name: Run molecule tests when content changes in manual-jenkins role
         run: |
           molecule --version
-          molecule converge
+          molecule test -s suse
+          molecule test -s debian
         working-directory: ansible/roles/manual-jenkins
 
   manual-jenkins-agent:

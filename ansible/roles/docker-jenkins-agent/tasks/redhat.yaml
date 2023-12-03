@@ -11,7 +11,7 @@
     name: system-docker
     tasks_from: main
 
-# Создание директории для хранения файла docker-compose, для запуска Docker Jenkins Agent:
+# Создание директории для хранения файла docker-compose, для последующего запуска Docker Jenkins Agent:
 - name: Create Jenkins Agent directories on RedHat family distro
   file:
     state: directory

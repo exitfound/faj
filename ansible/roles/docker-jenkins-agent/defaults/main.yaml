@@ -1,10 +1,10 @@
 ---
 
-# Переменные, необходимые для конфигурировании Jenkins, применимые на всех дистрибутивах в равной мере:
+# Переменные, необходимые для установки и настройки агента Jenkins с помощью Docker, применимые ко всем дистрибутивам в равной степени:
 
 docker_jenkins_agent_compose_file: "agent-docker-compose.yaml"
 docker_jenkins_agent_directory: "/opt/jenkins_agent_docker"
-docker_jenkins_agent_directory_mode: "u=rw,g=rw,o=r"
+docker_jenkins_agent_directory_mode: "u=rw,g=r,o=r"
 docker_jenkins_agent_file_mode: "u=rw,g=r,o=r"
 docker_jenkins_agent_owner: "1000"
 docker_jenkins_agent_group: "1000"

@@ -51,6 +51,7 @@ pipeline-stage-view
 role-strategy
 script-security
 scm-api
+ssh-agent
 ssh-credentials
 ssh-slaves
 timestamper

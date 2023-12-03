@@ -1,19 +1,19 @@
 ---
 # Установка необходимых пакетов для успешной работы Jenkins Agent:
-- name: Installing required packages on SUSE family distro
+- name: Install required packages on SUSE family distro
   zypper:
     name: "{{ opensuse_agent_packages_list }}"
     state: present
     update_cache: true
 
-# Создание группы пользователя в системе для успешной работы Jenkins Agent:
-- name: Creating a specific group on SUSE family distro
+# Создание группы пользователя для выполнения последующих задач в роли Jenkins Agent:
+- name: Create a specific group on SUSE family distro
   group:
     name: "{{ manual_jenkins_agent_group }}"
     state: present
 
-# Создание пользователя в системе для выполнения последующих задач в роли Jenkins Agent:
-- name: Creating a specific user for future actions on SUSE family distro
+# Создание пользователя для выполнения последующих задач в роли Jenkins Agent:
+- name: Create a specific user for future actions on SUSE family distro
   user:
     name: "{{ manual_jenkins_agent_user }}"
     shell: "/bin/bash"
@@ -24,17 +24,17 @@
     - "{{ jenkins_agent_directory }}"
 
 # Создание необходимых директорий для хранения данных и конфигурации Jenkins Agent:
-- name: Creating a specific directories on SUSE family distro
+- name: Create a specific directories on SUSE family distro
   file:
     state: directory
-    path: "{{ item.path }}"
-    mode: "{{ jenkins_agent_directory_mode }}"
+    path: "{{ item.main }}"
+    mode: "{{ item.mode }}"
     owner: "{{ manual_jenkins_agent_user }}"
     group: "{{ manual_jenkins_agent_group }}"
   with_items:
-    - {path: "{{ jenkins_agent_directory }}"}
+    - "{{ jenkins_agent_directory }}"
 
-# Добавление публичного SSH-ключа для работы с Jenkins Agent:
+# Добавление публичного SSH-ключа для работы Jenkins Agent:
 - name: Add SSH public key for specific user on SUSE family distro
   authorized_key:
     user: "{{ manual_jenkins_agent_user }}"
@@ -43,7 +43,7 @@
     validate_certs: false
 
 # Предоставление прав sudo для созданного ранее пользователя, для работы Jenkins Agent:
-- name: Setting sudo permissions for the created user on SUSE family distro
+- name: Set sudo permissions for the created user on SUSE family distro
   template:
     src: "templates/jenkins-agent.j2"
     dest: "/etc/sudoers.d/{{ manual_jenkins_agent_user }}"

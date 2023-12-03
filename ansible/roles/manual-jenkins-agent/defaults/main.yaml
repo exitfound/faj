@@ -1,11 +1,11 @@
 ---
 
-# Переменные, необходимые для установки и настройки Jenkins Agent, применимые ко всем дистрибутивам в равной степени:
+# Переменные, необходимые для установки и настройки агента Jenkins, применимые ко всем дистрибутивам в равной степени:
+
 jenkins_agent_template_mode: "u=rw,g=r,o=r"
-jenkins_agent_directory_mode: "u=rw"
 jenkins_agent_directory:
-  - main: /var/lib/jenkins
-    ssh: /var/lib/jenkins/.ssh
+  - main: "/var/lib/jenkins-agent"
+    mode: "0777"
 
 # Переменные, необходимые для конфигурирования Jenkins Agent на дистрибутиве семейства SUSE:
 

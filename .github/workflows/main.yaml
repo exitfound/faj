@@ -59,6 +59,18 @@ jobs:
     needs: molecule
     if: ${{ needs.molecule.outputs.docker-jenkins == 'true' }}
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+  docker-jenkins-matrix:
+    needs: docker-jenkins
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        OS_FAMILY: [docker-suse, docker-redhat, docker-debian]
     env:
       PY_COLORS: 1
       ANSIBLE_FORCE_COLOR: 1
@@ -83,9 +95,11 @@ jobs:
           tool-cache: false
 
       - name: Run molecule tests when content changes in docker-jenkins role
+        env: 
+          MOLECULE_PROFILE: ${{ matrix.OS_FAMILY }}
         run: |
           molecule --version
-          molecule converge
+          molecule test -s $MOLECULE_PROFILE
         working-directory: ansible/roles/docker-jenkins
 
   docker-jenkins-agent:

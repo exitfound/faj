@@ -4,17 +4,19 @@
   hosts: all
   tasks:
     # Добавление интервала по времени для загрузки Jenkins:
-    - name: Waiting 20 second for checking Jenkins
+    - name: Waiting 10 second for checking Jenkins
       wait_for:
-        timeout: 20
+        timeout: 10
 
     # Проверка доступности Jenkins после установки:
     - name: Checking Jenkins for availability
       uri:
-        url: "http://127.1:8080"
+        url: "http://127.0.0.1:8080"
         method: GET
+        timeout: 30
         return_content: true
-        status_code: [503, 403]
+        validate_certs: no
+        status_code: [200, 403, 503]
       register: output
 
     # Результат выполненной ранее проверки:

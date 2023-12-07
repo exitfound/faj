@@ -11,7 +11,7 @@
     name: system-docker
     tasks_from: main
 
-# Создание директорий для хранения данных и конфигурации Jenkins:
+# Создание директорий для хранения конфигурации Jenkins:
 - name: Create Jenkins directories on Centos on RedHat family distro
   file:
     state: directory

@@ -1,27 +1,8 @@
 ---
 
-# Переменные, необходимые для установки и настройки Docker, применимые ко всем дистрибутивам в равной степени:
+# Глобальная переменная, необходимая для конфигурирования Jenkins:
 
-docker_compose_version: v2.5.0
-docker_compose_destination: /usr/bin/docker-compose
-
-# Переменные, необходимые для установки и настройки Docker на дистрибутиве семейства Debian:
-
-debian_docker_apt_repository: https://download.docker.com/linux/{{ ansible_distribution | lower}}
-debian_docker_apt_key: https://download.docker.com/linux/{{ ansible_distribution | lower}}/gpg
-debian_docker_destination_key: /etc/apt/trusted.gpg.d/docker.asc
-debian_docker_file_mode: "u=rw,g=r,o=r"
-
-# Переменные, используемые для выполнения роли certificates:
-
-certbot_email_address: "evoukin@gmail.com"
-certbot_create_command: "certbot certonly --noninteractive --nginx --agree-tos --email {{ certbot_email_address }} --domains {{ jenkins_nginx_domain }}"
-
-# Переменные, используемые для выполнения роли manual-jenkins-agent:
-
-jenkins_agent_user: "jenkins-agent"
-jenkins_agent_group: "jenkins-agent"
-jenkins_agent_public_key: ssh-rsa yourpublickey
+jenkins_nginx_domain: "mylocal.domain"
 
 # Переменные, используемые в секции Credentials, для последующей конфигурации JCasC:
 

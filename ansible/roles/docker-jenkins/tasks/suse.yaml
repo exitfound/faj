@@ -34,6 +34,7 @@
     mode: "{{ jenkins_file_mode }}"
     owner: "{{ jenkins_file_owner }}"
     group: "{{ jenkins_file_group }}"
+  changed_when: false
 
 # Копирование файлов из директории templates и их последующая передача в директорию jenkins_config:
 - name: Copy CasC templates configs in directory jenkins_config on SUSE family distro
@@ -45,6 +46,7 @@
     group: "{{ jenkins_file_group }}"
   with_fileglob:
     - ../templates/*.j2
+  changed_when: false
 
 # Запуск Jenkins с помощью docker-compose на удаленном узле:
 - name: Run Jenkins via docker-compose on SUSE family distro

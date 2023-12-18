@@ -58,7 +58,7 @@
 
 # Проверка того, установлен ли Docker-compose в системе:
 - name: Check if Docker-compose is installed on Debian family distro
-  command: "{{ docker_compose_destination }} --version"
+  command: "{{ docker_compose_destination }} version"
   register: docker_compose_check
   ignore_errors: true
   changed_when: false

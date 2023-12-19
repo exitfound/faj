@@ -2,12 +2,11 @@
 
 # Переменные, необходимые для установки и настройки Jenkins via Docker, применимые ко всем дистрибутивам в равной степени:
 
-jenkins_check_docker: "docker --version"
 jenkins_config_dir: "/opt/jenkins_config"
 jenkins_data_dir: "/opt/jenkins_data"
 jenkins_docker_dir: "/opt/jenkins_docker"
-jenkins_dir_mode: "u=rwx,g=rw,o=r"
-jenkins_file_mode: "u=rw,g=rw,o=r"
+jenkins_dir_mode: "u=rwx,g=rwx,o=r"
+jenkins_file_mode: "u=rw,g=r,o=r"
 jenkins_file_owner: "1000"
 jenkins_file_group: "1000"
 jenkins_file_compose: "jenkins-docker-compose.yaml"

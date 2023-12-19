@@ -4,9 +4,9 @@
   hosts: all
   tasks:
     # Добавление интервала по времени для загрузки Jenkins:
-    - name: Waiting 10 second for checking Jenkins
+    - name: Waiting 30 second for checking Jenkins
       wait_for:
-        timeout: 10
+        timeout: 30
 
     # Проверка доступности Jenkins после установки:
     - name: Checking Jenkins for availability

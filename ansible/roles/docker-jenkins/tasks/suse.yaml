@@ -11,7 +11,7 @@
     name: system-docker
     tasks_from: main
 
-# Создание директорий для хранения конфигурации Jenkins:
+# Создание различных директорий для взаимодействия с Jenkins:
 - name: Create Jenkins directories on SUSE family distro
   file:
     state: directory
@@ -50,11 +50,7 @@
 
 # Запуск Jenkins с помощью docker-compose на удаленном узле:
 - name: Run Jenkins via docker-compose on SUSE family distro
-  docker_compose:
-    build: true
-    files: "{{ jenkins_file_compose }}"
-    project_src: "{{ jenkins_docker_dir }}"
-    recreate: always
+  command: docker-compose -f {{ jenkins_docker_dir }}/{{ jenkins_file_compose }} up -d --build --force-recreate
   register: docker_compose_output
   changed_when: false
 

@@ -1,0 +1,9 @@
+---
+# Данный файл используется для преобразования экземпляров в реальное состояние, объявленное в тестируемых ролях:
+- name: Converge
+  hosts: all
+  tasks:
+    # Данный шаг вызывает роль docker-jenkins для прогона тестов:
+    - name: "Include docker-jenkins role for testing"
+      include_role:
+        name: "docker-jenkins"

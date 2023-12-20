@@ -1,0 +1,25 @@
+---
+# Данный файл используется для выполнения шагов на предмет проверки доступности запускаемого нами приложения:
+- name: Verify
+  hosts: all
+  tasks:
+    # Добавление интервала по времени для загрузки Jenkins:
+    - name: Waiting 30 second for checking Jenkins
+      wait_for:
+        timeout: 30
+
+    # Проверка доступности Jenkins после установки:
+    - name: Checking Jenkins for availability
+      uri:
+        url: "http://127.0.0.1:8080"
+        method: GET
+        timeout: 30
+        return_content: true
+        validate_certs: no
+        status_code: [200, 403]
+      register: output
+
+    # Результат выполненной ранее проверки:
+    - name: Output the result of a registered variable
+      debug:
+        msg: "{{ output.content }}"

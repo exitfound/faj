@@ -1,14 +1,14 @@
 # Глобальные переменные, используемые для выполнения роли certificates:
 
 certificates_nginx_protocol_working: "https" # Переменная, определяющая, какой конфиг Nginx будет использоваться на конечном сервере – с или без SSL от Certbot:
-certificates_certbot_email_address: "evoukin@gmail.com"
+certificates_certbot_email_address: "rurik@kitezh.history"
 certificates_certbot_create_command: "certbot certonly --noninteractive --nginx --agree-tos --email {{ certificates_certbot_email_address }} --domains {{ jenkins_nginx_domain }}"
 
 # Глобальные переменные, используемые для выполнения роли docker-jenkins-agent:
 
 docker_jenkins_agent_name: "docker-jenkins-agent"
 docker_jenkins_agent_image: "jenkins/ssh-agent:alpine"
-docker_jenkins_agent_ssh_port: "2232"
+docker_jenkins_agent_ssh_port: "2222"
 docker_jenkins_agent_public_key: "ssh-rsa yourpublickey"
 
 # Глобальные переменные, используемые для выполнения роли manual-jenkins-agent:
@@ -17,7 +17,7 @@ manual_jenkins_agent_user: "jenkins-agent"
 manual_jenkins_agent_group: "jenkins-agent"
 manual_jenkins_agent_public_key: "ssh-rsa yourpublickey"
 
-# ---
+# ---------------------------------------------------------------------------------
 
 # Переменные, используемые в секции Credentials, для последующей конфигурации JCasC:
 
@@ -46,7 +46,7 @@ jcasc_jenkins_agent_2_ip: "192.168.88.219"
 
 jcasc_jenkins_admin_user: "admin"
 jcasc_jenkins_admin_password: "Kitezh1165"
-jcasc_jenkins_admin_email: "admin@myemail.com"
+jcasc_jenkins_admin_email: "rurik@kitezh.history"
 
 # Переменные, используемые в секции Security, для последующей конфигурации jcasc:
 
@@ -59,7 +59,7 @@ jcasc_tool_jdk_version: "jdk-11.0.14+9"
 
 # Переменные, используемые в секции Unclassified, для последующей конфигурации jcasc:
 
-jcasc_unclassified_email: "admin@myemail.com"
+jcasc_unclassified_email: "rurik@kitezh.history"
 jcasc_unclassified_locale: "en_US"
 
 jcasc_unclassified_gitlab_name: "MyGitlabConnection"

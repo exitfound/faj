@@ -13,8 +13,7 @@ RUN mkdir -p /var/jenkins_config/casc_configs/ /var/jenkins_backup \
         iproute2 \
     && apt-get clean \
     && apt-get autoremove -y \
-    && rm -rf /var/lib/{apt,dpkg,cache,log}/ \
-    && rm -rf /tmp/* /var/tmp/*
+    && rm -rf /var/lib/apt /var/lib/dpkg /tmp/* /var/tmp/*
 
 USER jenkins
 

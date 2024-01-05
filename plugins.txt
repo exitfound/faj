@@ -25,6 +25,7 @@ javax-activation-api
 javax-mail-api
 jersey2-api
 jquery3-api
+hashicorp-vault-pipeline
 http_request
 instance-identity
 ionicons-api
@@ -51,6 +52,7 @@ pipeline-stage-view
 role-strategy
 script-security
 scm-api
+ssh-agent
 ssh-credentials
 ssh-slaves
 timestamper
@@ -68,4 +70,3 @@ workflow-scm-step
 workflow-step-api
 workflow-support
 ws-cleanup
-hashicorp-vault-pipeline

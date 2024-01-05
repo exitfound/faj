@@ -7,8 +7,8 @@ SHORT=o:,n:,u:,p:,U:,P:,h
 LONG=old-jenkins:,new-jenkins:,old-jenkins-user:,old-jenkins-password:,new-jenkins-user:,new-jenkins-password:,help
 OPTS=$(getopt -a -n jenkins --options $SHORT --longoptions $LONG -- "$@")
 
-if [ $? -ne 0 ]; 
-  then echo -e "ERROR: You are using one of the invalid parameters! \n"; 
+if [ $? -ne 0 ];
+  then echo -e "ERROR: You are using one of the invalid parameters! \n";
   exit 1;
 fi
 

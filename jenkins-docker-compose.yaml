@@ -9,7 +9,7 @@ services:
     env_file:
       - .env
     ports:
-      - 127.0.0.1:8080:8080
+      - 0.0.0.0:8080:8080
     volumes:
       - ./jcasc:/var/jenkins_config/casc_configs
       - ./data:/var/jenkins_home

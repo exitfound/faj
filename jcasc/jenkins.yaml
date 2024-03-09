@@ -16,14 +16,14 @@ jenkins:
   remotingSecurity:
     enabled: true
 
-# Эта опция позволяет задать глобальные переменные в Jenkins:
-  globalNodeProperties:
-    - envVars:
-        env:
-        - key: "your-name1"
-          value: "your-value1"
-        - key: "your-name2"
-          value: "your-value2"
+# Эта опция позволяет задать глобальные переменные в Jenkins (при желании можно раскомментировать):
+  # globalNodeProperties:
+  #   - envVars:
+  #       env:
+  #       - key: "your-name1"
+  #         value: "your-value1"
+  #       - key: "your-name2"
+  #         value: "your-value2"
 
 # Этот ряд опций позволяет создавать и управлять вьюшками в Jenkins:
   myViewsTabBar: "standard"
@@ -35,7 +35,7 @@ jenkins:
   - all:
       name: "all"
   - list:
-      name: "view1"
+      name: "Frontend"
       columns:
       - "itemColumn"
       - "status"
@@ -47,7 +47,7 @@ jenkins:
       - "gitBranchSpecifierColumn"
       - "descriptionColumn"
   - list:
-      name: "view2"
+      name: "Backend"
       includeRegex: ".+"
       columns:
       - "itemColumn"
@@ -60,7 +60,7 @@ jenkins:
       - "gitBranchSpecifierColumn"
       - "descriptionColumn"
   - list:
-      name: "view3"
+      name: "DevOps"
       recurse: true
       columns:
       - "itemColumn"
@@ -81,8 +81,8 @@ jenkins:
     - permanent:
         name: ${JCASC_JENKINS_AGENT_1_NAME}
         nodeDescription: "This is my first Jenkins Agent"
-        numExecutors: 4
-        remoteFS: ${JCASC_JENKINS_REMOTE_FS}
+        numExecutors: 2
+        remoteFS: "/var/lib/jenkins"
         labelString: ${JCASC_JENKINS_AGENT_1_LABEL}
         retentionStrategy: "always"
         launcher:
@@ -90,13 +90,15 @@ jenkins:
             credentialsId: ${JCASC_CREDENTIAL_SSH_ID}
             host: ${JCASC_JENKINS_AGENT_1_IP}
             port: 22
+            maxNumRetries: 3
+            retryWaitTime: 30
             sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
 
     - permanent:
         name: ${JCASC_JENKINS_AGENT_2_NAME}
         nodeDescription: "This is my second Jenkins Agent"
-        numExecutors: 4
-        remoteFS: ${JCASC_JENKINS_REMOTE_FS}
+        numExecutors: 2
+        remoteFS: "/var/lib/jenkins"
         labelString: ${JCASC_JENKINS_AGENT_2_LABEL}
         retentionStrategy: "always"
         launcher:
@@ -104,6 +106,8 @@ jenkins:
             credentialsId: ${JCASC_CREDENTIAL_SSH_ID}
             host: ${JCASC_JENKINS_AGENT_2_IP}
             port: 22
+            maxNumRetries: 3
+            retryWaitTime: 30
             sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
 
 # Этот ряд опций позволяет настроить один из вариантов аутентификации на выбор в Jenkins.
@@ -157,3 +161,10 @@ jenkins:
       - "GROUP:View/Delete:authenticated"
       - "GROUP:View/Read:authenticated"
       - "USER:Overall/Administer:${JCASC_JENKINS_ADMIN_USER}"
+
+  log:
+    recorders:
+    - name: "JCasC"
+      loggers:
+      - level: "WARNING"
+        name: "io.jenkins.plugins.casc"

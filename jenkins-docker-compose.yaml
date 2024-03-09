@@ -5,6 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: jenkins-master
+    image: jenkins-master
     user: jenkins
     env_file:
       - .env
@@ -13,6 +14,7 @@ services:
     volumes:
       - ./jcasc:/var/jenkins_config/casc_configs
       - ./data:/var/jenkins_home
+      - ./backup:/var/jenkins_backup
     networks:
       - jenkins
     restart: on-failure

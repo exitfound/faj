@@ -30,6 +30,18 @@ platforms:
     security_opts:
       - seccomp=unconfined
 
+  - name: opensuse15.5
+    image: mdd13/ansible-docker-suse:opensuse15.5
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    capabilities:
+      - SYS_ADMIN
+    security_opts:
+      - seccomp=unconfined
+
 provisioner:
   name: ansible
   env:

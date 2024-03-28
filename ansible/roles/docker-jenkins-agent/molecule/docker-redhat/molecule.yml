@@ -1,0 +1,46 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+platforms:
+  - name: centos8
+    image: mdd13/ansible-docker-centos:centos8
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    security_opts:
+      - seccomp=unconfined
+
+  - name: centos9
+    image: mdd13/ansible-docker-centos:centos9
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    security_opts:
+      - seccomp=unconfined
+
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_STDOUT_CALLBACK: yaml
+  inventory:
+    group_vars:
+      all:
+        docker_jenkins_agent_name: "docker-jenkins-agent"
+        docker_jenkins_agent_image: "jenkins/ssh-agent:alpine"
+        docker_jenkins_agent_ssh_port: "2222"
+        docker_jenkins_agent_public_key: "ssh-rsa yourpublickey"
+
+verifier:
+  name: ansible
+
+lint: |
+  yamllint -c ../../../.yamllint .
+  ansible-lint .

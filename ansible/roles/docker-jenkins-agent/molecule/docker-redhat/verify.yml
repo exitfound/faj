@@ -1,0 +1,8 @@
+---
+# Данный файл знаменует успешное завершение запускаемых ранее тестов:
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Output the result
+      assert:
+        that: true

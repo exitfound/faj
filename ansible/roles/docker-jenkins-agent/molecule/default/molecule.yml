@@ -6,17 +6,17 @@ driver:
   name: docker
 
 platforms:
-  - name: opensuse15.3
-    image: mdd13/ansible-docker-suse:opensuse15.3
-    pre_build_image: true
-    privileged: true
-    override_command: false
-    cgroupns_mode: host
-    tmpfs:
-      - /var/lib/docker
-      - /tmp
-    security_opts:
-      - seccomp=unconfined
+  # - name: opensuse15.3
+  #   image: mdd13/ansible-docker-suse:opensuse15.3
+  #   pre_build_image: true
+  #   privileged: true
+  #   override_command: false
+  #   cgroupns_mode: host
+  #   tmpfs:
+  #     - /var/lib/docker
+  #     - /tmp
+  #   security_opts:
+  #     - seccomp=unconfined
 
   - name: opensuse15.4
     image: mdd13/ansible-docker-suse:opensuse15.4

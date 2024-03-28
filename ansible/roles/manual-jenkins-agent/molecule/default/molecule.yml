@@ -87,13 +87,13 @@ platforms:
     security_opts:
       - seccomp=unconfined
 
-  - name: ubuntu24.04
-    image: mdd13/ansible-docker-ubuntu:ubuntu24.04
-    pre_build_image: true
-    privileged: true
-    override_command: false
-    security_opts:
-      - seccomp=unconfined
+  # - name: ubuntu24.04
+  #   image: mdd13/ansible-docker-ubuntu:ubuntu24.04
+  #   pre_build_image: true
+  #   privileged: true
+  #   override_command: false
+  #   security_opts:
+  #     - seccomp=unconfined
 
 provisioner:
   name: ansible

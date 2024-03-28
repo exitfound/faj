@@ -223,7 +223,7 @@ jobs:
         run: |
           molecule --version
           molecule test -s $MOLECULE_PROFILE
-        working-directory: ansible/roles/manual-jenkins
+        working-directory: ansible/roles/manual-jenkins-agent
 
   system-docker:
     needs: molecule

@@ -2,14 +2,14 @@
 
 # Переменные, необходимые для установки пакетов на дистрибутиве семейства SUSE:
 
-opensuse_packages_list:
+suse_packages_list:
   - bash-completion
   - python3-pip
   - wget
 
 # Переменные, необходимые для установки пакетов на дистрибутиве семейства RedHat:
 
-centos_packages_list:
+redhat_packages_list:
   - bash-completion
   - epel-release
   - python3-pip
@@ -18,7 +18,7 @@ centos_packages_list:
 
 # Переменные, необходимые для установки пакетов на дистрибутиве семейства Debian:
 
-ubuntu_packages_list:
+debian_packages_list:
   - apt-transport-https
   - bash-completion
   - ca-certificates

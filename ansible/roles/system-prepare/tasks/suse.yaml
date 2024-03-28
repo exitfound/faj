@@ -11,6 +11,6 @@
 # Установка пакетов rpm из списка необходимых, которые определены в виде переменной, в директории defaults:
 - name: Install required packages on SUSE family distro
   zypper:
-    name: "{{ opensuse_packages_list }}"
+    name: "{{ suse_packages_list }}"
     state: present
     update_cache: true

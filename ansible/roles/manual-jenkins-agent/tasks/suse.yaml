@@ -2,7 +2,7 @@
 # Установка необходимых пакетов для успешной работы Jenkins Agent:
 - name: Install required packages on SUSE family distro
   zypper:
-    name: "{{ opensuse_agent_packages_list }}"
+    name: "{{ suse_agent_packages_list }}"
     state: present
     update_cache: true
 

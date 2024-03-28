@@ -2,7 +2,7 @@
 # Установка необходимых пакетов для успешной работы Jenkins Agent:
 - name: Install required packages on Debian family distro
   apt:
-    name: "{{ ubuntu_agent_packages_list }}"
+    name: "{{ debian_agent_packages_list }}"
     state: present
     update_cache: true
 

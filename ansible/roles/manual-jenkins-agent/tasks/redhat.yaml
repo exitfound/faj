@@ -2,7 +2,7 @@
 # Установка необходимых пакетов для успешной работы Jenkins Agent:
 - name: Install required packages on RedHat family distro
   yum:
-    name: "{{ centos_agent_packages_list }}"
+    name: "{{ redhat_agent_packages_list }}"
     state: present
     update_cache: true
 

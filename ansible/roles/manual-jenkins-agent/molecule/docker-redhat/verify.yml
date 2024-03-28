@@ -1,0 +1,8 @@
+---
+# Данный файл используется для выполнения шагов на предмет проверки запускаемых тестов:
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Output the result
+      assert:
+        that: true

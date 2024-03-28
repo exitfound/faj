@@ -1,0 +1,49 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+platforms:
+  - name: opensuse15.3
+    image: mdd13/ansible-docker-suse:opensuse15.3
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    security_opts:
+      - seccomp=unconfined
+
+  - name: opensuse15.4
+    image: mdd13/ansible-docker-suse:opensuse15.4
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    security_opts:
+      - seccomp=unconfined
+
+  - name: opensuse15.5
+    image: mdd13/ansible-docker-suse:opensuse15.5
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    security_opts:
+      - seccomp=unconfined
+
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_STDOUT_CALLBACK: yaml
+  inventory:
+    group_vars:
+      all:
+        manual_jenkins_agent_user: "jenkins-agent"
+        manual_jenkins_agent_group: "jenkins-agent"
+        manual_jenkins_agent_public_key: "ssh-rsa yourpublickey"
+
+verifier:
+  name: ansible
+
+lint: |
+  yamllint -c ../../../.yamllint .
+  ansible-lint .

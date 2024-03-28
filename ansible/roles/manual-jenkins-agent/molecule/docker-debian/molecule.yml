@@ -1,0 +1,74 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+platforms:
+  - name: debian10
+    image: mdd13/ansible-docker-debian:debian-10
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    security_opts:
+      - seccomp=unconfined
+
+  - name: debian11
+    image: mdd13/ansible-docker-debian:debian-11
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    security_opts:
+      - seccomp=unconfined
+
+  - name: debian12
+    image: mdd13/ansible-docker-debian:debian-12
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    security_opts:
+      - seccomp=unconfined
+
+  - name: ubuntu20.04
+    image: mdd13/ansible-docker-ubuntu:ubuntu20.04
+    pre_build_image: true
+    override_command: false
+    capabilities:
+      - SYS_ADMIN
+    security_opts:
+      - seccomp=unconfined
+
+  - name: ubuntu22.04
+    image: mdd13/ansible-docker-ubuntu:ubuntu22.04
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    security_opts:
+      - seccomp=unconfined
+
+  # - name: ubuntu24.04
+  #   image: mdd13/ansible-docker-ubuntu:ubuntu24.04
+  #   pre_build_image: true
+  #   privileged: true
+  #   override_command: false
+  #   security_opts:
+  #     - seccomp=unconfined
+
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_STDOUT_CALLBACK: yaml
+  inventory:
+    group_vars:
+      all:
+        manual_jenkins_agent_user: "jenkins-agent"
+        manual_jenkins_agent_group: "jenkins-agent"
+        manual_jenkins_agent_public_key: "ssh-rsa yourpublickey"
+
+verifier:
+  name: ansible
+
+lint: |
+  yamllint -c ../../../.yamllint .
+  ansible-lint .

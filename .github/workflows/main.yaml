@@ -106,6 +106,18 @@ jobs:
     needs: molecule
     if: ${{ needs.molecule.outputs.docker-jenkins-agent == 'true' }}
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+  docker-jenkins-agent-matrix:
+    needs: docker-jenkins-agent
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        OS_FAMILY: [docker-suse, docker-redhat, docker-debian]
     env:
       PY_COLORS: 1
       ANSIBLE_FORCE_COLOR: 1
@@ -113,20 +125,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.11
-
       - name: Install dependencies
         run: |
           python -m pip install --no-cache-dir --upgrade pip
           pip install -r requirements.txt
 
+      - name: Pre-cleaning system before molecule tests
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+
       - name: Run molecule tests when content changes in docker-jenkins-agent role
+        env: 
+          MOLECULE_PROFILE: ${{ matrix.OS_FAMILY }}
         run: |
           molecule --version
-          molecule test
+          molecule test -s $MOLECULE_PROFILE
         working-directory: ansible/roles/docker-jenkins-agent
 
   manual-jenkins:
@@ -174,6 +188,18 @@ jobs:
     needs: molecule
     if: ${{ needs.molecule.outputs.manual-jenkins-agent == 'true' }}
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+  manual-jenkins-agent-matrix:
+    needs: manual-jenkins-agent
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        OS_FAMILY: [docker-suse, docker-redhat, docker-debian]
     env:
       PY_COLORS: 1
       ANSIBLE_FORCE_COLOR: 1
@@ -192,10 +218,12 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run molecule tests when content changes in manual-jenkins-agent role
+        env: 
+          MOLECULE_PROFILE: ${{ matrix.OS_FAMILY }}
         run: |
           molecule --version
-          molecule test
-        working-directory: ansible/roles/manual-jenkins-agent
+          molecule test -s $MOLECULE_PROFILE
+        working-directory: ansible/roles/manual-jenkins
 
   system-docker:
     needs: molecule

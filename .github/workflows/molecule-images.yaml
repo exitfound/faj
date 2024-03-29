@@ -13,10 +13,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # https://github.com/marketplace/actions/hadolint-action
       - name: Linting dockerfile for OpenSUSE 15.3
         uses: hadolint/hadolint-action@v3.1.0
         with:
           recursive: true
           dockerfile: ./dockerfiles/opensuse15.3.dockerfile
-          ignore: "DL3008,SC3009"
+          ignore: "DL3013,DL3037"
+          format: "json"
+
+      - name: Linting dockerfile for OpenSUSE 15.4
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          recursive: true
+          dockerfile: ./dockerfiles/opensuse15.4.dockerfile
+          ignore: "DL3013,DL3037"
+          format: "json"
+
+      - name: Linting dockerfile for OpenSUSE 15.5
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          recursive: true
+          dockerfile: ./dockerfiles/opensuse15.5.dockerfile
+          ignore: "DL3013,DL3037"
+          format: "json"

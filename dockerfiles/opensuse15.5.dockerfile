@@ -4,7 +4,7 @@ LABEL maintainer="Ivan Medaev"
 
 ENV PIP_PACKAGES="ansible"
 
-# COPY jenkins /etc/sudoers.d/jenkins
+COPY jenkins /etc/sudoers.d/jenkins
 
 RUN zypper install -y python3-devel \
     python3-pip \

@@ -1,0 +1,22 @@
+---
+name: Molecule Docker Image Builds
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  hadolint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # https://github.com/marketplace/actions/hadolint-action
+      - name: Linting dockerfile for OpenSUSE 15.3
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          recursive: true
+          dockerfile: ./dockerfiles/opensuse15.3.dockerfile
+          ignore: "DL3008,SC3009"

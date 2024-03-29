@@ -30,8 +30,23 @@ jobs:
           ignore: "DL3013,DL3037"
 
   build-suse-image:
-    needs: hadolint
+    needs: molecule
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+  build-suse-image-matrix:
+    needs: build-suse-image
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        OS_VERSION: [opensuse15.3, opensuse15.4, opensuse15.5]
+    env:
+      PY_COLORS: 1
+      ANSIBLE_FORCE_COLOR: 1
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -48,10 +63,12 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push Docker Image
         uses: docker/build-push-action@v5
+        env: 
+          OS_VERSION: ${{ matrix.OS_VERSION }}
         with:
           context: ./dockerfiles/
           push: true
-          tags: mdd13/ansible-docker-suse:opensuse15.5
-          file: ./dockerfiles/opensuse15.5.dockerfile
+          tags: mdd13/ansible-docker-suse:{{env.OS_VERSION}}
+          file: ./dockerfiles/{{env.OS_VERSION}}.dockerfile

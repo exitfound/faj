@@ -26,7 +26,7 @@ jobs:
           DOCKERFILE_PROFILE: ${{ matrix.OS_VERSION }}
         with:
           recursive: true
-          dockerfile: ./dockerfiles/$DOCKERFILE_PROFILE.dockerfile
+          dockerfile: ./dockerfiles/${{env.DOCKERFILE_PROFILE}}.dockerfile
           ignore: "DL3013,DL3037"
 
 

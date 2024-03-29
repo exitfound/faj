@@ -30,7 +30,6 @@ jobs:
           ignore: "DL3013,DL3037"
 
   build-suse-image:
-    needs: molecule
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

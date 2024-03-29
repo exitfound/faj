@@ -29,63 +29,29 @@ jobs:
           dockerfile: ./dockerfiles/${{env.DOCKERFILE_PROFILE}}.dockerfile
           ignore: "DL3013,DL3037"
 
+  build:
+    needs: hadolint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-
-
-
-
-
-
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v3
-
-  #     - name: Linting dockerfile for OpenSUSE 15.3
-  #       uses: hadolint/hadolint-action@v3.1.0
-  #       with:
-  #         recursive: true
-  #         dockerfile: ./dockerfiles/opensuse15.3.dockerfile
-  #         ignore: "DL3013,DL3037"
-  #         format: "json"
-
-  #     - name: Linting dockerfile for OpenSUSE 15.4
-  #       uses: hadolint/hadolint-action@v3.1.0
-  #       with:
-  #         recursive: true
-  #         dockerfile: ./dockerfiles/opensuse15.4.dockerfile
-  #         ignore: "DL3013,DL3037"
-  #         format: "json"
-
-  #     - name: Linting dockerfile for OpenSUSE 15.5
-  #       uses: hadolint/hadolint-action@v3.1.0
-  #       with:
-  #         recursive: true
-  #         dockerfile: ./dockerfiles/opensuse15.5.dockerfile
-  #         ignore: "DL3013,DL3037"
-  #         format: "json"
-
-  # build:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-  #     -
-  #       name: Set up QEMU
-  #       uses: docker/setup-qemu-action@v3
-  #     -
-  #       name: Set up Docker Buildx
-  #       uses: docker/setup-buildx-action@v3
-  #     -
-  #       name: Login to Docker Hub
-  #       uses: docker/login-action@v3
-  #       with:
-  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
-  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
-  #     -
-  #       name: Build and push
-  #       uses: docker/build-push-action@v5
-  #       with:
-  #         context: .
-  #         push: true
-  #         tags: user/app:latest
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: mdd13/ansible-docker-suse:opensuse15.5
+          file: ./dockerfiles/opensuse15.5.dockerfile

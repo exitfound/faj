@@ -29,7 +29,7 @@ jobs:
           dockerfile: ./dockerfiles/${{env.DOCKERFILE_PROFILE}}.dockerfile
           ignore: "DL3013,DL3037"
 
-  build:
+  build-suse-image:
     needs: hadolint
     runs-on: ubuntu-latest
     steps:
@@ -51,7 +51,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./dockerfiles/
           push: true
           tags: mdd13/ansible-docker-suse:opensuse15.5
           file: ./dockerfiles/opensuse15.5.dockerfile

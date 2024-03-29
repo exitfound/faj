@@ -11,7 +11,7 @@ RUN zypper install -y python3-devel \
     python3-wheel \
     xz \
     systemd \
-    && pip3 install --upgrade pip \
+    && pip3 install --no-cache-dir --upgrade pip \
     && pip3 install --no-cache-dir $PIP_PACKAGES \
     && zypper clean --all \
     && rm -rf /usr/share/doc \

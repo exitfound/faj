@@ -30,6 +30,7 @@ jobs:
           ignore: "DL3013,DL3037"
 
   build-suse-image:
+    needs: hadolint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -69,5 +70,5 @@ jobs:
         with:
           context: ./dockerfiles/
           push: true
-          tags: mdd13/ansible-docker-suse:{{env.OS_VERSION}}
-          file: ./dockerfiles/{{env.OS_VERSION}}.dockerfile
+          tags: mdd13/ansible-docker-suse:${{env.OS_VERSION}}
+          file: ./dockerfiles/${{env.OS_VERSION}}.dockerfile

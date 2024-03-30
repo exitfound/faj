@@ -19,11 +19,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && pip3 install --no-cache-dir $PIP_PACKAGES \
     && apt-get clean \
     && apt-get autoremove -y \
-    && rm -rf /var/lib/apt \
-    && rm -rf /var/lib/cache \
-    && rm -rf /var/lib/dpkg \
-    && rm -rf /tmp/* /var/tmp/* \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /tmp/* /var/tmp/*
 
 RUN groupadd -g 1000 -f jenkins \
     && useradd -g 1000 -G jenkins -d /home/jenkins/ jenkins \

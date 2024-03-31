@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      max-parallel: 6
+      max-parallel: 3
       matrix:
         OS_VERSION: [opensuse15.3, opensuse15.4, opensuse15.5, centos8, centos9, debian10, debian11, debian12, ubuntu20.04, ubuntu22.04, ubuntu24.04]
     env:
@@ -72,8 +72,6 @@ jobs:
           context: ./dockerfiles/
           tags: mdd13/ansible-docker-suse:${{ env.OS_VERSION }}
           file: ./dockerfiles/${{ env.OS_VERSION }}.dockerfile
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
   build-redhat-image:
     needs: hadolint
@@ -118,8 +116,6 @@ jobs:
           context: ./dockerfiles/
           tags: mdd13/ansible-docker-redhat:${{ env.OS_VERSION }}
           file: ./dockerfiles/${{ env.OS_VERSION }}.dockerfile
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
   build-debian-image:
     needs: hadolint
@@ -164,8 +160,6 @@ jobs:
           context: ./dockerfiles/
           tags: mdd13/ansible-docker-debian:${{ env.OS_VERSION }}
           file: ./dockerfiles/${{ env.OS_VERSION }}.dockerfile
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
   build-ubuntu-image:
     needs: hadolint
@@ -210,5 +204,5 @@ jobs:
           context: ./dockerfiles/
           tags: mdd13/ansible-docker-ubuntu:${{ env.OS_VERSION }}
           file: ./dockerfiles/${{ env.OS_VERSION }}.dockerfile
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=registry,ref=mdd13/ansible-docker-ubuntu:${{ env.OS_VERSION }}
+          cache-to: type=registry,ref=mdd13/ansible-docker-ubuntu:${{ env.OS_VERSION }},mode=max

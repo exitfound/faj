@@ -66,12 +66,16 @@ jobs:
       - name: Build and push Docker Image
         uses: docker/build-push-action@v5
         env:
-          OS_VERSION: ${{ matrix.OS_VERSION }}
+          DOCKER_HUB_USER: "mdd13"
+          DOCKER_HUB_REPOSITORY: "ansible-docker-suse"
+          IMAGE_TAG: ${{ matrix.OS_VERSION }}
         with:
           push: true
           context: ./dockerfiles/
-          tags: mdd13/ansible-docker-suse:${{ env.OS_VERSION }}
-          file: ./dockerfiles/${{ env.OS_VERSION }}.dockerfile
+          tags: ${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          file: ./dockerfiles/${{ env.IMAGE_TAG }}.dockerfile
+          cache-from: type=registry,ref=${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          cache-to: type=registry,ref=${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }},mode=max
 
   build-redhat-image:
     needs: hadolint
@@ -110,12 +114,16 @@ jobs:
       - name: Build and push Docker Image
         uses: docker/build-push-action@v5
         env:
-          OS_VERSION: ${{ matrix.OS_VERSION }}
+          DOCKER_HUB_USER: "mdd13"
+          DOCKER_HUB_REPOSITORY: "ansible-docker-redhat"
+          IMAGE_TAG: ${{ matrix.OS_VERSION }}
         with:
           push: true
           context: ./dockerfiles/
-          tags: mdd13/ansible-docker-redhat:${{ env.OS_VERSION }}
-          file: ./dockerfiles/${{ env.OS_VERSION }}.dockerfile
+          tags: ${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          file: ./dockerfiles/${{ env.IMAGE_TAG }}.dockerfile
+          cache-from: type=registry,ref=${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          cache-to: type=registry,ref=${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }},mode=max
 
   build-debian-image:
     needs: hadolint
@@ -154,12 +162,16 @@ jobs:
       - name: Build and push Docker Image
         uses: docker/build-push-action@v5
         env:
-          OS_VERSION: ${{ matrix.OS_VERSION }}
+          DOCKER_HUB_USER: "mdd13"
+          DOCKER_HUB_REPOSITORY: "ansible-docker-debian"
+          IMAGE_TAG: ${{ matrix.OS_VERSION }}
         with:
           push: true
           context: ./dockerfiles/
-          tags: mdd13/ansible-docker-debian:${{ env.OS_VERSION }}
-          file: ./dockerfiles/${{ env.OS_VERSION }}.dockerfile
+          tags: ${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          file: ./dockerfiles/${{ env.IMAGE_TAG }}.dockerfile
+          cache-from: type=registry,ref=${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          cache-to: type=registry,ref=${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }},mode=max
 
   build-ubuntu-image:
     needs: hadolint

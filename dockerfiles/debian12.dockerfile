@@ -19,12 +19,10 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && pip3 install --no-cache-dir $PIP_PACKAGES --break-system-packages \
     && apt-get clean \
     && apt-get autoremove -y \
-    && rm -rf /tmp/* /var/tmp/*
+    && rm -rf /tmp/* /var/tmp/* \
+    && locale-gen en_US.UTF-8
 
-RUN groupadd -g 1000 -f jenkins \
-    && useradd -g 1000 -G jenkins -d /home/jenkins/ jenkins \
-    && locale-gen en_US.UTF-8 \
-    && rm -f /lib/systemd/system/systemd*udev* \
+RUN rm -f /lib/systemd/system/systemd*udev* \
     && rm -f /lib/systemd/system/getty.target
 
 CMD ["/lib/systemd/systemd"]

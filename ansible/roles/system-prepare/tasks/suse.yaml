@@ -9,7 +9,7 @@
     - update
 
 # Установка пакетов rpm из списка необходимых, которые определены в виде переменной, в директории defaults:
-- name: Install required packages on SUSE family distro
+- name: Install general packages on SUSE family distro
   zypper:
     name: "{{ suse_packages_list }}"
     state: present

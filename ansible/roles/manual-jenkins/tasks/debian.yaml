@@ -27,14 +27,14 @@
   apt:
     name: "{{ debian_packages_list }}"
     state: present
-  when: ansible_os_family == 'Debian' and ansible_distribution_version != '10'
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian' and ansible_distribution_major_version | int != 10
 
 # Установка предварительно необходимых пакетов для запуска Jenkins (только Debian 10 для JDK 11):
 - name: Install old required packages on Debian family distro
   apt:
     name: "{{ debian_old_packages_list }}"
     state: present
-  when: ansible_distribution == 'Debian' and ansible_distribution_version == '10'
+  when: ansible_distribution == 'Debian' and ansible_distribution_major_version | int == 10
 
 # Установка непосредственно самого пакета Jenkins:
 - name: Install Jenkins package on Debian family distro

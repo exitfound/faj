@@ -9,7 +9,7 @@
     - update
 
 # Установка пакетов apt из списка необходимых, которые определены в виде переменной, в директории defaults:
-- name: Install required packages on Debian family distro
+- name: Install general packages on Debian family distro
   apt:
     name: "{{ debian_packages_list }}"
     state: present

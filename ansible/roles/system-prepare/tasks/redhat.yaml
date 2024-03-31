@@ -9,7 +9,7 @@
     - update
 
 # Установка пакетов rpm из списка необходимых, которые определены в виде переменной, в директории defaults:
-- name: Install required packages on RedHat family distro
+- name: Install general packages on RedHat family distro
   yum:
     name: "{{ redhat_packages_list }}"
     state: present

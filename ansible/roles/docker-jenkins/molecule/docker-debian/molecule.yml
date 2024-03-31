@@ -7,7 +7,7 @@ driver:
 
 platforms:
   - name: debian10
-    image: mdd13/ansible-docker-debian:debian-10
+    image: mdd13/ansible-docker-debian:debian10
     pre_build_image: true
     privileged: true
     cgroup_parent: docker.slice
@@ -18,7 +18,7 @@ platforms:
       - /tmp
 
   - name: debian11
-    image: mdd13/ansible-docker-debian:debian-11
+    image: mdd13/ansible-docker-debian:debian11
     pre_build_image: true
     tmpfs:
       - /run
@@ -33,7 +33,7 @@ platforms:
     override_command: false
 
   - name: debian12
-    image: mdd13/ansible-docker-debian:debian-12
+    image: mdd13/ansible-docker-debian:debian12
     pre_build_image: true
     tmpfs:
       - /run

@@ -7,7 +7,7 @@ driver:
 
 platforms:
   - name: centos8
-    image: mdd13/ansible-docker-centos:centos8
+    image: mdd13/ansible-docker-redhat:centos8
     pre_build_image: true
     privileged: true
     override_command: false
@@ -17,7 +17,7 @@ platforms:
       - seccomp=unconfined
 
   - name: centos9
-    image: mdd13/ansible-docker-centos:centos9
+    image: mdd13/ansible-docker-redhat:centos9
     pre_build_image: true
     privileged: true
     override_command: false

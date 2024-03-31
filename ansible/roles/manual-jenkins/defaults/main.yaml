@@ -43,5 +43,9 @@ debian_packages_list:
   - openjdk-17-jre
   - fontconfig
 
-ubuntu_package_jenkins:
+debian_old_packages_list:
+  - openjdk-11-jdk
+  - fontconfig
+
+debian_package_jenkins:
   - jenkins

@@ -15,9 +15,9 @@ jenkins_plugin_manager: https://github.com/jenkinsci/plugin-installation-manager
 
 # Переменные, необходимые для конфигурирования мануального Jenkins на дистрибутиве семейства SUSE:
 
-opensuse_zypper_key: https://pkg.jenkins.io/opensuse/jenkins.io-2023.key
-opensuse_zypper_repository: https://pkg.jenkins.io/opensuse-stable/
-opensuse_packages_list:
+suse_zypper_key: https://pkg.jenkins.io/opensuse/jenkins.io-2023.key
+suse_zypper_repository: https://pkg.jenkins.io/opensuse-stable/
+suse_packages_list:
   - java-11-openjdk
   - dejavu-fonts
   - fontconfig
@@ -25,9 +25,9 @@ opensuse_packages_list:
 
 # Переменные, необходимые для установки пакетов на дистрибутиве семейства Redhat:
 
-centos_yum_key: https://pkg.jenkins.io/redhat/jenkins.io-2023.key
-centos_yum_repository: http://pkg.jenkins.io/redhat-stable
-centos_packages_list:
+redhat_yum_key: https://pkg.jenkins.io/redhat/jenkins.io-2023.key
+redhat_yum_repository: https://pkg.jenkins.io/redhat-stable
+redhat_packages_list:
   - java-11-openjdk
   - java-11-openjdk-devel
   - fontconfig
@@ -35,12 +35,12 @@ centos_packages_list:
 
 # Переменные, необходимые для установки пакетов на дистрибутиве семейства Debian:
 
-ubuntu_apt_key: "https://pkg.jenkins.io/debian/jenkins.io-2023.key"
-ubuntu_dest_key: "/etc/apt/trusted.gpg.d/jenkins.asc"
-ubuntu_apt_repository: "http://pkg.jenkins.io/debian-stable"
-ubuntu_packages_list:
-  - openjdk-11-jdk
-  - openjdk-11-jre
+debian_apt_key: "https://pkg.jenkins.io/debian/jenkins.io-2023.key"
+debian_dest_key: "/etc/apt/trusted.gpg.d/jenkins.asc"
+debian_apt_repository: "http://pkg.jenkins.io/debian-stable"
+debian_packages_list:
+  - openjdk-17-jdk
+  - openjdk-17-jre
   - fontconfig
 
 ubuntu_package_jenkins:

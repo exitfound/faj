@@ -8,7 +8,7 @@
 # Добавление GPG ключа для последующей установки Jenkins из пакетного менеджера:
 - name: Import GPG key to ensure your software on SUSE family distro
   rpm_key:
-    key: "{{ opensuse_zypper_key }}"
+    key: "{{ suse_zypper_key }}"
     state: present
 
 # Создание файла и добавление адреса репозитория Jenkins в zypp.repos.d:
@@ -16,12 +16,12 @@
   zypper_repository:
     name: jenkins
     state: present
-    repo: "{{ opensuse_zypper_repository }}"
+    repo: "{{ suse_zypper_repository }}"
 
 # Установка необходимых пакетов для успешного запуска Jenkins:
 - name: Install required packages on SUSE family distro
   zypper:
-    name: "{{ opensuse_packages_list }}"
+    name: "{{ suse_packages_list }}"
     state: present
 
 # Создание директорий для хранения CasC конфигурации в Jenkins:

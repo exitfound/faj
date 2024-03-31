@@ -8,8 +8,8 @@
 # Добавление ключа репозитория для последующей установки Jenkins из пакетного менеджера:
 - name: Add Jenkins repository key on Debian family distro
   get_url:
-    url: "{{ ubuntu_apt_key }}"
-    dest: "{{ ubuntu_dest_key }}"
+    url: "{{ debian_apt_key }}"
+    dest: "{{ debian_dest_key }}"
     mode: "{{ jenkins_file_mode }}"
     owner: "0"
     group: "0"
@@ -17,7 +17,7 @@
 # Добавление адреса репозитория Jenkins в sources.list:
 - name: Add package repository address to sources.list on Debian family distro
   apt_repository:
-    repo: "deb [signed-by={{ ubuntu_dest_key }}] {{ ubuntu_apt_repository }} binary/"
+    repo: "deb [signed-by={{ debian_dest_key }}] {{ debian_apt_repository }} binary/"
     state: present
     filename: jenkins
     update_cache: true
@@ -25,13 +25,13 @@
 # Установка предварительно необходимых пакетов для запуска Jenkins:
 - name: Install required packages on Debian family distro
   apt:
-    name: "{{ ubuntu_packages_list }}"
+    name: "{{ debian_packages_list }}"
     state: present
 
 # Установка непосредственно самого пакета Jenkins:
 - name: Install Jenkins package on Debian family distro
   apt:
-    name: "{{ ubuntu_package_jenkins }}"
+    name: "{{ debian_package_jenkins }}"
     state: present
 
 # Создание директории для хранения CasC конфигурации в Jenkins:

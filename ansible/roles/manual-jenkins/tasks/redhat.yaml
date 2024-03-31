@@ -11,13 +11,13 @@
     name: jenkins
     description: Jenkins Repository
     gpgcheck: true
-    baseurl: http://pkg.jenkins.io/redhat-stable
-    gpgkey: https://pkg.jenkins.io/redhat/jenkins.io-2023.key
+    baseurl: "{{ redhat_yum_repository }}"
+    gpgkey: "{{ redhat_yum_key }}"
 
 # Установка необходимых пакетов для успешного запуска Jenkins:
 - name: Install required packages on RedHat family distro
   yum:
-    name: "{{ centos_packages_list }}"
+    name: "{{ redhat_packages_list }}"
     state: present
 
 # Создание директорий для хранения CasC конфигурации в Jenkins:

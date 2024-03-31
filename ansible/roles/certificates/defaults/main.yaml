@@ -7,12 +7,12 @@ certbot_packages_list:
 
 # Переменные, необходимые для конфигурирования SSL на дистрибутиве семейства SUSE:
 
-opensuse_zypper_packages_list:
+suse_zypper_packages_list:
   - certbot-systemd-timer
 
 # Переменные, необходимые для конфигурирования SSL на дистрибутиве семейства RedHat:
 
 # Переменные, необходимые для конфигурирования SSL на дистрибутиве семейства Debian:
 
-ubuntu_pip_packages_list:
+debian_pip_packages_list:
   - appengine-python-standard

@@ -9,7 +9,7 @@
 # Установка PIP-пакета, который необходим для корректной работы Certbot (только Ubuntu 20.04):
 - name: Install required packages for pip on DEB family distro
   pip:
-    name: "{{ ubuntu_pip_packages_list }}"
+    name: "{{ debian_pip_packages_list }}"
     state: present
     executable: pip3
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '20.04'

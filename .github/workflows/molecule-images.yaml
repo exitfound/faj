@@ -198,11 +198,13 @@ jobs:
       - name: Build and push Docker Image
         uses: docker/build-push-action@v5
         env:
-          OS_VERSION: ${{ matrix.OS_VERSION }}
+          DOCKER_HUB_USER: "mdd13"
+          DOCKER_HUB_REPOSITORY: "ansible-docker-ubuntu"
+          IMAGE_TAG: ${{ matrix.OS_VERSION }}
         with:
           push: true
           context: ./dockerfiles/
-          tags: mdd13/ansible-docker-ubuntu:${{ env.OS_VERSION }}
-          file: ./dockerfiles/${{ env.OS_VERSION }}.dockerfile
-          cache-from: type=registry,ref=mdd13/ansible-docker-ubuntu:${{ env.OS_VERSION }}
-          cache-to: type=registry,ref=mdd13/ansible-docker-ubuntu:${{ env.OS_VERSION }},mode=max
+          tags: ${{ env.DOCKER_HUB_USER }}/${{ DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          file: ./dockerfiles/${{ env.IMAGE_TAG }}.dockerfile
+          cache-from: type=registry,ref=${{ env.DOCKER_HUB_USER }}/${{ DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          cache-to: type=registry,ref=${{ env.DOCKER_HUB_USER }}/${{ DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }},mode=max

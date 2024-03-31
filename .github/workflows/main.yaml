@@ -68,7 +68,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      max-parallel: 1
+      max-parallel: 2
       matrix:
         OS_FAMILY: [docker-suse, docker-redhat, docker-debian, docker-ubuntu]
     env:
@@ -115,7 +115,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      max-parallel: 1
+      max-parallel: 2
       matrix:
         OS_FAMILY: [docker-suse, docker-redhat, docker-debian]
     env:
@@ -156,9 +156,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      max-parallel: 1
+      max-parallel: 2
       matrix:
-        OS_FAMILY: [docker-suse, docker-redhat, docker-debian]
+        OS_FAMILY: [docker-suse, docker-redhat, docker-debian, docker-ubuntu]
     env:
       PY_COLORS: 1
       ANSIBLE_FORCE_COLOR: 1
@@ -197,7 +197,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      max-parallel: 1
+      max-parallel: 2
       matrix:
         OS_FAMILY: [docker-suse, docker-redhat, docker-debian]
     env:

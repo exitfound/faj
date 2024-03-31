@@ -12,11 +12,11 @@ jenkins:
     rawHtml:
       disableSyntaxHighlighting: true
 
-# Отключает или включает Master Access Control (deprecated):
+  # Отключает или включает Master Access Control (deprecated):
   remotingSecurity:
     enabled: true
 
-# Эта опция позволяет задать глобальные переменные в Jenkins (при желании можно раскомментировать):
+  # Эта опция позволяет задать глобальные переменные в Jenkins (при желании можно раскомментировать):
   # globalNodeProperties:
   #   - envVars:
   #       env:
@@ -25,7 +25,7 @@ jenkins:
   #       - key: "your-name2"
   #         value: "your-value2"
 
-# Этот ряд опций позволяет создавать и управлять вьюшками в Jenkins:
+  # Этот ряд опций позволяет создавать и управлять вьюшками в Jenkins:
   myViewsTabBar: "standard"
   projectNamingStrategy: "standard"
   primaryView:
@@ -76,7 +76,7 @@ jenkins:
       # - "name-of-your-pipeline1"
       # - "name-of-your-pipeline2"
 
-# Этот ряд опций позволяет конфигурировать агнетов, для их последующего использования:
+  # Этот ряд опций позволяет конфигурировать агнетов, для их последующего использования:
   nodes:
     - permanent:
         name: ${JCASC_JENKINS_AGENT_1_NAME}
@@ -87,7 +87,7 @@ jenkins:
         retentionStrategy: "always"
         launcher:
           ssh:
-            credentialsId: ${JCASC_CREDENTIAL_SSH_ID}
+            credentialsId: ${JCASC_CREDENTIAL_SSH_ID_ONE}
             host: ${JCASC_JENKINS_AGENT_1_IP}
             port: 22
             maxNumRetries: 3
@@ -103,15 +103,15 @@ jenkins:
         retentionStrategy: "always"
         launcher:
           ssh:
-            credentialsId: ${JCASC_CREDENTIAL_SSH_ID}
+            credentialsId: ${JCASC_CREDENTIAL_SSH_ID_ONE}
             host: ${JCASC_JENKINS_AGENT_2_IP}
             port: 22
             maxNumRetries: 3
             retryWaitTime: 30
             sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
 
-# Этот ряд опций позволяет настроить один из вариантов аутентификации на выбор в Jenkins.
-# В нашем случае используется локальная. Тут же и создаётся первичный пользователь:
+  # Этот ряд опций позволяет настроить один из вариантов аутентификации на выбор в Jenkins.
+  # В нашем случае используется локальная. Тут же и создаётся первичный пользователь:
   securityRealm:
     local:
       allowsSignup: false
@@ -128,7 +128,7 @@ jenkins:
           - timezone:
               timeZoneName: "Europe/Kaliningrad"
 
-# Этот ряд опций позволяет более предметно настроить авторизацию в Jenkins:
+  # Этот ряд опций позволяет более предметно настроить авторизацию в Jenkins:
   authorizationStrategy:
     globalMatrix:
       permissions:

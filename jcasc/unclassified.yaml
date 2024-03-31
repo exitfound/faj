@@ -19,21 +19,21 @@ unclassified:
         clientBuilderId: "autodetect"
         connectionTimeout: 20
         ignoreCertificateErrors: true
-        name: "MyGitlabConnection"
+        name: "${JCASC_UNCLASSIFIED_GITLAB_NAME}"
         readTimeout: 10
-        url: "https://gitlab.com"
+        url: "${JCASC_UNCLASSIFIED_GITLAB_URL}"
 
 # Этот ряд опций конфигурирует дополнительные настройки, связанные с интеграцией между Github и Jenkins:
   githubpluginconfig:
     configs:
-      - name: "MyGithubConnection"
-        apiUrl: "https://api.github.com"
+      - name: "${JCASC_UNCLASSIFIED_GITHUB_NAME}"
+        apiUrl: "${JCASC_UNCLASSIFIED_GITHUB_URL}"
         credentialsId: "${JCASC_CREDENTIAL_GITHUB_ID_ONE}"
         manageHooks: true
 
 # Этот ряд опций конфигурирует дополнительные настройки, связанные с интеграцией между Slack и Jenkins:
   slackNotifier:
-    teamDomain: "onlyyourworkspace"
+    teamDomain: "${JCASC_UNCLASSIFIED_SLACK_WORKSPACE}"
     tokenCredentialId: "${JCASC_CREDENTIAL_SLACK_ID_ONE}"
 
 # Этот ряд опций конфигурирует расширенные библиотеки в Jenkins (при желании можно раскомментировать):

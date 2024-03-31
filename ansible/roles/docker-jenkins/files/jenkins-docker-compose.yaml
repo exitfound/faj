@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: jenkins-master
+    image: jenkins-master
     user: jenkins
     ports:
       - 0.0.0.0:8080:8080

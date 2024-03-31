@@ -23,3 +23,24 @@ tool:
               installers:
                 - adoptOpenJdkInstaller:
                     id: {{ jcasc_tool_jdk_version }}
+
+  # Этот ряд опций отвечает за установку и настройку NodeJS в Jenkins:
+  nodejs:
+    installations:
+      - name: "nodejs-${JCASC_TOOL_NODEJS_VERSION}"
+        properties:
+          - installSource:
+              installers:
+                - nodeJSInstaller:
+                    id: "${JCASC_TOOL_NODEJS_VERSION}"
+                    npmPackagesRefreshHours: 48
+
+  # Этот ряд опций отвечает за установку и настройку Go в Jenkins:
+  go:
+    installations:
+      - name: "go-${JCASC_TOOL_GO_VERSION}"
+        properties:
+          - installSource:
+              installers:
+                - golangInstaller:
+                    id: "${JCASC_TOOL_GO_VERSION}"

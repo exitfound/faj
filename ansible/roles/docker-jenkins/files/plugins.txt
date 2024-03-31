@@ -11,6 +11,7 @@ credentials
 credentials-binding
 commons-text-api
 display-url-api
+docker-java-api
 docker-plugin
 email-ext
 git
@@ -18,6 +19,7 @@ github
 github-api
 github-branch-source
 gitlab-plugin
+golang
 gradle
 jaxb
 jackson2-api
@@ -34,6 +36,7 @@ locale
 mailer
 matrix-auth
 matrix-project
+nodejs
 pam-auth
 okhttp-api
 periodicbackup
@@ -52,6 +55,7 @@ pipeline-stage-view
 role-strategy
 script-security
 scm-api
+slack
 ssh-agent
 ssh-credentials
 ssh-slaves

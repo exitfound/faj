@@ -5,7 +5,7 @@ tool:
     globalSettingsProvider: "standard"
     settingsProvider: "standard"
 
-# Этот ряд опций отвечает за установку и настройку Maven в Jenkins:
+  # Этот ряд опций отвечает за установку и настройку Maven в Jenkins:
   maven:
     installations:
     - name: "maven-${JCASC_TOOL_MAVEN_VERSION}"
@@ -15,7 +15,7 @@ tool:
           - maven:
               id: "${JCASC_TOOL_MAVEN_VERSION}"
 
-# Этот ряд опций отвечает за установку и настройку JDK в Jenkins:
+  # Этот ряд опций отвечает за установку и настройку JDK в Jenkins:
   jdk:
     installations:
       - name: "${JCASC_TOOL_JDK_VERSION}"
@@ -25,7 +25,7 @@ tool:
                 - adoptOpenJdkInstaller:
                     id: "${JCASC_TOOL_JDK_VERSION}"
 
-# Этот ряд опций отвечает за установку и настройку NodeJS в Jenkins:
+  # Этот ряд опций отвечает за установку и настройку NodeJS в Jenkins:
   nodejs:
     installations:
       - name: "nodejs-${JCASC_TOOL_NODEJS_VERSION}"
@@ -36,7 +36,7 @@ tool:
                     id: "${JCASC_TOOL_NODEJS_VERSION}"
                     npmPackagesRefreshHours: 48
 
-# Этот ряд опций отвечает за установку и настройку Go в Jenkins:
+  # Этот ряд опций отвечает за установку и настройку Go в Jenkins:
   go:
     installations:
       - name: "go-${JCASC_TOOL_GO_VERSION}"

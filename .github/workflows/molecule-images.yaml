@@ -72,6 +72,8 @@ jobs:
           context: ./dockerfiles/
           tags: mdd13/ansible-docker-suse:${{ env.OS_VERSION }}
           file: ./dockerfiles/${{ env.OS_VERSION }}.dockerfile
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   build-redhat-image:
     needs: hadolint
@@ -116,6 +118,8 @@ jobs:
           context: ./dockerfiles/
           tags: mdd13/ansible-docker-redhat:${{ env.OS_VERSION }}
           file: ./dockerfiles/${{ env.OS_VERSION }}.dockerfile
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   build-debian-image:
     needs: hadolint
@@ -160,6 +164,8 @@ jobs:
           context: ./dockerfiles/
           tags: mdd13/ansible-docker-debian:${{ env.OS_VERSION }}
           file: ./dockerfiles/${{ env.OS_VERSION }}.dockerfile
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   build-ubuntu-image:
     needs: hadolint
@@ -204,5 +210,5 @@ jobs:
           context: ./dockerfiles/
           tags: mdd13/ansible-docker-ubuntu:${{ env.OS_VERSION }}
           file: ./dockerfiles/${{ env.OS_VERSION }}.dockerfile
-          cache-from: type=registry,ref=mdd13/ansible-docker-ubuntu:cache
-          cache-to: type=registry,ref=mdd13/ansible-docker-ubuntu:cache,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

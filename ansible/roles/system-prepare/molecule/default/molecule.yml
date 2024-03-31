@@ -6,55 +6,55 @@ driver:
   name: docker
 
 platforms:
-  # - name: opensuse15.3
-  #   image: mdd13/ansible-docker-suse:opensuse15.3
-  #   pre_build_image: true
-  #   privileged: true
-  #   cgroup_parent: docker.slice
-  #   cgroupns_mode: host
-  #   override_command: false
-  #   security_opts:
-  #     - seccomp=unconfined
+  - name: opensuse15.3
+    image: mdd13/ansible-docker-suse:opensuse15.3
+    pre_build_image: true
+    privileged: true
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    override_command: false
+    security_opts:
+      - seccomp=unconfined
 
-  # - name: opensuse15.4
-  #   image: mdd13/ansible-docker-suse:opensuse15.4
-  #   pre_build_image: true
-  #   privileged: true
-  #   cgroup_parent: docker.slice
-  #   cgroupns_mode: host
-  #   override_command: false
-  #   security_opts:
-  #     - seccomp=unconfined
+  - name: opensuse15.4
+    image: mdd13/ansible-docker-suse:opensuse15.4
+    pre_build_image: true
+    privileged: true
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    override_command: false
+    security_opts:
+      - seccomp=unconfined
 
-  # - name: opensuse15.5
-  #   image: mdd13/ansible-docker-suse:opensuse15.5
-  #   pre_build_image: true
-  #   privileged: true
-  #   cgroup_parent: docker.slice
-  #   cgroupns_mode: host
-  #   override_command: false
-  #   security_opts:
-  #     - seccomp=unconfined
+  - name: opensuse15.5
+    image: mdd13/ansible-docker-suse:opensuse15.5
+    pre_build_image: true
+    privileged: true
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    override_command: false
+    security_opts:
+      - seccomp=unconfined
 
-  # - name: centos8
-  #   image: mdd13/ansible-docker-redhat:centos8
-  #   pre_build_image: true
-  #   privileged: true
-  #   cgroup_parent: docker.slice
-  #   cgroupns_mode: host
-  #   override_command: false
-  #   security_opts:
-  #     - seccomp=unconfined
+  - name: centos8
+    image: mdd13/ansible-docker-redhat:centos8
+    pre_build_image: true
+    privileged: true
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    override_command: false
+    security_opts:
+      - seccomp=unconfined
 
-  # - name: centos9
-  #   image: mdd13/ansible-docker-redhat:centos9
-  #   pre_build_image: true
-  #   privileged: true
-  #   cgroup_parent: docker.slice
-  #   cgroupns_mode: host
-  #   override_command: false
-  #   security_opts:
-  #     - seccomp=unconfined
+  - name: centos9
+    image: mdd13/ansible-docker-redhat:centos9
+    pre_build_image: true
+    privileged: true
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    override_command: false
+    security_opts:
+      - seccomp=unconfined
 
   - name: debian10
     image: mdd13/ansible-docker-debian:debian10
@@ -107,7 +107,7 @@ platforms:
       - seccomp=unconfined
 
   - name: ubuntu24.04
-    image: ubuntu24:test
+    image: mdd13/ansible-docker-ubuntu:ubuntu24.04
     pre_build_image: true
     privileged: true
     cgroup_parent: docker.slice

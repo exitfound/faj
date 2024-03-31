@@ -204,3 +204,5 @@ jobs:
           context: ./dockerfiles/
           tags: mdd13/ansible-docker-ubuntu:${{ env.OS_VERSION }}
           file: ./dockerfiles/${{ env.OS_VERSION }}.dockerfile
+          cache-from: type=gha
+          cache-to: type=gha,mode=max 

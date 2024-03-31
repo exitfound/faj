@@ -6,16 +6,16 @@ driver:
   name: docker
 
 platforms:
-  - name: opensuse15.5
-    image: mdd13/ansible-docker-suse:opensuse15.5
+  - name: centos8
+    image: mdd13/ansible-docker-redhat:centos8
     pre_build_image: true
     privileged: true
     override_command: false
     security_opts:
       - seccomp=unconfined
 
-  - name: centos8
-    image: mdd13/ansible-docker-centos:centos8
+  - name: centos9
+    image: mdd13/ansible-docker-redhat:centos9
     pre_build_image: true
     privileged: true
     override_command: false

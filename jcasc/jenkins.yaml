@@ -4,6 +4,7 @@ jenkins:
   systemMessage: "Welcome to the Fully Automation Jenkins by Ivan Medaev:"
   labelString: "master"
   mode: EXCLUSIVE
+  slaveAgentPort: 0
   numExecutors: 0
   quietPeriod: 5
   scmCheckoutRetryCount: 3
@@ -11,6 +12,9 @@ jenkins:
   markupFormatter:
     rawHtml:
       disableSyntaxHighlighting: true
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: true
 
   # Отключает или включает Master Access Control (deprecated):
   remotingSecurity:

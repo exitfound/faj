@@ -2,7 +2,8 @@
 build: prepare compose-build post
 
 prepare:
-	mkdir -p backup/ data/ && sudo chown -R 1000:1000 backup/ data/
+	mkdir -p backup/ data/ \
+	&& sudo chown -R 1000:1000 backup/ data/
 compose-build:
 	docker compose -f jenkins-docker-compose.yaml up -d --build
 post:
@@ -27,6 +28,7 @@ compose-down:
 	docker compose -f jenkins-docker-compose.yaml down \
 	&& docker container prune --force \
 	&& docker image prune --force --all \
+	&& sudo chown -R 1000:1000 inactive-jcasc \
 	&& mv inactive-jcasc jcasc
 delete:
 	rm -rf ./data

@@ -122,8 +122,8 @@ jobs:
           context: ./dockerfiles/
           tags: ${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}
           file: ./dockerfiles/${{ env.IMAGE_TAG }}.dockerfile
-          cache-from: type=registry,ref=${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}
-          cache-to: type=registry,ref=${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }},mode=max
+          cache-from: type=gha,ref=${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          cache-to: type=gha,ref=${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }},mode=max
 
   build-debian-image:
     needs: hadolint
@@ -170,8 +170,8 @@ jobs:
           context: ./dockerfiles/
           tags: ${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}
           file: ./dockerfiles/${{ env.IMAGE_TAG }}.dockerfile
-          cache-from: type=registry,ref=${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}
-          cache-to: type=registry,ref=${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }},mode=max
+          cache-from: type=gha,ref=${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          cache-to: type=gha,ref=${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }},mode=max
 
   build-ubuntu-image:
     needs: hadolint
@@ -218,5 +218,5 @@ jobs:
           context: ./dockerfiles/
           tags: ${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}
           file: ./dockerfiles/${{ env.IMAGE_TAG }}.dockerfile
-          cache-from: type=registry,ref=${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}
-          cache-to: type=registry,ref=${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }},mode=max
+          cache-from: type=gha,ref=${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          cache-to: type=gha,ref=${{ env.DOCKER_HUB_USER }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.IMAGE_TAG }},mode=max

@@ -58,3 +58,8 @@
 - name: The output result of our variable on RedHat family distro
   debug:
     var: docker_compose_output
+
+# Переименование директории, в которой хранится конфигурация CasC, для её отключения при повторном запуске:
+- name: Rename directory from jenkins_config to jenkins_inactive_config on RedHat family distro
+  command: mv {{jenkins_config_dir}} {{jenkins_inactive_config_dir}}
+  changed_when: false

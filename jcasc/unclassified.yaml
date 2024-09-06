@@ -1,18 +1,18 @@
 # В этом файле, в основном, представлены опции, не попадающие под какую-то конкретную секцию в Jenkins:
 
-unclassified:
+appearance:
+  # Этот ряд опций определяет язык, который будет определен в Jenkins:
+  locale:
+    systemLocale: "${JCASC_UNCLASSIFIED_LOCALE}"
+    ignoreAcceptLanguage: true
 
-# Этот ряд опций определяет email администратора и url самого Jenkins, для внутреннего использования:
+unclassified:
+  # Этот ряд опций определяет email администратора и url самого Jenkins, для внутреннего использования:
   location:
     url: "${JCASC_UNCLASSIFIED_URL}"
     adminAddress: "${JCASC_UNCLASSIFIED_EMAIL}"
 
-# Этот ряд опций определяет язык, который будет определен в Jenkins:
-  locale:
-    ignoreAcceptLanguage: true
-    systemLocale: "${JCASC_UNCLASSIFIED_LOCALE}"
-
-# Этот ряд опций конфигурирует дополнительные настройки, связанные с интеграцией между Gitlab и Jenkins:
+  # Этот ряд опций конфигурирует дополнительные настройки, связанные с интеграцией между Gitlab и Jenkins:
   gitlabconnectionconfig:
     connections:
       - apiTokenId: "${JCASC_CREDENTIAL_GITLAB_ID_ONE}"
@@ -23,7 +23,7 @@ unclassified:
         readTimeout: 10
         url: "${JCASC_UNCLASSIFIED_GITLAB_URL}"
 
-# Этот ряд опций конфигурирует дополнительные настройки, связанные с интеграцией между Github и Jenkins:
+  # Этот ряд опций конфигурирует дополнительные настройки, связанные с интеграцией между Github и Jenkins:
   githubpluginconfig:
     configs:
       - name: "${JCASC_UNCLASSIFIED_GITHUB_NAME}"
@@ -31,12 +31,12 @@ unclassified:
         credentialsId: "${JCASC_CREDENTIAL_GITHUB_ID_ONE}"
         manageHooks: true
 
-# Этот ряд опций конфигурирует дополнительные настройки, связанные с интеграцией между Slack и Jenkins:
+  # Этот ряд опций конфигурирует дополнительные настройки, связанные с интеграцией между Slack и Jenkins:
   slackNotifier:
     teamDomain: "${JCASC_UNCLASSIFIED_SLACK_WORKSPACE}"
     tokenCredentialId: "${JCASC_CREDENTIAL_SLACK_ID_ONE}"
 
-# Этот ряд опций конфигурирует расширенные библиотеки в Jenkins (при желании можно раскомментировать):
+  # Этот ряд опций конфигурирует расширенные библиотеки в Jenkins (при желании можно раскомментировать):
   # globalLibraries:
   #   libraries:
   #     - name: "${JCASC_UNCLASSIFIED_SL_NAME}"
@@ -47,7 +47,7 @@ unclassified:
   #               remote: "${JCASC_UNCLASSIFIED_SL_URL}"
   #               credentialsId: "${JCASC_UNCLASSIFIED_SL_SSH}"
 
-# Этот ряд опций позвоялет сконфигурировать настройку почтового сервера для jenkins (при желании можно раскомментировать):
+  # Этот ряд опций позвоялет сконфигурировать настройку почтового сервера для jenkins (при желании можно раскомментировать):
   # mailer:
   #   replyToAddress: do-not-reply@acme.org
   #   smtpHost: smtp.acme.org

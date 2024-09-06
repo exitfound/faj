@@ -1,14 +1,14 @@
-antisamy-markup-formatter
 adoptopenjdk
+antisamy-markup-formatter
 apache-httpcomponents-client-4-api
 authorize-project
-branch-api
 bouncycastle-api
+branch-api
 cloudbees-folder
 checks-api
-configuration-as-code
 credentials
 credentials-binding
+configuration-as-code
 commons-text-api
 display-url-api
 docker-java-api
@@ -37,10 +37,9 @@ mailer
 matrix-auth
 matrix-project
 nodejs
-pam-auth
 okhttp-api
+pam-auth
 periodicbackup
-plain-credentials
 pipeline-build-step
 pipeline-graph-analysis
 pipeline-github-lib
@@ -52,6 +51,7 @@ pipeline-model-extensions
 pipeline-rest-api
 pipeline-stage-tags-metadata 
 pipeline-stage-view
+plain-credentials
 role-strategy
 script-security
 scm-api

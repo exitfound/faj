@@ -22,6 +22,7 @@
 - name: Install a libcgroup package on RedHat family distro
   yum:
     name: "{{ redhat_docker_libcgroup }}"
+    disable_gpg_check: true
     state: present
   when: ansible_distribution == 'CentOS' and ansible_distribution_version == '9'
 

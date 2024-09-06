@@ -3,4 +3,5 @@ molecule-plugins[docker] == 23.5.0
 yamllint == 1.33.0
 ansible == 9.5.1
 ansible-lint == 6.22.1
+requests == 2.31.0
 docker

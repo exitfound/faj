@@ -1,7 +1,6 @@
-molecule
-molecule-plugins[docker]
-yamllint
-ansible-core
-ansible-lint
+molecule == 6.0.3
+molecule-plugins[docker] == 23.5.0
+yamllint == 1.33.0
+ansible == 2.16.6
+ansible-lint == 6.22.1
 docker
-flake8

@@ -9,6 +9,8 @@ docker_compose_destination: /usr/bin/docker-compose
 
 # Переменные, необходимые для установки и настройки Docker на дистрибутиве семейства RedHat:
 
+redhat_docker_libcgroup: https://kojihub.stream.centos.org/kojifiles/packages/libcgroup/0.41/19.el8/x86_64/libcgroup-0.41-19.el8.x86_64.rpm
+
 # Переменные, необходимые для установки и настройки Docker на дистрибутиве семейства Debian:
 
 debian_docker_apt_repository: https://download.docker.com/linux/{{ ansible_distribution | lower}}

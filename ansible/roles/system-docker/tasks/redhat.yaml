@@ -21,7 +21,7 @@
 # Загрузка дополнительного RPM-пакета из Интернета, для установки Docker в системе (актуально для Centos 9):
 - name: Install a libcgroup package on RedHat family distro
   yum:
-    name: http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/Packages/libcgroup-0.41-19.el8.x86_64.rpm
+    name: "{{ redhat_docker_libcgroup }}"
     state: present
   when: ansible_distribution == 'CentOS' and ansible_distribution_version == '9'
 

@@ -1,5 +1,5 @@
 ---
-name: Molecule Docker Image Builds
+name: Molecule Build Images
 
 on:
   workflow_dispatch:
@@ -11,16 +11,16 @@ jobs:
       fail-fast: false
       max-parallel: 3
       matrix:
-        OS_VERSION: [opensuse15.3, opensuse15.4, opensuse15.5, centos8, centos9, debian10, debian11, debian12, ubuntu20.04, ubuntu22.04, ubuntu24.04]
+        OS_VERSION: [opensuse15.4, opensuse15.5, opensuse15.6, centos8, centos9, debian10, debian11, debian12, ubuntu20.04, ubuntu22.04, ubuntu24.04]
     env:
       PY_COLORS: 1
       ANSIBLE_FORCE_COLOR: 1
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Linting dockerfile from list
+      - name: Linting Dockerfile from List
         uses: hadolint/hadolint-action@v3.1.0
         env:
           DOCKERFILE_PROFILE: ${{ matrix.OS_VERSION }}
@@ -33,8 +33,8 @@ jobs:
     needs: hadolint
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
   build-suse-image-matrix:
     needs: build-suse-image
@@ -43,12 +43,12 @@ jobs:
       fail-fast: false
       max-parallel: 3
       matrix:
-        OS_VERSION: [opensuse15.3, opensuse15.4, opensuse15.5]
+        OS_VERSION: [opensuse15.4, opensuse15.5, opensuse15.6]
     env:
       PY_COLORS: 1
       ANSIBLE_FORCE_COLOR: 1
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Set up QEMU
@@ -63,7 +63,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker Image
+      - name: Build and Push Docker Image
         uses: docker/build-push-action@v5
         env:
           DOCKER_HUB_USER: "mdd13"
@@ -81,8 +81,8 @@ jobs:
     needs: hadolint
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
   build-redhat-image-matrix:
     needs: build-redhat-image
@@ -96,7 +96,7 @@ jobs:
       PY_COLORS: 1
       ANSIBLE_FORCE_COLOR: 1
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Set up QEMU
@@ -111,7 +111,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker Image
+      - name: Build and Push Docker Image
         uses: docker/build-push-action@v5
         env:
           DOCKER_HUB_USER: "mdd13"
@@ -129,8 +129,8 @@ jobs:
     needs: hadolint
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
   build-debian-image-matrix:
     needs: build-debian-image
@@ -144,7 +144,7 @@ jobs:
       PY_COLORS: 1
       ANSIBLE_FORCE_COLOR: 1
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Set up QEMU
@@ -159,7 +159,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker Image
+      - name: Build and Push Docker Image
         uses: docker/build-push-action@v5
         env:
           DOCKER_HUB_USER: "mdd13"
@@ -177,8 +177,8 @@ jobs:
     needs: hadolint
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
   build-ubuntu-image-matrix:
     needs: build-ubuntu-image
@@ -192,7 +192,7 @@ jobs:
       PY_COLORS: 1
       ANSIBLE_FORCE_COLOR: 1
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Set up QEMU
@@ -207,7 +207,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker Image
+      - name: Build and Push Docker Image
         uses: docker/build-push-action@v5
         env:
           DOCKER_HUB_USER: "mdd13"

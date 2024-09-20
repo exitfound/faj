@@ -2,8 +2,8 @@ FROM opensuse/leap:15.4 AS molecule-image
 
 LABEL maintainer="Ivan Medaev"
 
-RUN zypper update \
-    && zypper install --no-recommends -y \
+RUN zypper update --no-recommends --force-resolution --no-confirm \
+    && zypper install --no-recommends --no-confirm \
         ansible \
         python3-devel \
         python3-pip \

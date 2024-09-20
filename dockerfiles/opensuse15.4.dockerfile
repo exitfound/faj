@@ -2,7 +2,8 @@ FROM opensuse/leap:15.4 AS molecule-image
 
 LABEL maintainer="Ivan Medaev"
 
-RUN zypper install --no-recommends -y \
+RUN zypper update \
+    && zypper install --no-recommends -y \
         ansible \
         python3-devel \
         python3-pip \
@@ -12,8 +13,6 @@ RUN zypper install --no-recommends -y \
         systemd \
     && zypper clean --all \
     && rm -rf /usr/share/doc \
-    && rm -rf /usr/share/man \
-    && groupadd -g 1000 -f jenkins \
-    && useradd -g 1000 -G jenkins -d /home/jenkins/ jenkins
+    && rm -rf /usr/share/man
 
 CMD ["/usr/lib/systemd/systemd"]

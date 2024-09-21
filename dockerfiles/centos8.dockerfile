@@ -2,6 +2,8 @@ FROM centos:centos8 AS molecule-image
 
 LABEL maintainer="Ivan Medaev"
 
+WORKDIR /app
+
 COPY requirements.txt .
 
 RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-* \

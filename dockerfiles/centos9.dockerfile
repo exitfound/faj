@@ -2,6 +2,8 @@ FROM dokken/centos-stream-9:main AS molecule-image
 
 LABEL maintainer="Ivan Medaev"
 
+WORKDIR /app
+
 COPY requirements.txt .
 
 RUN yum install -y dnf-plugins-core \

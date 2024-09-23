@@ -1,5 +1,5 @@
 ---
-name: Molecule Tests
+name: Molecule Run Tests
 
 on:
   workflow_dispatch:
@@ -16,11 +16,12 @@ jobs:
         uses: actions/checkout@v3
 
       # https://github.com/marketplace/actions/hadolint-action
-      - uses: hadolint/hadolint-action@v3.1.0
+      - name: Linting main Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
         with:
           recursive: true
           dockerfile: Dockerfile
-          ignore: "DL3008,SC3009"
+          ignore: "DL3008"
 
   molecule:
     runs-on: ubuntu-latest
@@ -80,6 +81,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Linting main Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          recursive: true
+          dockerfile: ./ansible/roles/docker-jenkins/files/Dockerfile
+          ignore: "DL3008"
 
       - name: Set up Python 3.11
         uses: actions/setup-python@v4

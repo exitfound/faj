@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:lts-jdk11
+FROM jenkins/jenkins:lts-jdk21
 
 LABEL maintainer="Ivan Medaev"
 

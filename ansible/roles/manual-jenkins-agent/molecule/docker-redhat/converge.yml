@@ -3,7 +3,7 @@
 - name: Converge
   hosts: all
   tasks:
-    # Данный шаг вызывает роль manual-jenkins-agent для прогона тестов:
+    # Данный шаг вызывает роль manual-jenkins-agent для прогона тестов с помощью Molecule:
     - name: "Include manual-jenkins-agent role for testing"
       include_role:
         name: "manual-jenkins-agent"

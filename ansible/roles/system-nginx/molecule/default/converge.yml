@@ -4,7 +4,7 @@
   hosts: all
   tasks:
 
-    # Данный шаг вызывает роль system-nginx для прогона тестов:
+    # Данный шаг вызывает роль system-nginx для прогона тестов с помощью Molecule:
     - name: "Include system-nginx role for testing"
       include_role:
         name: "system-nginx"

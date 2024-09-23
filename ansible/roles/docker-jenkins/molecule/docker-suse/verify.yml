@@ -4,7 +4,7 @@
   hosts: all
   tasks:
     # Добавление интервала по времени для загрузки Jenkins:
-    - name: Waiting 30 second for checking Jenkins
+    - name: Wait 30 second for checking Jenkins
       wait_for:
         timeout: 30
 
@@ -14,12 +14,6 @@
         url: "http://127.0.0.1:8080"
         method: GET
         timeout: 30
-        return_content: true
+        return_content: false
         validate_certs: no
-        status_code: [200, 403]
-      register: output
-
-    # Результат выполненной ранее проверки:
-    - name: Output the result of a registered variable
-      debug:
-        msg: "{{ output.content }}"
+        status_code: [200,403]

@@ -1,5 +1,5 @@
 ---
-# Обновление всех пакетов на указанном дистрибутиве:
+# Обновление всех пакетов для указанного семейства дистрибутивов:
 - name: Update all packages on Debian family distro
   apt:
     name: '*'
@@ -8,7 +8,7 @@
   tags:
     - update
 
-# Установка пакетов apt из списка необходимых, которые определены в виде переменной, в директории defaults:
+# Установка пакетов DEB из списка необходимых, которые определены в виде переменной, в директории defaults:
 - name: Install general packages on Debian family distro
   apt:
     name: "{{ debian_packages_list }}"

@@ -11,7 +11,7 @@
     name: system-docker
     tasks_from: main
 
-# Создание директории для хранения файла docker-compose, для последующего запуска Docker Jenkins Agent:
+# Создание директории для хранения файла Docker Compose, для последующего запуска Docker Jenkins Agent:
 - name: Create Jenkins Agent directories on Debian family distro
   file:
     state: directory
@@ -35,8 +35,8 @@
   changed_when: false
 
 # Запуск Docker Jenkins Agent с помощью docker-compose на удаленном узле:
-- name: Run Jenkins Agent via docker-compose on Debian family distro
-  command: docker-compose -f {{ docker_jenkins_agent_directory }}/{{ docker_jenkins_agent_compose_file }} up -d --build --force-recreate
+- name: Run Jenkins Agent via Docker Compose on Debian family distro
+  command: docker compose -f {{ docker_jenkins_agent_directory }}/{{ docker_jenkins_agent_compose_file }} up -d --build --force-recreate
   register: docker_compose_output
   changed_when: false
 

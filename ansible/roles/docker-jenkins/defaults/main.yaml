@@ -2,6 +2,7 @@
 
 # Переменные, необходимые для установки и настройки Jenkins via Docker, применимые ко всем дистрибутивам в равной степени:
 
+jenkins_backup_dir: "/opt/jenkins_backup"
 jenkins_config_dir: "/opt/jenkins_config"
 jenkins_inactive_config_dir: "/opt/jenkins_inactive_config"
 jenkins_data_dir: "/opt/jenkins_data"

@@ -1,15 +1,16 @@
 # В этом файле, в основном, представлены опции, не попадающие под какую-то конкретную секцию в Jenkins:
-unclassified:
 
+appearance:
+  # Этот ряд опций определяет язык, который будет определен в Jenkins:
+  locale:
+    systemLocale: {{ jcasc_unclassified_locale }}
+    ignoreAcceptLanguage: true
+
+unclassified:
   # Этот ряд опций определяет email администратора и url самого Jenkins, для внутреннего использования:
   location:
     url: {{ jenkins_nginx_domain }}
     adminAddress: {{ jcasc_unclassified_email }}
-
-  # Этот ряд опций определяет язык, который будет использоваться в Jenkins:
-  locale:
-      ignoreAcceptLanguage: true
-      systemLocale: {{ jcasc_unclassified_locale }}
 
   # Этот ряд опций конфигурирует дополнительные настройки, связанные с интеграцией между Gitlab и Jenkins:
   gitlabconnectionconfig:

@@ -3,7 +3,7 @@
 - name: Converge
   hosts: all
   tasks:
-    # Данный шаг вызывает роль docker-jenkins для прогона тестов:
+    # Данный шаг вызывает роль docker-jenkins для прогона тестов с помощью Molecule:
     - name: "Include docker-jenkins role for testing"
       include_role:
         name: "docker-jenkins"

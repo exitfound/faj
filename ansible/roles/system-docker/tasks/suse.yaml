@@ -8,7 +8,7 @@
 # Установка Docker с помощью пакетного менеджера:
 - name: Install Docker on SUSE family distro
   zypper:
-    name: docker
+    name: "{{ suse_docker_package }}"
     state: present
     update_cache: true
 
@@ -30,21 +30,3 @@
 - name: The result of our test on SUSE family distro
   debug:
     var: docker_service_status.status.ActiveState
-
-# Проверка того, установлен ли Docker-compose в системе:
-- name: Check if docker-compose is installed on SUSE family distro
-  command: "{{ docker_compose_destination }} version"
-  register: docker_compose_check
-  ignore_errors: true
-  changed_when: false
-
-# Установка Docker-compose в случае его отсуствия в системе:
-- name: Install docker-compose on SUSE family distro
-  get_url:
-    url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-linux-x86_64"
-    dest: "{{ docker_compose_destination }}"
-    mode: 'a+x'
-    force: true
-  when:
-    - docker_compose_check.msg is defined
-    - docker_compose_check.msg.find('No such file or directory') != -1

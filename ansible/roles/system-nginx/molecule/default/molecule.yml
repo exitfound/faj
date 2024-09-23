@@ -6,20 +6,8 @@ driver:
   name: docker
 
 platforms:
-  - name: opensuse15.3
-    image: mdd13/ansible-docker-suse:opensuse15.3
-    pre_build_image: true
-    privileged: true
-    override_command: false
-    cgroupns_mode: host
-    tmpfs:
-      - /var/lib/docker
-      - /tmp
-    security_opts:
-      - seccomp=unconfined
-
-  - name: opensuse15.4
-    image: mdd13/ansible-docker-suse:opensuse15.4
+  - name: opensuse15.5
+    image: mdd13/ansible-docker-suse:opensuse15.5
     pre_build_image: true
     privileged: true
     override_command: false
@@ -30,8 +18,8 @@ platforms:
     security_opts:
       - seccomp=unconfined
 
-  - name: opensuse15.5
-    image: mdd13/ansible-docker-suse:opensuse15.5
+  - name: opensuse15.6
+    image: mdd13/ansible-docker-suse:opensuse15.6
     pre_build_image: true
     privileged: true
     override_command: false
@@ -106,15 +94,15 @@ platforms:
     security_opts:
       - seccomp=unconfined
 
-  # - name: ubuntu24.04
-  #   image: mdd13/ansible-docker-ubuntu:ubuntu24.04
-  #   pre_build_image: true
-  #   privileged: true
-  #   cgroup_parent: docker.slice
-  #   cgroupns_mode: host
-  #   override_command: false
-  #   security_opts:
-  #     - seccomp=unconfined
+  - name: ubuntu24.04
+    image: mdd13/ansible-docker-ubuntu:ubuntu24.04
+    pre_build_image: true
+    privileged: true
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    override_command: false
+    security_opts:
+      - seccomp=unconfined
 
 provisioner:
   name: ansible

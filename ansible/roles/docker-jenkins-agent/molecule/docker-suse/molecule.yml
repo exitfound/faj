@@ -6,20 +6,8 @@ driver:
   name: docker
 
 platforms:
-  - name: opensuse15.3
-    image: mdd13/ansible-docker-suse:opensuse15.3
-    pre_build_image: true
-    privileged: true
-    override_command: false
-    cgroupns_mode: host
-    tmpfs:
-      - /var/lib/docker
-      - /tmp
-    security_opts:
-      - seccomp=unconfined
-
-  - name: opensuse15.4
-    image: mdd13/ansible-docker-suse:opensuse15.4
+  - name: opensuse15.5
+    image: mdd13/ansible-docker-suse:opensuse15.5
     pre_build_image: true
     privileged: true
     override_command: false
@@ -30,8 +18,8 @@ platforms:
     security_opts:
       - seccomp=unconfined
 
-  - name: opensuse15.5
-    image: mdd13/ansible-docker-suse:opensuse15.5
+  - name: opensuse15.6
+    image: mdd13/ansible-docker-suse:opensuse15.6
     pre_build_image: true
     privileged: true
     override_command: false
@@ -52,7 +40,7 @@ provisioner:
         docker_jenkins_agent_name: "docker-jenkins-agent"
         docker_jenkins_agent_image: "jenkins/ssh-agent:alpine"
         docker_jenkins_agent_ssh_port: "2222"
-        docker_jenkins_agent_public_key: "ssh-rsa yourpublickey"
+        docker_jenkins_agent_public_key: "ssh-rsa testpublickey"
 
 verifier:
   name: ansible

@@ -10,14 +10,17 @@ jenkins_agent_directory:
 # Переменные, необходимые для конфигурирования Jenkins Agent на дистрибутиве семейства SUSE:
 
 suse_agent_packages_list:
-  - java-11-openjdk
+  - java-17-openjdk
 
 # Переменные, необходимые для конфигурирования Jenkins Agent на дистрибутиве семейства RedHat:
 
 redhat_agent_packages_list:
-  - java-11-openjdk
+  - java-17-openjdk
 
 # Переменные, необходимые для конфигурирования Jenkins Agent на дистрибутиве семейства Debian:
 
 debian_agent_packages_list:
-  - default-jdk
+  - openjdk-17-jdk
+
+debian_agent_old_packages_list:
+  - openjdk-11-jdk

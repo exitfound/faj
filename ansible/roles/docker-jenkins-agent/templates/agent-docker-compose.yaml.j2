@@ -5,6 +5,6 @@ services:
     image: {{ docker_jenkins_agent_image }}
     ports:
       - "{{ docker_jenkins_agent_ssh_port }}:22"
-    restart: always
+    restart: on-failure
     environment:
       JENKINS_AGENT_SSH_PUBKEY: {{ docker_jenkins_agent_public_key }}

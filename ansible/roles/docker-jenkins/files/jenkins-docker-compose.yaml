@@ -13,6 +13,7 @@ services:
     volumes:
       - /opt/jenkins_config:/var/jenkins_config/casc_configs
       - /opt/jenkins_data:/var/jenkins_home
+      - /opt/jenkins_backup:/var/jenkins_backup
     networks:
       - jenkins
     restart: on-failure

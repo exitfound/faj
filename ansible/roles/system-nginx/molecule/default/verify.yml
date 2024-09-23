@@ -3,6 +3,6 @@
 - name: Verify our tests in Molecule
   hosts: all
   tasks:
-    - name: Output the result
+    - name: Output the final result
       assert:
         that: true

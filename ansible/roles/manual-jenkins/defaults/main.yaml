@@ -11,14 +11,14 @@ jenkins_file_owner: jenkins
 jenkins_file_group: jenkins
 jenkins_war_path: /usr/share/java/jenkins.war
 jenkins_systemd_filename: jenkins.service
-jenkins_plugin_manager: https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download/2.12.13/jenkins-plugin-manager-2.12.13.jar
+jenkins_plugin_manager: https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download/2.12.16/jenkins-plugin-manager-2.12.16.jar
 
 # Переменные, необходимые для конфигурирования мануального Jenkins на дистрибутиве семейства SUSE:
 
 suse_zypper_key: https://pkg.jenkins.io/opensuse/jenkins.io-2023.key
 suse_zypper_repository: https://pkg.jenkins.io/opensuse-stable/
 suse_packages_list:
-  - java-11-openjdk
+  - java-17-openjdk
   - dejavu-fonts
   - fontconfig
   - jenkins
@@ -28,8 +28,8 @@ suse_packages_list:
 redhat_yum_key: https://pkg.jenkins.io/redhat/jenkins.io-2023.key
 redhat_yum_repository: https://pkg.jenkins.io/redhat-stable
 redhat_packages_list:
-  - java-11-openjdk
-  - java-11-openjdk-devel
+  - java-17-openjdk
+  - java-17-openjdk-devel
   - fontconfig
   - jenkins
 

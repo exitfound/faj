@@ -4,7 +4,7 @@
   hosts: all
   tasks:
 
-    # Данный шаг вызывает роль system-prepare для прогона тестов:
+    # Данный шаг вызывает роль system-prepare для прогона тестов с помощью Molecule:
     - name: "Include system-prepare role for testing"
       include_role:
         name: "system-prepare"

@@ -36,7 +36,7 @@ provisioner:
         docker_jenkins_agent_name: "docker-jenkins-agent"
         docker_jenkins_agent_image: "jenkins/ssh-agent:alpine"
         docker_jenkins_agent_ssh_port: "2222"
-        docker_jenkins_agent_public_key: "ssh-rsa yourpublickey"
+        docker_jenkins_agent_public_key: "ssh-rsa testpublickey"
 
 verifier:
   name: ansible

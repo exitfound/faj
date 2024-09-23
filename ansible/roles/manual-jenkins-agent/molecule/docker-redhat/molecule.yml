@@ -31,7 +31,7 @@ provisioner:
       all:
         manual_jenkins_agent_user: "jenkins-agent"
         manual_jenkins_agent_group: "jenkins-agent"
-        manual_jenkins_agent_public_key: "ssh-rsa yourpublickey"
+        manual_jenkins_agent_public_key: "ssh-rsa testpublickey"
 
 verifier:
   name: ansible

@@ -4,7 +4,7 @@
   hosts: all
   tasks:
 
-    # Данный шаг вызывает роль system-docker для прогона тестов:
+    # Данный шаг вызывает роль system-docker для прогона тестов с помощью Molecule:
     - name: "Include system-docker role for testing"
       include_role:
         name: "system-docker"

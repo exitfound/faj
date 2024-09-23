@@ -24,6 +24,7 @@
     - {path: "{{ jenkins_data_dir }}"}
     - {path: "{{ jenkins_config_dir }}"}
     - {path: "{{ jenkins_docker_dir }}"}
+    - {path: "{{ jenkins_backup_dir }}"}
   changed_when: false
 
 # Копирование файлов из директории files и их последующая передача в директорию jenkins_config:

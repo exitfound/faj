@@ -24,6 +24,7 @@
     - {path: "{{ jenkins_data_dir }}"}
     - {path: "{{ jenkins_config_dir }}"}
     - {path: "{{ jenkins_docker_dir }}"}
+    - {path: "{{ jenkins_backup_dir }}"}
   changed_when: false
 
 # Копирование файлов из директории files и их последующая передача в директорию jenkins_config:
@@ -48,9 +49,9 @@
     - ../templates/*.j2
   changed_when: false
 
-# Запуск Jenkins с помощью docker-compose на удаленном узле:
-- name: Run Jenkins via docker-compose on RedHat family distro
-  command: docker-compose -f {{ jenkins_docker_dir }}/{{ jenkins_file_compose }} up -d --build --force-recreate
+# Запуск Jenkins с помощью Docker Compose на удаленном узле:
+- name: Run Jenkins via Docker Compose on RedHat family distro
+  command: docker compose -f {{ jenkins_docker_dir }}/{{ jenkins_file_compose }} up -d --build --force-recreate
   register: docker_compose_output
   changed_when: false
 

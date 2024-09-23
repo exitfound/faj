@@ -1,9 +1,8 @@
 [all:vars]
 
 [suse:children]
-opensuse15.3
-opensuse15.4
 opensuse15.5
+opensuse15.6
 
 [redhat:children]
 centos8
@@ -17,29 +16,26 @@ debian10
 debian11
 debian12
 
-[opensuse15.3]
-opensuse15.3-instance1      ansible_host=suse153.kitezh.online jenkins_nginx_domain=suse153.kitezh.online
-
-[opensuse15.4]
-opensuse15.4-instance1      ansible_host=suse154.kitezh.online jenkins_nginx_domain=suse154.kitezh.online
-
 [opensuse15.5]
 opensuse15.5-instance1      ansible_host=suse155.kitezh.online jenkins_nginx_domain=suse155.kitezh.online
 
+[opensuse15.6]
+opensuse15.6-instance1      ansible_host=suse156.kitezh.online jenkins_nginx_domain=suse156.kitezh.online
+
 [centos8]
-centos8-instance1           ansible_host=centos9.kitezh.online jenkins_nginx_domain=centos9.kitezh.online
+centos8-instance1           ansible_host=centos8.kitezh.online jenkins_nginx_domain=centos8.kitezh.online
 
 [centos9]
-centos9-instance1           ansible_host=centos8.kitezh.online jenkins_nginx_domain=centos8.kitezh.online
+centos9-instance1           ansible_host=centos9.kitezh.online jenkins_nginx_domain=centos8.kitezh.online
 
 [ubuntu20.04]
-ubuntu20.04-instance1       ansible_host=ubu20.kitezh.online jenkins_nginx_domain=ubu20.kitezh.online
+ubuntu20.04-instance1       ansible_host=ubuntu20.kitezh.online jenkins_nginx_domain=ubuntu20.kitezh.online
 
 [ubuntu22.04]
-ubuntu22.04-instance1       ansible_host=ubu22.kitezh.online jenkins_nginx_domain=ubu22.kitezh.online
+ubuntu22.04-instance1       ansible_host=ubuntu22.kitezh.online jenkins_nginx_domain=ubuntu22.kitezh.online
 
 [ubuntu24.04]
-ubuntu24.04-instance1       ansible_host=ubu24.kitezh.online jenkins_nginx_domain=ubu24.kitezh.online
+ubuntu24.04-instance1       ansible_host=ubuntu24.kitezh.online jenkins_nginx_domain=ubuntu24.kitezh.online
 
 [debian10]
 debian10-instance1          ansible_host=debian10.kitezh.online jenkins_nginx_domain=debian10.kitezh.online

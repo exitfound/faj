@@ -47,7 +47,7 @@ unclassified:
   #               remote: "${JCASC_UNCLASSIFIED_SL_URL}"
   #               credentialsId: "${JCASC_UNCLASSIFIED_SL_SSH}"
 
-  # Этот ряд опций позвоялет сконфигурировать настройку почтового сервера для jenkins (при желании можно раскомментировать):
+  # Этот ряд опций позвоялет сконфигурировать настройку почтового сервера для Jenkins (при желании можно раскомментировать):
   # mailer:
   #   replyToAddress: do-not-reply@acme.org
   #   smtpHost: smtp.acme.org

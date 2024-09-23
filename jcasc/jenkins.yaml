@@ -166,6 +166,7 @@ jenkins:
       - "GROUP:View/Read:authenticated"
       - "USER:Overall/Administer:${JCASC_JENKINS_ADMIN_USER}"
 
+  # Этот ряд опций позволяет более предметно настроить логирование в Jenkins:
   log:
     recorders:
     - name: "JCasC"

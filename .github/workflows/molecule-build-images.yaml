@@ -6,7 +6,7 @@ on:
 
 jobs:
   hadolint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -31,7 +31,7 @@ jobs:
 
   build-suse-image:
     needs: hadolint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -79,14 +79,14 @@ jobs:
 
   build-redhat-image:
     needs: hadolint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
   build-redhat-image-matrix:
     needs: build-redhat-image
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -127,7 +127,7 @@ jobs:
 
   build-debian-image:
     needs: hadolint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -175,7 +175,7 @@ jobs:
 
   build-ubuntu-image:
     needs: hadolint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4

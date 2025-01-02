@@ -43,6 +43,11 @@ debian_packages_list:
   - openjdk-17-jre
   - fontconfig
 
+debian_java_link: "/usr/bin/java"
+debian_java_path: "/usr/lib/jvm/jdk-17.0.2/bin/java"
+debian_javac_link: "/usr/bin/javac"
+debian_javac_path: "/usr/lib/jvm/jdk-17.0.2/bin/javac"
+debian_old_archive: "https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/openjdk-17.0.2_linux-x64_bin.tar.gz"
 debian_old_packages_list:
   - openjdk-11-jdk
   - fontconfig

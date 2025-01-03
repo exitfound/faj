@@ -1,4 +1,5 @@
 # В этом файле, в основном, представлены опции, конфигурируемые в таких секциях, как Global Tool Configuration:
+
 tool:
   mavenGlobalConfig:
     globalSettingsProvider: "standard"
@@ -27,20 +28,20 @@ tool:
   # Этот ряд опций отвечает за установку и настройку NodeJS в Jenkins:
   nodejs:
     installations:
-      - name: "nodejs-${JCASC_TOOL_NODEJS_VERSION}"
+      - name: "nodejs-{{ jcasc_tool_nodejs_version }}"
         properties:
           - installSource:
               installers:
                 - nodeJSInstaller:
-                    id: "${JCASC_TOOL_NODEJS_VERSION}"
+                    id: {{ jcasc_tool_nodejs_version }}
                     npmPackagesRefreshHours: 48
 
   # Этот ряд опций отвечает за установку и настройку Go в Jenkins:
   go:
     installations:
-      - name: "go-${JCASC_TOOL_GO_VERSION}"
+      - name: "go-{{ jcasc_tool_go_version }}"
         properties:
           - installSource:
               installers:
                 - golangInstaller:
-                    id: "${JCASC_TOOL_GO_VERSION}"
+                    id: {{ jcasc_tool_go_version }}

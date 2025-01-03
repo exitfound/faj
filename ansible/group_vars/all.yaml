@@ -32,8 +32,8 @@ jcasc_credential_gitlab_token_one: "MyGitlabToken"
 jcasc_credential_github_id_one: "MyGithubId"
 jcasc_credential_github_token_one: "MyGithubToken"
 
-jcasc_credential_slack_id_one_one: "MySlackTokenId"
-jcasc_credential_slack_token_one_one: "MySlackToken"
+jcasc_credential_slack_id_one: "MySlackTokenId"
+jcasc_credential_slack_token_one: "MySlackToken"
 
 # Переменные, используемые в секции Jenkins, для последующей конфигурации JCasC:
 
@@ -71,6 +71,8 @@ jcasc_unclassified_gitlab_url: "https://gitlab.com"
 
 jcasc_unclassified_github_name: "MyGithubConnection"
 jcasc_unclassified_github_url: "https://api.github.com"
+
+jcasc_unclassified_slack_workspace: "onlyyourworkspace"
 
 jcasc_unclassified_sl_name: "MySharedLibraries"
 jcasc_unclassified_sl_url: "https://github.com/exitfound/docker-autossh.git"

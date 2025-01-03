@@ -30,3 +30,8 @@ unclassified:
         apiUrl: {{ jcasc_unclassified_github_url }}
         credentialsId: {{ jcasc_credential_github_id_one }}
         manageHooks: true
+
+  # Этот ряд опций конфигурирует дополнительные настройки, связанные с интеграцией между Slack и Jenkins:
+  slackNotifier:
+    teamDomain: {{ jcasc_unclassified_slack_workspace }}
+    tokenCredentialId: {{ jcasc_credential_slack_id_one }}

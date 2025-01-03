@@ -1,4 +1,5 @@
 # В этом файле, в основном, представлены опции, конфигурируемые в таких секциях, как Global System и Global Security:
+
 jenkins:
   systemMessage: "Welcome to the Fully Automation Jenkins by Ivan Medaev:"
   labelString: "master"
@@ -15,14 +16,14 @@ jenkins:
     standard:
       excludeClientIPFromCrumb: true
 
-  # Эта опция позволяет задать глобальные переменные в Jenkins:
-  globalNodeProperties:
-    - envVars:
-        env:
-        - key: "your-name1"
-          value: "your-value1"
-        - key: "your-name2"
-          value: "your-value2"
+  # Эта опция позволяет задать глобальные переменные в Jenkins (при желании можно раскомментировать):
+  # globalNodeProperties:
+  #   - envVars:
+  #       env:
+  #       - key: "your-name1"
+  #         value: "your-value1"
+  #       - key: "your-name2"
+  #         value: "your-value2"
 
   # Этот ряд опций позволяет создавать и управлять вьюшками в Jenkins:
   myViewsTabBar: "standard"
@@ -34,7 +35,7 @@ jenkins:
   - all:
       name: "all"
   - list:
-      name: "view1"
+      name: "Frontend"
       columns:
       - "itemColumn"
       - "status"
@@ -45,21 +46,68 @@ jenkins:
       - "buildButton"
       - "gitBranchSpecifierColumn"
       - "descriptionColumn"
+  - list:
+      name: "Backend"
+      includeRegex: ".+"
+      columns:
+      - "itemColumn"
+      - "status"
+      - "weather"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      - "buildButton"
+      - "gitBranchSpecifierColumn"
+      - "descriptionColumn"
+  - list:
+      name: "DevOps"
+      recurse: true
+      columns:
+      - "itemColumn"
+      - "status"
+      - "weather"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      - "buildButton"
+      - "gitBranchSpecifierColumn"
+      - "descriptionColumn"
+      jobNames:
+      # - "name-of-your-pipeline1"
+      # - "name-of-your-pipeline2"
 
   # Этот ряд опций позволяет конфигурировать агнетов, для их последующего использования:
   nodes:
     - permanent:
         name: {{ jcasc_jenkins_agent_1_name }}
         nodeDescription: "This is my first Jenkins Agent"
-        numExecutors: 4
-        remoteFS: {{ jcasc_jenkins_remote_fs }}
+        numExecutors: 2
+        remoteFS: "/var/lib/jenkins"
         labelString: {{ jcasc_jenkins_agent_1_label }}
         retentionStrategy: "always"
         launcher:
           ssh:
-            credentialsId: {{ jcasc_credential_ssh_id }}
+            credentialsId: {{ jcasc_credential_ssh_id_one }}
             host: {{ jcasc_jenkins_agent_1_ip }}
             port: 22
+            maxNumRetries: 3
+            retryWaitTime: 30
+            sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+
+    - permanent:
+        name: {{ jcasc_jenkins_agent_2_name }}
+        nodeDescription: "This is my second Jenkins Agent"
+        numExecutors: 2
+        remoteFS: "/var/lib/jenkins"
+        labelString: {{ jcasc_jenkins_agent_2_label }}
+        retentionStrategy: "always"
+        launcher:
+          ssh:
+            credentialsId: {{ jcasc_credential_ssh_id_one }}
+            host: {{ jcasc_jenkins_agent_2_ip }}
+            port: 22
+            maxNumRetries: 3
+            retryWaitTime: 30
             sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
 
   # Этот ряд опций позволяет настроить один из вариантов аутентификации на выбор в Jenkins.
@@ -113,3 +161,10 @@ jenkins:
       - "GROUP:View/Delete:authenticated"
       - "GROUP:View/Read:authenticated"
       - "USER:Overall/Administer:{{ jcasc_jenkins_admin_user }}"
+
+  log:
+    recorders:
+    - name: "JCasC"
+      loggers:
+      - level: "WARNING"
+        name: "io.jenkins.plugins.casc"

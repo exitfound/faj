@@ -16,4 +16,4 @@
         timeout: 30
         return_content: false
         validate_certs: no
-        status_code: 200
+        status_code: [200,403]

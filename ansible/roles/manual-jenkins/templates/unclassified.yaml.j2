@@ -15,7 +15,7 @@ unclassified:
   # Этот ряд опций конфигурирует дополнительные настройки, связанные с интеграцией между Gitlab и Jenkins:
   gitlabconnectionconfig:
     connections:
-      - apiTokenId: {{ jcasc_credential_gitlab_id }}
+      - apiTokenId: {{ jcasc_credential_gitlab_id_one }}
         clientBuilderId: "autodetect"
         connectionTimeout: 20
         ignoreCertificateErrors: true
@@ -28,5 +28,5 @@ unclassified:
     configs:
       - name: {{ jcasc_unclassified_github_name }}
         apiUrl: {{ jcasc_unclassified_github_url }}
-        credentialsId: {{ jcasc_credential_github_id }}
+        credentialsId: {{ jcasc_credential_github_id_one }}
         manageHooks: true

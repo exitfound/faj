@@ -1,0 +1,64 @@
+---
+
+# Глобальная переменная, необходимая для конфигурирования Jenkins:
+
+jenkins_nginx_domain: "mylocal.domain"
+
+# Переменные, используемые в секции Credentials, для последующей конфигурации JCasC:
+
+jcasc_credential_ssh_id_one: "MySshCredentialId"
+jcasc_credential_ssh_username_one: "builder"
+jcasc_credential_ssh_private_key_one: "MySshPrivateKey"
+jcasc_credential_ssh_passphrase_one: "MySshPassphrase"
+
+jcasc_credential_gitlab_id_one: "MyGitlabId"
+jcasc_credential_gitlab_token_one: "MyGitlabToken"
+
+jcasc_credential_github_id_one: "MyGithubId"
+jcasc_credential_github_token_one: "MyGithubToken"
+
+jcasc_credential_slack_id_one: "MySlackTokenId"
+jcasc_credential_slack_token_one: "MySlackToken"
+
+# Переменные, используемые в секции Jenkins, для последующей конфигурации JCasC:
+
+jcasc_jenkins_agent_1_name: "agent-1"
+jcasc_jenkins_agent_1_label: "agent-1"
+jcasc_jenkins_agent_1_ip: "192.168.1.10"
+
+jcasc_jenkins_agent_2_name: "agent-2"
+jcasc_jenkins_agent_2_label: "agent-2"
+jcasc_jenkins_agent_2_ip: "192.168.1.11"
+
+jcasc_jenkins_admin_user: "admin"
+jcasc_jenkins_admin_password: "Kitezh1165"
+jcasc_jenkins_admin_email: "rurik@kitezh.history"
+
+# Переменные, используемые в секции Security, для последующей конфигурации jcasc:
+
+# -
+
+# Переменные, используемые в секции Tool, для последующей конфигурации jcasc:
+
+jcasc_tool_maven_version: "3.9.6"
+jcasc_tool_jdk_version: "jdk-21.0.2+13"
+jcasc_tool_nodejs_version: "20.11.0"
+jcasc_tool_go_version: "1.21.7"
+
+# Переменные, используемые в секции Unclassified, для последующей конфигурации jcasc:
+
+jcasc_unclassified_url: "http://localhost:8080"
+jcasc_unclassified_email: "rurik@kitezh.history"
+jcasc_unclassified_locale: "en_US"
+
+jcasc_unclassified_gitlab_name: "MyGitlabConnection"
+jcasc_unclassified_gitlab_url: "https://gitlab.com"
+
+jcasc_unclassified_github_name: "MyGithubConnection"
+jcasc_unclassified_github_url: "https://api.github.com"
+
+jcasc_unclassified_slack_workspace: "onlyyourworkspace"
+
+jcasc_unclassified_sl_name: "MySharedLibraries"
+jcasc_unclassified_sl_url: "https://github.com/exitfound/docker-autossh.git"
+jcasc_unclassified_sl_ssh: "MySshCredentialId"

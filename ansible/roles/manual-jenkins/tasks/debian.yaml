@@ -85,7 +85,7 @@
     owner: "{{ jenkins_file_owner }}"
     group: "{{ jenkins_file_group }}"
 
-# Копирование файлов из директории templates и их последующая передача в рабочую директорию Jenkins:
+# Копирование конфигурационных файлов из директории templates и их последующая передача в рабочую директорию Jenkins:
 - name: Copy template CasC configs in directory casc_configs on Debian family distro
   template:
     src: "{{ item }}"
@@ -96,9 +96,8 @@
   with_fileglob:
     - ../templates/*.yaml.j2
   changed_when: false
-  failed_when: false
 
-# Копирование файлов из директории templates и их последующая передача в рабочую директорию Jenkins:
+# Копирование Systemd файла из директории templates и его последующая передача в рабочую директорию Jenkins:
 - name: Copy custom Jenkins systemd config on Debian family distro
   template:
     src: templates/jenkins.debian.service.j2

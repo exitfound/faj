@@ -77,3 +77,11 @@ jcasc_unclassified_slack_workspace: "onlyyourworkspace"
 jcasc_unclassified_sl_name: "MySharedLibraries"
 jcasc_unclassified_sl_url: "https://github.com/exitfound/docker-autossh.git"
 jcasc_unclassified_sl_ssh: "MySshCredentialId"
+
+# Дальнейшие переменные не относятся напрямую к плагину JCasC для конфигурирования Jenkins через код.
+# --------------------------------------------------------------------------------------------------
+
+# Здесь эта переменная представлена в виде тестового варианта, который используется исключительно в тестах Molecule.
+# Для реального использования, при развертывании Jenkins, используется этот же вариант переменной в Inventory файле:
+
+jenkins_nginx_domain: "test.molecule.domain"

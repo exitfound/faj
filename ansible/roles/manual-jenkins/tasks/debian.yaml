@@ -30,7 +30,7 @@
   when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian' and ansible_distribution_major_version | int != 10
 
 # Установка предварительно необходимых пакетов для запуска Jenkins (только Debian 10 для JDK 11):
-- name: Install old required packages on Debian family distro
+- name: Install old required packages on Debian family distro (Only Debian 10)
   apt:
     name: "{{ debian_old_packages_list }}"
     state: present
@@ -67,15 +67,6 @@
     name: "{{ debian_package_jenkins }}"
     state: present
 
-# Создание директории для хранения CasC конфигурации в Jenkins:
-- name: Create CasC configuration directory on Debian family distro
-  file:
-    state: directory
-    path: "{{ jenkins_casc_dir }}"
-    mode: "{{ jenkins_working_dir_mode }}"
-    owner: "{{ jenkins_file_owner }}"
-    group: "{{ jenkins_file_group }}"
-
 # Копирование файлов из директории files и их последующая передача в рабочую директорию Jenkins:
 - name: Copy plugin file in work directory Jenkins on Debian family distro
   copy:
@@ -84,18 +75,6 @@
     mode: "{{ jenkins_file_mode }}"
     owner: "{{ jenkins_file_owner }}"
     group: "{{ jenkins_file_group }}"
-
-# Копирование конфигурационных файлов из директории templates и их последующая передача в рабочую директорию Jenkins:
-- name: Copy template CasC configs in directory casc_configs on Debian family distro
-  template:
-    src: "{{ item }}"
-    dest: "{{ jenkins_casc_dir }}/{{ item | basename | regex_replace('\\.j2$', '') }}"
-    mode: "{{ jenkins_file_mode }}"
-    owner: "{{ jenkins_file_owner }}"
-    group: "{{ jenkins_file_group }}"
-  with_fileglob:
-    - ../templates/*.yaml.j2
-  changed_when: false
 
 # Копирование Systemd файла из директории templates и его последующая передача в рабочую директорию Jenkins:
 - name: Copy custom Jenkins systemd config on Debian family distro
@@ -130,12 +109,40 @@
     recurse: true
   changed_when: false
 
+# Создание директории для хранения CasC конфигурации в Jenkins:
+- name: Create CasC configuration directory on Debian family distro
+  file:
+    state: directory
+    path: "{{ jenkins_casc_dir }}"
+    mode: "{{ jenkins_working_dir_mode }}"
+    owner: "{{ jenkins_file_owner }}"
+    group: "{{ jenkins_file_group }}"
+
 # Запуск и добавление в автозагрузку сервиса Jenkins с помощью systemd:
 - name: Start Jenkins service on Debian family distro
   service:
     name: jenkins
     state: started
     enabled: true
+    daemon_reload: true
+
+# Копирование конфигурационных файлов из директории templates и их последующая передача в рабочую директорию Jenkins:
+- name: Copy template CasC configs in directory casc_configs on Debian family distro
+  template:
+    src: "{{ item }}"
+    dest: "{{ jenkins_casc_dir }}/{{ item | basename | regex_replace('\\.j2$', '') }}"
+    mode: "{{ jenkins_file_mode }}"
+    owner: "{{ jenkins_file_owner }}"
+    group: "{{ jenkins_file_group }}"
+  with_fileglob:
+    - ../templates/*.yaml.j2
+  changed_when: false
+
+# Перезапуск сервиса Jenkins с помощью systemd после удаления конфигурационных файлов CasC:
+- name: Restart Jenkins service on Debian family distro
+  service:
+    name: jenkins
+    state: restarted
     daemon_reload: true
   changed_when: false
 
@@ -153,11 +160,4 @@
     path: "{{ item.path }}"
     state: absent
   with_items: "{{ directory_content_result.files }}"
-  changed_when: false
-
-# Перезапуск сервиса Jenkins с помощью systemd после удаления конфигурационных файлов CasC:
-- name: Restart Jenkins service on Debian family distro
-  service:
-    name: jenkins
-    state: restarted
   changed_when: false

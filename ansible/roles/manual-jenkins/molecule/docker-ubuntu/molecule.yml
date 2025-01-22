@@ -56,6 +56,8 @@ platforms:
     override_command: false
     security_opts:
       - seccomp=unconfined
+    # published_ports:
+    #   - 8080:8080
 
 provisioner:
   name: ansible
@@ -63,7 +65,7 @@ provisioner:
     ANSIBLE_STDOUT_CALLBACK: yaml
   inventory:
     links:
-      group_vars: ../group_vars/
+      group_vars: ../../../../group_vars/
 
 verifier:
   name: ansible

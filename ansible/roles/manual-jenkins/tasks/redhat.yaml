@@ -20,15 +20,6 @@
     name: "{{ redhat_packages_list }}"
     state: present
 
-# Создание директорий для хранения CasC конфигурации в Jenkins:
-- name: Create CasC configuration directory on RedHat family distro
-  file:
-    state: directory
-    path: "{{ jenkins_casc_dir }}"
-    mode: "{{ jenkins_working_dir_mode }}"
-    owner: "{{ jenkins_file_owner }}"
-    group: "{{ jenkins_file_group }}"
-
 # Копирование файлов из директории files и их последующая передача в рабочую директорию Jenkins:
 - name: Copy plugin file in work directory Jenkins on RedHat family distro
   copy:
@@ -37,18 +28,6 @@
     mode: "{{ jenkins_file_mode }}"
     owner: "{{ jenkins_file_owner }}"
     group: "{{ jenkins_file_group }}"
-
-# Копирование конфигурационных файлов из директории templates и их последующая передача в рабочую директорию Jenkins:
-- name: Copy template CasC configs in directory casc_configs on RedHat family distro
-  template:
-    src: "{{ item }}"
-    dest: "{{ jenkins_casc_dir }}/{{ item | basename | regex_replace('\\.j2$', '') }}"
-    mode: "{{ jenkins_file_mode }}"
-    owner: "{{ jenkins_file_owner }}"
-    group: "{{ jenkins_file_group }}"
-  with_fileglob:
-    - ../templates/*.yaml.j2
-  changed_when: false
 
 # Копирование Systemd файла из директории templates и его последующая передача в рабочую директорию Jenkins:
 - name: Copy custom Jenkins systemd config on RedHat family distro
@@ -83,6 +62,15 @@
     recurse: true
   changed_when: false
 
+# Создание директорий для хранения CasC конфигурации в Jenkins:
+- name: Create CasC configuration directory on RedHat family distro
+  file:
+    state: directory
+    path: "{{ jenkins_casc_dir }}"
+    mode: "{{ jenkins_working_dir_mode }}"
+    owner: "{{ jenkins_file_owner }}"
+    group: "{{ jenkins_file_group }}"
+
 # Запуск и добавление в автозагрузку сервиса Jenkins с помощью systemd:
 - name: Start Jenkins service on RedHat family distro
   service:
@@ -90,6 +78,25 @@
     state: started
     enabled: true
     daemon_reload: true
+
+# Копирование конфигурационных файлов из директории templates и их последующая передача в рабочую директорию Jenkins:
+- name: Copy template CasC configs in directory casc_configs on RedHat family distro
+  template:
+    src: "{{ item }}"
+    dest: "{{ jenkins_casc_dir }}/{{ item | basename | regex_replace('\\.j2$', '') }}"
+    mode: "{{ jenkins_file_mode }}"
+    owner: "{{ jenkins_file_owner }}"
+    group: "{{ jenkins_file_group }}"
+  with_fileglob:
+    - ../templates/*.yaml.j2
+  changed_when: false
+
+# Перезапуск сервиса Jenkins с помощью systemd после удаления конфигурационных файлов CasC:
+- name: Restart Jenkins service on RedHat family distro
+  service:
+    name: jenkins
+    state: restarted
+  changed_when: false
 
 # Регистрация содержимого директории для последующего удаления:
 - name: Get directory listing on RedHat family distro
@@ -105,11 +112,4 @@
     path: "{{ item.path }}"
     state: absent
   with_items: "{{ directory_content_result.files }}"
-  changed_when: false
-
-# Перезапуск сервиса Jenkins с помощью systemd после удаления конфигурационных файлов CasC:
-- name: Restart Jenkins service on RedHat family distro
-  service:
-    name: jenkins
-    state: restarted
   changed_when: false

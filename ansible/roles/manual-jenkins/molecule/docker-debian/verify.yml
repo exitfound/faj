@@ -15,5 +15,5 @@
         method: GET
         timeout: 30
         return_content: false
-        validate_certs: no
-        status_code: [200,403]
+        validate_certs: false
+        status_code: [200, 403]

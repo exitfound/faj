@@ -1,23 +1,24 @@
 # Глобальные переменные, используемые для выполнения роли certificates:
 
-certificates_nginx_protocol_working: "https" # Переменная, определяющая, какой конфиг Nginx будет использоваться на конечном сервере – с или без SSL от Certbot:
+certificates_nginx_protocol_working: "https" # Данная переменная определяет, какой конфиг Nginx будет использоваться на конечном сервере – с или без SSL от Certbot (https или http);
 certificates_certbot_email_address: "rurik@kitezh.history"
 certificates_certbot_create_command: "certbot certonly --noninteractive --nginx --agree-tos --email {{ certificates_certbot_email_address }} --domains {{ jenkins_nginx_domain }}"
 
-# Глобальные переменные, используемые для выполнения роли docker-jenkins-agent:
+# Глобальные переменные, используемые для выполнения роли docker-jenkins-agent (в том числе при тестировании через Molecule):
 
 docker_jenkins_agent_name: "docker-jenkins-agent"
 docker_jenkins_agent_image: "jenkins/ssh-agent:alpine"
 docker_jenkins_agent_ssh_port: "2222"
 docker_jenkins_agent_public_key: "ssh-rsa yourpublickey"
 
-# Глобальные переменные, используемые для выполнения роли manual-jenkins-agent:
+# Глобальные переменные, используемые для выполнения роли manual-jenkins-agent (в том числе при тестировании через Molecule):
 
 manual_jenkins_agent_user: "jenkins-agent"
 manual_jenkins_agent_group: "jenkins-agent"
 manual_jenkins_agent_public_key: "ssh-rsa yourpublickey"
 
 # ---------------------------------------------------------------------------------
+# Ниже представлен набор переменных, которые отвечают за первоначальную инициализацию конфигурации Jenkins посредством плагина JCasC;
 
 # Переменные, используемые в секции Credentials, для последующей конфигурации JCasC:
 
@@ -49,18 +50,18 @@ jcasc_jenkins_admin_user: "admin"
 jcasc_jenkins_admin_password: "Kitezh1165"
 jcasc_jenkins_admin_email: "rurik@kitezh.history"
 
-# Переменные, используемые в секции Security, для последующей конфигурации jcasc:
+# Переменные, используемые в секции Security, для последующей конфигурации JCasC:
 
 # -
 
-# Переменные, используемые в секции Tool, для последующей конфигурации jcasc:
+# Переменные, используемые в секции Tool, для последующей конфигурации JCasC:
 
 jcasc_tool_maven_version: "3.9.6"
 jcasc_tool_jdk_version: "jdk-21.0.2+13"
 jcasc_tool_nodejs_version: "20.11.0"
 jcasc_tool_go_version: "1.21.7"
 
-# Переменные, используемые в секции Unclassified, для последующей конфигурации jcasc:
+# Переменные, используемые в секции Unclassified, для последующей конфигурации JCasC:
 
 jcasc_unclassified_url: "http://localhost:8080"
 jcasc_unclassified_email: "rurik@kitezh.history"
@@ -78,10 +79,24 @@ jcasc_unclassified_sl_name: "MySharedLibraries"
 jcasc_unclassified_sl_url: "https://github.com/exitfound/docker-autossh.git"
 jcasc_unclassified_sl_ssh: "MySshCredentialId"
 
-# Дальнейшие переменные не относятся напрямую к плагину JCasC для конфигурирования Jenkins через код.
-# --------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------
+# Ниже представлен набор переменных, которые отвечают за работу тестов при использовании Molecule в Ansible;
 
-# Здесь эта переменная представлена в виде тестового варианта, который используется исключительно в тестах Molecule.
-# Для реального использования, при развертывании Jenkins, используется этот же вариант переменной в Inventory файле:
+# Данная переменная представлена в виде тестового варианта, который используется исключительно в тестах Molecule.
+# Для реального использования, при развертывании Jenkins, используется этот же вариант переменной, записанный в Inventory файле:
 
 jenkins_nginx_domain: "test.molecule.domain"
+
+# Переменные, используемые для запуска тестов с помощью Molecule на базе драйвера EC2 в AWS:
+
+aws_profile: "default" # Имя вашего профиля при работе с AWS. Если в переменной пусто, то значение по умолчанию: default;
+aws_region: "eu-central-1" # Название региона, в котором будут выполнены тесты. Если в переменной пусто, то значение по умолчанию: eu-central-1;
+aws_instance_type: "t3a.medium" # Тип инстанса, на базе которого будут запущены тесты в EC2. Если в переменной пусто, то значение по умолчанию: t3a.medium;
+aws_vpc_subnet_id: "" # Идентификатор подсети, который существует в рамках созданной VPC. Можно брать значение сети по умолчанию в AWS. Если значение пустое, то во время тестов будет создана эфемерная сеть;
+aws_vpc_id: "vpc-cef0f9a7"
+aws_key_method: "ec2" # Метод по созданию SSH-ключей для подключения. На выбор может быть два значения – ec2 или cloud-init. Если в переменной пусто, то значение по умолчанию: ec2;
+aws_default_ssh_user: "ec2-user" # Имя пользователя для подключения к созданному EC2 во время тестов. Если в переменной пусто, то значение по умолчанию: ubuntu;
+aws_local_private_key: "~/cosmos.pem" # Приватный ключ для подключения к EC2. Необходимо указать путь к файлу. По умолчанию создает в корне Molecule с именем id_rsa;
+aws_local_public_key: "" # Приватный ключ для подключения к EC2. Необходимо указать путь к файлу. По умолчанию создает в корне Molecule с именем id_rsa.pub;
+aws_custom_key_name: "cosmo" # Произвольное имя ключа в секции Key Pairs в секции EC2 AWS. По умолчанию создается произвольное имя с приставкой molecule-;
+aws_security_group_name: "" # Произвольное имя существующей Security Group в секции EC2 AWS. По умолчанию создается произвольное имя с приставкой molecule-;

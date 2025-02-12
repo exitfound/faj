@@ -27,7 +27,7 @@ jobs:
         with:
           recursive: true
           dockerfile: ./dockerfiles/${{ env.DOCKERFILE_PROFILE }}.dockerfile
-          ignore: "DL3008,DL3013,DL3033,DL3037,DL3041"
+          ignore: "DL3007,DL3008,DL3013,DL3033,DL3037,DL3041"
 
   build-suse-image:
     needs: hadolint

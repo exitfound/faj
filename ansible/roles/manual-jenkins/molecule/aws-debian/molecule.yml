@@ -1,0 +1,78 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: ec2
+
+platforms:
+  - name: "debian10"
+    aws_profile: "{{ aws_profile }}"
+    region: "{{ aws_region }}"
+    image_name: "debian-10-amd64-20240703-1797" # Debian 10
+    image_owner: "136693071363"
+    instance_type: "{{ aws_instance_type }}"
+    vpc_id: "{{ aws_vpc_id }}"
+    vpc_subnet_id: "{{ aws_vpc_subnet_id }}"
+    volumes: []
+    security_groups: []
+    key_inject_method: "{{ aws_key_method }}"
+    ssh_user: "{{ aws_default_ubuntu_ssh_user }}"
+    ssh_port: 22
+    assign_public_ip: true
+    boot_wait_seconds: 120
+    key_name: "{{ aws_custom_key_name }}"
+    private_key_path: "{{ aws_local_private_key }}"
+    public_key_path: "{{ aws_local_public_key }}"
+    security_group_name: "{{ aws_secruity_group_name }}"
+
+  - name: "debian11"
+    aws_profile: "{{ aws_profile }}"
+    region: "{{ aws_region }}"
+    image_name: "debian-11-amd64-20241202-1949" # Debian 11
+    image_owner: "136693071363"
+    instance_type: "{{ aws_instance_type }}"
+    vpc_id: "{{ aws_vpc_id }}"
+    vpc_subnet_id: "{{ aws_vpc_subnet_id }}"
+    volumes: []
+    security_groups: []
+    key_inject_method: "{{ aws_key_method }}"
+    ssh_user: "{{ aws_default_ubuntu_ssh_user }}"
+    ssh_port: 22
+    assign_public_ip: true
+    boot_wait_seconds: 120
+    key_name: "{{ aws_custom_key_name }}"
+    private_key_path: "{{ aws_local_private_key }}"
+    public_key_path: "{{ aws_local_public_key }}"
+    security_group_name: "{{ aws_secruity_group_name }}"
+
+  - name: "debian12"
+    aws_profile: "{{ aws_profile }}"
+    region: "{{ aws_region }}"
+    image_name: "debian-12-amd64-20241201-1948" # Debian 12
+    image_owner: "136693071363"
+    instance_type: "{{ aws_instance_type }}"
+    vpc_id: "{{ aws_vpc_id }}"
+    vpc_subnet_id: "{{ aws_vpc_subnet_id }}"
+    volumes: []
+    security_groups: []
+    key_inject_method: "{{ aws_key_method }}"
+    ssh_user: "{{ aws_default_ubuntu_ssh_user }}"
+    ssh_port: 22
+    assign_public_ip: true
+    boot_wait_seconds: 120
+    key_name: "{{ aws_custom_key_name }}"
+    private_key_path: "{{ aws_local_private_key }}"
+    public_key_path: "{{ aws_local_public_key }}"
+    security_group_name: "{{ aws_secruity_group_name }}"
+
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_STDOUT_CALLBACK: yaml
+  inventory:
+    links:
+      group_vars: ../../../../group_vars/
+
+verifier:
+  name: ansible

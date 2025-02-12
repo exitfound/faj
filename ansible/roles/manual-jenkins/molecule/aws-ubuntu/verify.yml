@@ -1,0 +1,20 @@
+---
+# Данный файл знаменует успешное завершение запускаемых ранее тестов:
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    # Добавление интервала по времени для загрузки Jenkins:
+    - name: Wait 30 second for checking Jenkins
+      wait_for:
+        timeout: 30
+
+    # Проверка доступности Jenkins после установки:
+    - name: Checking Jenkins for Availability
+      uri:
+        url: "http://127.0.0.1:8080"
+        method: GET
+        timeout: 30
+        return_content: false
+        validate_certs: false
+        status_code: [200, 403]

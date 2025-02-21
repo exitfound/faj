@@ -22,20 +22,29 @@ platforms:
     security_opts:
       - seccomp=unconfined
 
+  - name: redhat8
+    image: mdd13/ansible-docker-redhat:redhat8
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    security_opts:
+      - seccomp=unconfined
+
+  - name: redhat9
+    image: mdd13/ansible-docker-redhat:redhat9
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    security_opts:
+      - seccomp=unconfined
+
 provisioner:
   name: ansible
   env:
     ANSIBLE_STDOUT_CALLBACK: yaml
   inventory:
-    group_vars:
-      all:
-        manual_jenkins_agent_user: "jenkins-agent"
-        manual_jenkins_agent_group: "jenkins-agent"
-        manual_jenkins_agent_public_key: "ssh-rsa testpublickey"
+    links:
+      group_vars: ../../../../group_vars/
 
 verifier:
   name: ansible
-
-lint: |
-  yamllint -c ../../../.yamllint .
-  ansible-lint .

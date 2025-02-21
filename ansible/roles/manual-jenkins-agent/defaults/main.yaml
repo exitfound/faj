@@ -19,6 +19,9 @@ redhat_agent_packages_list:
 
 # Переменные, необходимые для конфигурирования Jenkins Agent на дистрибутиве семейства Debian:
 
+ubuntu_agent_packages_list:
+  - openjdk-21-jdk
+
 debian_agent_packages_list:
   - openjdk-17-jdk
 

@@ -1,8 +1,8 @@
 ---
 # Вызов роли для последующей установки и настройки Jenkins в мануальном режиме на удаленных узлах:
 - name: Install and configure Manual Jenkins on remote hosts
-  gather_facts: yes
-  become: yes
+  gather_facts: true
+  become: true
   become_method: sudo
   hosts:
     - all

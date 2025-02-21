@@ -3,10 +3,10 @@
 # Переменные, необходимые для установки пакетов, применимые ко всем дистрибутивам в равной степени:
 
 # Переменные, необходимые для установки и настройки Docker на дистрибутиве семейства SUSE:
-
+suse_docker_compose_dir: /usr/local/lib/docker/cli-plugins
+suse_docker_compose_link: https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64
 suse_docker_package:
   - docker
-  - docker-compose 
   - docker-bash-completion
 
 # Переменные, необходимые для установки и настройки Docker на дистрибутиве семейства RedHat:

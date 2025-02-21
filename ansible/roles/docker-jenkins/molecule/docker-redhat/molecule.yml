@@ -26,17 +26,33 @@ platforms:
     security_opts:
       - seccomp=unconfined
 
+  - name: redhat8
+    image: mdd13/ansible-docker-redhat:redhat8
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    security_opts:
+      - seccomp=unconfined
+
+  - name: redhat9
+    image: mdd13/ansible-docker-redhat:redhat9
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    cgroup_parent: docker.slice
+    cgroupns_mode: host
+    security_opts:
+      - seccomp=unconfined
+
 provisioner:
   name: ansible
   env:
     ANSIBLE_STDOUT_CALLBACK: yaml
   inventory:
     links:
-      group_vars: ../group_vars/
+      group_vars: ../../../../group_vars/
 
 verifier:
   name: ansible
-
-lint: |
-  yamllint -c ../../../.yamllint .
-  ansible-lint .

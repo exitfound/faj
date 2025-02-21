@@ -1,8 +1,8 @@
 ---
 # Вызов роли для последующей установки и настройки Jenkins Agent в мануальном режиме на удаленных узлах:
 - name: Prepare the system as a running Jenkins Agent
-  gather_facts: yes
-  become: yes
+  gather_facts: true
+  become: true
   become_method: sudo
   hosts:
     - all

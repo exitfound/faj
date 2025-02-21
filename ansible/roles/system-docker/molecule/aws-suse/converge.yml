@@ -1,0 +1,12 @@
+---
+# Данный файл используется для преобразования состояния экземпляров в реальное состояние, объявленное в реальных тестируемых ролях:
+- name: Converge
+  hosts: all
+  gather_facts: true
+  become: true
+  become_method: sudo
+  tasks:
+    # Данный шаг вызывает роль system-docker для прогона тестов с помощью Molecule:
+    - name: "Include system-docker role for testing"
+      include_role:
+        name: "system-docker"

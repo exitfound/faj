@@ -30,3 +30,20 @@
 - name: The result of our test on SUSE family distro
   debug:
     var: docker_service_status.status.ActiveState
+
+# Создание директории для установки плагина Compose в Docker:
+- name: Create Docker Compose directories on SUSE family distro (Only SLES)
+  file:
+    state: directory
+    path: "{{ suse_docker_compose_dir }}"
+    mode: "0755"
+    owner: "0"
+    group: "0"
+    recurse: true
+
+# Загрузка плагина Compose для работы с Docker:
+- name: Download Docker Compose plugin on SUSE family distro (Only SLES)
+  get_url:
+    url: " {{ suse_docker_compose_link }}"
+    dest: "{{ suse_docker_compose_dir }}/docker-compose"
+    mode: "0755"

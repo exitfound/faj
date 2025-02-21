@@ -1,8 +1,8 @@
 ---
 # Вызов роли для последующей установки и настройки Jenkins Agent с помощью Docker на удаленных узлах:
 - name: Prepare the system as a running Jenkins Agent via Docker
-  gather_facts: yes
-  become: yes
+  gather_facts: true
+  become: true
   become_method: sudo
   hosts:
     - all

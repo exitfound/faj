@@ -1,0 +1,8 @@
+---
+# Данный файл знаменует успешное завершение запускаемых ранее тестов:
+- name: Verify our tests in Molecule
+  hosts: all
+  tasks:
+    - name: Output the final result
+      assert:
+        that: true

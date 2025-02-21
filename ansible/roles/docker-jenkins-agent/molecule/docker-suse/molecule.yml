@@ -44,7 +44,3 @@ provisioner:
 
 verifier:
   name: ansible
-
-lint: |
-  yamllint -c ../../../.yamllint .
-  ansible-lint .

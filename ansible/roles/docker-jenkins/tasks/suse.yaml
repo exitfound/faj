@@ -51,7 +51,7 @@
 
 # Запуск Jenkins с помощью docker-compose на удаленном узле:
 - name: Run Jenkins via docker-compose on SUSE family distro
-  command: docker-compose -f {{ jenkins_docker_dir }}/{{ jenkins_file_compose }} up -d --build --force-recreate
+  command: docker compose -f {{ jenkins_docker_dir }}/{{ jenkins_file_compose }} up -d --build --force-recreate
   register: docker_compose_output
   changed_when: false
 

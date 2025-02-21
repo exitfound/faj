@@ -1,6 +1,6 @@
 # Глобальные переменные, используемые для выполнения роли certificates:
 
-certificates_nginx_protocol_working: "https" # Данная переменная определяет, какой конфиг Nginx будет использоваться на конечном сервере – с или без SSL от Certbot (https или http);
+certificates_nginx_protocol_working: "http" # Данная переменная определяет, какой конфиг Nginx будет использоваться на конечном сервере – с или без SSL от Certbot (http или https);
 certificates_certbot_email_address: "rurik@kitezh.history"
 certificates_certbot_create_command: "certbot certonly --noninteractive --nginx --agree-tos --email {{ certificates_certbot_email_address }} --domains {{ jenkins_nginx_domain }}"
 
@@ -93,10 +93,10 @@ aws_profile: "default" # Имя вашего профиля при работе 
 aws_region: "eu-central-1" # Название региона, в котором будут выполнены тесты. Если в переменной пусто, то значение по умолчанию: eu-central-1;
 aws_instance_type: "t3a.medium" # Тип инстанса, на базе которого будут запущены тесты в EC2. Если в переменной пусто, то значение по умолчанию: t3a.medium;
 aws_vpc_subnet_id: "" # Идентификатор подсети, который существует в рамках созданной VPC. Можно брать значение сети по умолчанию в AWS. Если значение пустое, то во время тестов будет создана эфемерная сеть;
-aws_vpc_id: "vpc-cef0f9a7"
+aws_vpc_id: "" # Идентификатор сети, представляющий собой ID VPC. Можно брать значение VPC по умолчанию в AWS. Если значение пустое, то во время тестов будет создана эфемерная сеть;
 aws_key_method: "ec2" # Метод по созданию SSH-ключей для подключения. На выбор может быть два значения – ec2 или cloud-init. Если в переменной пусто, то значение по умолчанию: ec2;
-aws_default_ssh_user: "ec2-user" # Имя пользователя для подключения к созданному EC2 во время тестов. Если в переменной пусто, то значение по умолчанию: ubuntu;
-aws_local_private_key: "~/cosmos.pem" # Приватный ключ для подключения к EC2. Необходимо указать путь к файлу. По умолчанию создает в корне Molecule с именем id_rsa;
+aws_default_ssh_user: "ubuntu" # Имя пользователя для подключения к созданному EC2 во время тестов. Если в переменной пусто, то значение по умолчанию: ubuntu;
+aws_local_private_key: "" # Приватный ключ для подключения к EC2. Необходимо указать путь к файлу. По умолчанию создает в корне Molecule с именем id_rsa;
 aws_local_public_key: "" # Приватный ключ для подключения к EC2. Необходимо указать путь к файлу. По умолчанию создает в корне Molecule с именем id_rsa.pub;
-aws_custom_key_name: "cosmo" # Произвольное имя ключа в секции Key Pairs в секции EC2 AWS. По умолчанию создается произвольное имя с приставкой molecule-;
+aws_custom_key_name: "" # Произвольное имя ключа в секции Key Pairs в секции EC2 AWS. По умолчанию создается произвольное имя с приставкой molecule-;
 aws_security_group_name: "" # Произвольное имя существующей Security Group в секции EC2 AWS. По умолчанию создается произвольное имя с приставкой molecule-;

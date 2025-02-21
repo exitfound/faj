@@ -1,0 +1,79 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: ec2
+
+platforms:
+  # Для запуска данного образа может понадобится подписка в AWS Marketplace.
+  # - name: "OpenSUSE 15.6"
+  #   aws_profile: "{{ aws_profile }}"
+  #   region: "{{ aws_region }}"
+  #   image_name: "openSUSE-Leap-15-6-v20250131-hvm-ssd-x86_64-5535c495-72d4-4355-b169-54ffa874f849" # OpenSUSE 15.6
+  #   image_owner: "679593333241"
+  #   instance_type: "{{ aws_instance_type }}"
+  #   vpc_id: "{{ aws_vpc_id }}"
+  #   vpc_subnet_id: "{{ aws_vpc_subnet_id }}"
+  #   volumes: []
+  #   security_groups: []
+  #   key_inject_method: "{{ aws_key_method }}"
+  #   ssh_user: "{{ aws_default_ubuntu_ssh_user }}"
+  #   ssh_port: 22
+  #   assign_public_ip: true
+  #   boot_wait_seconds: 120
+  #   key_name: "{{ aws_custom_key_name }}"
+  #   private_key_path: "{{ aws_local_private_key }}"
+  #   public_key_path: "{{ aws_local_public_key }}"
+  #   security_group_name: "{{ aws_secruity_group_name }}"
+
+  - name: "SUSE SLES 15 SP5"
+    aws_profile: "{{ aws_profile }}"
+    region: "{{ aws_region }}"
+    image_name: "suse-sles-15-sp5-v20250110-hvm-ssd-x86_64" # SLES 15 sp5
+    image_owner: "013907871322"
+    instance_type: "{{ aws_instance_type }}"
+    vpc_id: "{{ aws_vpc_id }}"
+    vpc_subnet_id: "{{ aws_vpc_subnet_id }}"
+    volumes: []
+    security_groups: []
+    key_inject_method: "{{ aws_key_method }}"
+    ssh_user: "{{ aws_default_ubuntu_ssh_user }}"
+    ssh_port: 22
+    assign_public_ip: true
+    boot_wait_seconds: 120
+    key_name: "{{ aws_custom_key_name }}"
+    private_key_path: "{{ aws_local_private_key }}"
+    public_key_path: "{{ aws_local_public_key }}"
+    security_group_name: "{{ aws_secruity_group_name }}"
+
+  - name: "SUSE SLES 15 SP6"
+    aws_profile: "{{ aws_profile }}"
+    region: "{{ aws_region }}"
+    image_name: "suse-sles-15-sp6-v20250130-hvm-ssd-x86_64" # SLES 15 sp6
+    image_owner: "013907871322"
+    instance_type: "{{ aws_instance_type }}"
+    vpc_id: "{{ aws_vpc_id }}"
+    vpc_subnet_id: "{{ aws_vpc_subnet_id }}"
+    volumes: []
+    security_groups: []
+    key_inject_method: "{{ aws_key_method }}"
+    ssh_user: "{{ aws_default_ubuntu_ssh_user }}"
+    ssh_port: 22
+    assign_public_ip: true
+    boot_wait_seconds: 120
+    key_name: "{{ aws_custom_key_name }}"
+    private_key_path: "{{ aws_local_private_key }}"
+    public_key_path: "{{ aws_local_public_key }}"
+    security_group_name: "{{ aws_secruity_group_name }}"
+
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_STDOUT_CALLBACK: yaml
+  inventory:
+    links:
+      group_vars: ../../../../group_vars/
+
+verifier:
+  name: ansible

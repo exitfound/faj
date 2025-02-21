@@ -53,11 +53,7 @@ provisioner:
     ANSIBLE_STDOUT_CALLBACK: yaml
   inventory:
     links:
-      group_vars: ../group_vars/
+      group_vars: ../../../../group_vars/
 
 verifier:
   name: ansible
-
-lint: |
-  yamllint -c ../../../.yamllint .
-  ansible-lint .

@@ -5,8 +5,8 @@ LABEL maintainer="Ivan Medaev"
 USER root
 
 RUN mkdir -p /var/jenkins_config/casc_configs/ /var/jenkins_backup \
-    && chown -R jenkins:jenkins /var/jenkins_home /var/jenkins_config /var/jenkins_backup \
-    && chmod -R u+s /var/jenkins_home /var/jenkins_config /var/jenkins_backup \
+    && chown -R jenkins:jenkins /var/jenkins_* \
+    && chmod -R u+s /var/jenkins_* \
     && chmod -R 755 /usr/bin/* usr/sbin/unix_chkpwd usr/lib/openssh/ssh-keysign \
     && apt-get update \
     && apt-get -y install --no-install-recommends \

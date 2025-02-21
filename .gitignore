@@ -1,4 +1,6 @@
+**/backup
 **/data
 **/jobs
-**/backup
+**/inactive-jcasc
+**/.ansible
 jenkins-cli.jar

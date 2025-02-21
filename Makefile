@@ -1,34 +1,46 @@
-# Команды для первоначальной инициализации Jenkins:
-build: prepare compose-build post
+# Ряд команд для первоначальной инициализации Jenkins в системе:
+build: build-prepare build-compose build-post
 
-prepare:
+build-prepare:
 	mkdir -p backup/ data/ \
 	&& sudo chown -R 1000:1000 backup/ data/
-compose-build:
-	docker compose -f jenkins-docker-compose.yaml up -d --build
-post:
-	mv jcasc inactive-jcasc
+build-compose:
+	docker compose -f jenkins-docker-compose.yaml up -d --build --force-recreate
+build-post:
+	mv jcasc inactive-jcasc \
+	&& sudo chown -R 1000:1000 inactive-jcasc
 
-# Команды для запуска Jenkins в обычном режиме:
-start: compose-start
 
-compose-start:
-	docker compose -f jenkins-docker-compose.yaml start
+# Ряд команд для запуска Jenkins в стандартном режиме (без повторной сборки):
+start: start-compose
 
-# Команды для остановки Jenkins в обычном режиме:
-stop: compose-stop
+start-compose:
+	docker compose -f jenkins-docker-compose.yaml start \
+	&& sudo rm -rf jcasc/
 
-compose-stop:
+
+# Команды для остановки Jenkins в стандартном режиме (без удаления данных):
+stop: stop-compose
+
+stop-compose:
 	docker compose -f jenkins-docker-compose.yaml stop
 
-# Команды для полного удаления и очистки Jenkins:
-down: compose-down delete
 
-compose-down:
+# Команда для повторной сборки Jenkins на базе текущего Dockerfile:
+rebuild: rebuild-compose
+
+rebuild-compose:
+	docker compose -f jenkins-docker-compose.yaml build --no-cache
+
+
+# Команды для полного удаления и очистки системы от Jenkins:
+down: down-compose down-clean
+
+down-compose:
 	docker compose -f jenkins-docker-compose.yaml down \
 	&& docker container prune --force \
 	&& docker image prune --force --all \
-	&& sudo chown -R 1000:1000 inactive-jcasc \
+	&& sudo rm -rf jcasc \
 	&& mv inactive-jcasc jcasc
-delete:
+down-clean:
 	rm -rf ./data ./backup

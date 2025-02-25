@@ -30,7 +30,9 @@ stop-compose:
 rebuild: rebuild-compose
 
 rebuild-compose:
-	docker compose -f jenkins-docker-compose.yaml build --no-cache
+	docker compose -f jenkins-docker-compose.yaml build --no-cache \
+	&& docker compose -f jenkins-docker-compose.yaml up -d \
+	&& sudo rm -rf jcasc/
 
 
 # Команды для полного удаления и очистки системы от Jenkins:

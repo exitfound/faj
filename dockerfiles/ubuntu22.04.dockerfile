@@ -7,7 +7,9 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
     ansible \
     apt-utils \
+    bash-completion \
     build-essential \
+    iproute2 \
     locales \
     python3 \
     python3-dev \

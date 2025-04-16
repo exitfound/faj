@@ -11,6 +11,7 @@ RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-* \
     && yum update -y \
     && yum install -y \
         epel-release \
+        iproute2 \
         policycoreutils \
         python3-devel \
         python3-pip \

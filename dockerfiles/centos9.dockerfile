@@ -12,7 +12,7 @@ RUN yum install -y dnf-plugins-core \
     && dnf install -y \
         epel-release \
         epel-next-release \
-        iproute2 \
+        iproute \
         python3-devel \
         python3-pip \
         python3-wheel \

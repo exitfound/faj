@@ -9,6 +9,7 @@ COPY requirements.txt .
 RUN dnf update -y \
     && dnf install -y \
         iproute2 \
+        procps-ng \
         python3-devel \
         python3-pip \
         python3-wheel \

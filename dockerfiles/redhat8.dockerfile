@@ -13,6 +13,7 @@ RUN dnf update -y \
         python3-devel \
         python3-pip \
         python3-wheel \
+        openssl \
         sudo \
         systemd \
     && dnf clean all \
